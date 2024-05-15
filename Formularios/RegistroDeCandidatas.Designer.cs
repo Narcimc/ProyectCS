@@ -54,8 +54,6 @@
             this.CmbSemestre = new System.Windows.Forms.ComboBox();
             this.OpenFilaFoto = new System.Windows.Forms.OpenFileDialog();
             this.TxtDescripcionImage = new System.Windows.Forms.TextBox();
-            this.btnCrearAlbum = new System.Windows.Forms.Button();
-            this.bntSalir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PBoxFotografia)).BeginInit();
             this.SuspendLayout();
             // 
@@ -390,36 +388,6 @@
             this.TxtDescripcionImage.TabIndex = 25;
             this.TxtDescripcionImage.TextChanged += new System.EventHandler(this.TxtDescripcionImage_TextChanged);
             // 
-            // btnCrearAlbum
-            // 
-            this.btnCrearAlbum.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnCrearAlbum.BackColor = System.Drawing.Color.MediumPurple;
-            this.btnCrearAlbum.Font = new System.Drawing.Font("Script MT Bold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCrearAlbum.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCrearAlbum.Location = new System.Drawing.Point(376, 259);
-            this.btnCrearAlbum.Margin = new System.Windows.Forms.Padding(2);
-            this.btnCrearAlbum.Name = "btnCrearAlbum";
-            this.btnCrearAlbum.Size = new System.Drawing.Size(214, 25);
-            this.btnCrearAlbum.TabIndex = 26;
-            this.btnCrearAlbum.Text = "Agregar Album para Candidata";
-            this.btnCrearAlbum.UseVisualStyleBackColor = false;
-            this.btnCrearAlbum.Click += new System.EventHandler(this.btnCrearAlbum_Click);
-            // 
-            // bntSalir
-            // 
-            this.bntSalir.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.bntSalir.BackColor = System.Drawing.Color.Orchid;
-            this.bntSalir.Font = new System.Drawing.Font("Script MT Bold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bntSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.bntSalir.Location = new System.Drawing.Point(515, 328);
-            this.bntSalir.Margin = new System.Windows.Forms.Padding(2);
-            this.bntSalir.Name = "bntSalir";
-            this.bntSalir.Size = new System.Drawing.Size(134, 25);
-            this.bntSalir.TabIndex = 27;
-            this.bntSalir.Text = "Salir";
-            this.bntSalir.UseVisualStyleBackColor = false;
-            this.bntSalir.Click += new System.EventHandler(this.bntSalir_Click);
-            // 
             // RegistroDeCandidatas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -428,8 +396,6 @@
             this.BackgroundImage = global::SIEleccionReina.Properties.Resources.fondoazul;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(647, 354);
-            this.Controls.Add(this.bntSalir);
-            this.Controls.Add(this.btnCrearAlbum);
             this.Controls.Add(this.TxtDescripcionImage);
             this.Controls.Add(this.LblSemestre);
             this.Controls.Add(this.CmbSemestre);
@@ -494,7 +460,5 @@
         private System.Windows.Forms.ComboBox CmbSemestre;
         private System.Windows.Forms.OpenFileDialog OpenFilaFoto;
         private System.Windows.Forms.TextBox TxtDescripcionImage;
-        private System.Windows.Forms.Button btnCrearAlbum;
-        private System.Windows.Forms.Button bntSalir;
     }
 }
