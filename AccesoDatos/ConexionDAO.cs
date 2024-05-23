@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
 
 namespace SIEleccionReina.AccesoDatos
 {
@@ -19,7 +15,7 @@ namespace SIEleccionReina.AccesoDatos
             con = new SqlConnection(connectionString);
         }
 
-        public static ConexionDAO checkEstado()
+        public static ConexionDAO GetInstance()
         {
             if (objConexion == null)
             {
@@ -28,24 +24,27 @@ namespace SIEleccionReina.AccesoDatos
             return objConexion;
         }
 
-        public SqlConnection getCon()
+        public SqlConnection GetConnection()
         {
-            string connectionString = ConfigurationManager.AppSettings["ConexionSql"];
-            con = new SqlConnection(connectionString);
+            //string connectionString = ConfigurationManager.AppSettings["ConexionSql"];
+            //con = new SqlConnection(connectionString);
+            if ( con.State == ConnectionState.Closed )
+                con.Open();
+
             return con;
         }
 
-        public SqlConnection getConTanque()
+        public void CerrarConexion()
         {
-            string connectionString = ConfigurationManager.AppSettings["ConexionTanque"];
-            con = new SqlConnection(connectionString);
-            return con;
+            if ( con.State == ConnectionState.Open )
+                con.Close();
         }
 
-        public void cerrarConexion()
-        {
-            objConexion = null;
-        }
-
+        //public SqlConnection getConTanque()
+        //{
+        //    string connectionString = ConfigurationManager.AppSettings["ConexionTanque"];
+        //    con = new SqlConnection(connectionString);
+        //    return con;
+        //}
     }
 }

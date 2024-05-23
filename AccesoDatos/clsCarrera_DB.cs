@@ -16,7 +16,7 @@ namespace SIEleccionReina.AccesoDatos
         private SqlConnection con;
         public clsCarrera_DB()
         {
-            objConexion = ConexionDAO.checkEstado();
+            objConexion = ConexionDAO.GetInstance();
         }
         public int Ingresar_Carrera(clsCarrera obj_Info, int tipoCrud)
         {
@@ -24,7 +24,7 @@ namespace SIEleccionReina.AccesoDatos
             {
                 int respuesta = 0;
                 string query = "SP_CRUD_CARRERA";
-                con = objConexion.getCon();
+                con = objConexion.GetConnection();
                 comando = new SqlCommand(query, con)
                 {
                     CommandTimeout = 1000000
@@ -59,7 +59,7 @@ namespace SIEleccionReina.AccesoDatos
             try
             {
                 string query = "SP_CRUD_CARRERA";
-                con = objConexion.getCon();
+                con = objConexion.GetConnection();
                 comando = new SqlCommand(query, con)
                 {
                     CommandTimeout = 1000000
