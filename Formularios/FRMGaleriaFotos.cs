@@ -1,88 +1,61 @@
 ﻿using SIEleccionReina.AccesoDatos;
 using SIEleccionReina.Entidades;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Security.Cryptography.X509Certificates;
-using System.Security.Policy;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using SIEleccionReina.Control;
 
 namespace SIEleccionReina.Formularios
 {
     public partial class FRMGaleriaFotos : Form
     {
+        private clsAlbum_DB Obj_Conexion;
+
         public FRMGaleriaFotos()
         {
             InitializeComponent();
+            Obj_Conexion = new clsAlbum_DB();
         }
 
-        private void FRMGaleriaFotos_Load(object sender, EventArgs e)
-        {
-            llenarDatosAlbum();
-        }
+        private void FRMGaleriaFotos_Load(object sender, EventArgs e) => llenarDatosAlbum();
 
         public void llenarDatosAlbum()
         {
             DataTable tb = new DataTable();
-            clsAlbum_DB Obj_Conexion = new clsAlbum_DB();
 
-            clsAlbum Obj_Candidata = new clsAlbum()
-            {
-                Titulo = " "
-            };
-
-            tb = Obj_Conexion.Combo_Album(Obj_Candidata, 5);
+            tb = Obj_Conexion.Combo_Album( new clsAlbum(), 5);
 
             CmbFotosGaleria.DisplayMember = "titulo";
             CmbFotosGaleria.ValueMember = "id_album";
             CmbFotosGaleria.DataSource = tb;
         }
 
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            TXTTituloFoto.Clear();
-            RTBDescripcionFoto.Clear();
-            PBoxCargarFotografia.CancelAsync();
-            CmbFotosGaleria.Dispose();
-        }
-
         private void BTNGuardarFoto_Click(object sender, EventArgs e)
         {
             // Validar Titulo Foto
-            if (String.IsNullOrEmpty(TXTTituloFoto.Text))
+            if ( Validaciones.IsNullOrEmptyOrWhitespace( TXTTituloFoto.Text ) )
             {
-                MessageBox.Show("Ingresa el campo nombre", "Administradr del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //MessageBox.Show("Ingresa el campo nombre", "Administradr del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                EP.SetError( TXTTituloFoto, "Ingrese el campo del título, verifique nuevamente." );
                 TXTTituloFoto.Focus();
                 return;
             }
 
             // Validar Descripción
-            if (String.IsNullOrEmpty(RTBDescripcionFoto.Text))
+            if ( Validaciones.IsNullOrEmptyOrWhitespace( RTBDescripcionFoto.Text ) )
             {
-                MessageBox.Show("Ingresa el campo nombre", "Administradr del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //MessageBox.Show("Ingresa el campo nombre", "Administradr del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                EP.SetError( RTBDescripcionFoto, "Ingrese el campo de la descripción, verifique nuevamente." );
                 RTBDescripcionFoto.Focus();
                 return;
             }
 
-
             try
-
             {
-
                 // byte[] array = File.ReadAllBytes(TxtDescripcionImage.Text);
-
                 var strImagen = ImageToBase64(PBoxCargarFotografia.Image, System.Drawing.Imaging.ImageFormat.Jpeg);
-               
-
-
 
                 clsFoto fotoGaleria = new clsFoto()
                 {
@@ -90,7 +63,6 @@ namespace SIEleccionReina.Formularios
                     Descripcion = RTBDescripcionFoto.Text,
                     Foto_Album = strImagen,
                     Id_album = Convert.ToInt32(CmbFotosGaleria.SelectedValue),
-
                 };
 
                 clsFoto_DB canFoto = new clsFoto_DB();
@@ -99,7 +71,7 @@ namespace SIEleccionReina.Formularios
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show( ex.ToString(), CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
             }
         }
 
@@ -118,9 +90,6 @@ namespace SIEleccionReina.Formularios
         }
 
         //Base64 String to Image
-
-
-       
 
         private void BtnBuscarFoto_Click(object sender, EventArgs e)
         {
@@ -146,6 +115,14 @@ namespace SIEleccionReina.Formularios
         private void LblAlbum_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void BTNLimpiarFoto_Click( object sender, EventArgs e )
+        {
+            TXTTituloFoto.Clear();
+            RTBDescripcionFoto.Clear();
+            PBoxCargarFotografia.CancelAsync();
+            CmbFotosGaleria.Dispose();
         }
     }
 }

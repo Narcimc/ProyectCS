@@ -55,6 +55,8 @@
     <Compile Include="AccesoDatos\clsSemestre_DB.cs" />
     <Compile Include="AccesoDatos\clsVoto_DB.cs" />
     <Compile Include="AccesoDatos\ConexionDAO.cs" />
+    <Compile Include="Control\CommonUtils.cs" />
+    <Compile Include="Control\Validaciones.cs" />
     <Compile Include="Entidades\clsEstudiante.cs" />
     <Compile Include="Entidades\clsAlbum.cs" />
     <Compile Include="Entidades\clsCandidatas.cs" />

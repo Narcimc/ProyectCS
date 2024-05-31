@@ -2,74 +2,41 @@
 using SIEleccionReina.Entidades;
 using SIEleccionReina.Formularios;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
 
 namespace SIEleccionReina
 {
-    
     public partial class FormReiFaSi : Form
     {
+        private clsEstudiante_DB Obj_conexion;
+        private ClsEstudiante obj_Estudiante;
+
         public FormReiFaSi()
         {
             InitializeComponent();
+            Obj_conexion = new clsEstudiante_DB();
+            obj_Estudiante = new ClsEstudiante();
         }
        
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void BtnAcceder_Click(object sender, EventArgs e)
         {
-            //Validar Usuario
-
-
-            //Validar Contraseña
-
-
-
             DataTable tb = new DataTable();
-            clsEstudiante_DB Obj_conexion = new clsEstudiante_DB();
 
-            ClsEstudiante obj_Estudiante = new ClsEstudiante()
+            obj_Estudiante.Cedula = TxtUsuario.Text;
+            obj_Estudiante.Contrasenia = TxtContrasenia.Text;
+            obj_Estudiante.Rol_usuario = CmbTipoUsuario.Text.ToString();
+
+            tb = Obj_conexion.ValidarLogin(obj_Estudiante, 10); // Validar Usuario y Contraseña
+
+            if ( tb != null && tb.Rows.Count > 0 )
             {
-                Cedula = TxtUsuario.Text,
-                Contrasenia = TxtContrasenia.Text,
+                RegistrarEstudianteLogueado( datosEstudiante: tb );
 
-            };
-
-            tb = Obj_conexion.Combo_Estudiante(obj_Estudiante, 10);
-
-            if (tb.Rows.Count > 0)
-            {
                 // Ir al menu
                 this.Hide();
 
-                if (CmbTipoUsuario.Text.ToString() == "Administrador")
+                if ( CmbTipoUsuario.Text.ToString().Equals( "Administrador", StringComparison.InvariantCultureIgnoreCase ) )
                 {
                     ModuloAdministrador vAdministrador = new ModuloAdministrador();
                     vAdministrador.Show();
@@ -79,22 +46,25 @@ namespace SIEleccionReina
                     FRMGaleriaFotos vFotos = new FRMGaleriaFotos();
                     vFotos.Show();
                 }
-
-
             }
             else
             {
-                MessageBox.Show("Ingresa el campo Usuario y Contraseña Correctamente", "Administradr del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Ingrese los campos Usuario y Contraseña correctamente, o selecciona el Rol que corresponde al usuario de manera correcta", "Administrador del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 TxtUsuario.Focus();
             }
         }
 
-
-    
-
-    private void label1_Click_1(object sender, EventArgs e)
+        private void RegistrarEstudianteLogueado( DataTable datosEstudiante )
         {
-
+            clsEstudiante_DB.EstudianteLogueado = new ClsEstudiante()
+            {
+                Id_estudiante = ( int ) datosEstudiante.Rows[ 0 ]["id_estudiante"],
+                Id_semestre = ( int ) datosEstudiante.Rows[ 0 ][ "id_semestre" ],
+                Id_carrera = ( int ) datosEstudiante.Rows[ 0 ][ "id_carrera" ],
+                Cedula = datosEstudiante.Rows[ 0 ][ "cedula" ].ToString(),
+                Contrasenia = datosEstudiante.Rows[ 0 ][ "contrasenia" ].ToString(),
+                Rol_usuario = datosEstudiante.Rows[ 0 ][ "rol_usuario" ].ToString()
+            };
         }
 
         private void VerContrasenia_Click(object sender, EventArgs e)
@@ -104,40 +74,26 @@ namespace SIEleccionReina
                 TxtContrasenia.PasswordChar = '\0'; // Mostrar la contraseña
             else
                 TxtContrasenia.PasswordChar = '*'; // Ocultar la contraseña
-
-
         }
 
-      
-
-        private void FormReiFaSi_Load(object sender, EventArgs e)
-        {
-            llenardatosRol();
-        }
+        private void FormReiFaSi_Load(object sender, EventArgs e) => llenardatosRol();
 
         public void llenardatosRol()
         {
+            DataTable tb = new DataTable();
             
-                DataTable tb = new DataTable();
-                clsEstudiante_DB Obj_conexion = new clsEstudiante_DB();
-                ClsEstudiante Obj_Estudiante = new ClsEstudiante();
-
-                tb = Obj_conexion.Combo_Estudiante(Obj_Estudiante, 11);
-
-                CmbTipoUsuario.DisplayMember = "rol_usuario";
-                CmbTipoUsuario.ValueMember = "id_estudiante";
-                CmbTipoUsuario.DataSource = tb;
+            tb = Obj_conexion.Combo_Estudiante( tipoCrud: 11 );
             
+            CmbTipoUsuario.DisplayMember = "rol_usuario";
+            CmbTipoUsuario.ValueMember = "id_estudiante";
+            CmbTipoUsuario.DataSource = tb;
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void TxtContrasenia_KeyUp( object sender, KeyEventArgs e )
         {
-
+            if ( e.KeyCode == Keys.Enter )
+                BtnAcceder.PerformClick();
         }
 
-        private void label1_Click_2(object sender, EventArgs e)
-        {
-
-        }
     }
 }

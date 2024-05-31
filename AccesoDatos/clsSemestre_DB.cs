@@ -6,6 +6,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SIEleccionReina.Control;
+using System.Windows.Forms;
 
 namespace SIEleccionReina.AccesoDatos
 {
@@ -14,22 +16,24 @@ namespace SIEleccionReina.AccesoDatos
         private ConexionDAO objConexion;
         private SqlCommand comando;
         private SqlConnection con;
+
         public clsSemestre_DB()
         {
             objConexion = ConexionDAO.GetInstance();
         }
+
         public int Ingresar_Semestre(clsSemestre obj_Info, int tipoCrud)
         {
             try
             {
                 int respuesta = 0;
                 string query = "SP_CRUD_SEMESTRE";
-                con = objConexion.GetConnection();
+                con = objConexion.GetOpenConnection();
                 comando = new SqlCommand(query, con)
                 {
                     CommandTimeout = 1000000
                 };
-                con.Open();
+
                 comando.CommandType = CommandType.StoredProcedure;
 
                 comando.Parameters.Add("@id_crud", SqlDbType.Int).Value = tipoCrud;
@@ -40,17 +44,15 @@ namespace SIEleccionReina.AccesoDatos
                 respuesta = 1;
                 return respuesta;
             }
-            catch (Exception ex)
+            catch ( Exception ex )
             {
+                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
                 return 0;
-                throw ex.InnerException;
             }
             finally
             {
-                if (con != null)
-                {
-                    con.Close();
-                }
+                if ( con != null )
+                    objConexion.CerrarConexion();
             }
         }
 
@@ -59,12 +61,11 @@ namespace SIEleccionReina.AccesoDatos
             try
             {
                 string query = "SP_CRUD_SEMESTRE";
-                con = objConexion.GetConnection();
+                con = objConexion.GetOpenConnection();
                 comando = new SqlCommand(query, con)
                 {
                     CommandTimeout = 1000000
                 };
-                con.Open();
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@id_crud", SqlDbType.Int).Value = tipoCrud;
                 comando.Parameters.Add("@id_semestre", SqlDbType.Int).Value = obj_Info.Id_semestre;
@@ -77,16 +78,15 @@ namespace SIEleccionReina.AccesoDatos
 
                 return ds;
             }
-            catch (Exception ex)
+            catch ( Exception ex )
             {
-                throw ex.InnerException;
+                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
+                return null;
             }
             finally
             {
-                if (con != null)
-                {
-                    con.Close();
-                }
+                if ( con != null )
+                    objConexion.CerrarConexion();
             }
         }
     }

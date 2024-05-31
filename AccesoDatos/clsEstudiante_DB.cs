@@ -1,11 +1,9 @@
 ﻿using SIEleccionReina.Entidades;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
+using SIEleccionReina.Control;
 
 namespace SIEleccionReina.AccesoDatos
 {
@@ -14,59 +12,61 @@ namespace SIEleccionReina.AccesoDatos
         private ConexionDAO objConexion;
         private SqlCommand comando;
         private SqlConnection con;
+        private static ClsEstudiante _estudianteLogueado;
+
+        internal static ClsEstudiante EstudianteLogueado { get => _estudianteLogueado; set => _estudianteLogueado =  value ; }
+
         public clsEstudiante_DB()
         {
             objConexion = ConexionDAO.GetInstance();
         }
+
         public int Ingresar_Estudiante(ClsEstudiante obj_Info, int tipoCrud)
         {
             try
             {
                 int respuesta = 0;
                 string query = "SP_CRUD_ESTUDIANTE";
-                con = objConexion.GetConnection();
+                con = objConexion.GetOpenConnection();
                 comando = new SqlCommand(query, con)
                 {
                     CommandTimeout = 1000000
                 };
-                con.Open();
+                //con.Open();
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@id_crud", SqlDbType.Int).Value = tipoCrud;
                 comando.Parameters.Add("@id_estudiante", SqlDbType.Int).Value = obj_Info.Id_estudiante;
                 comando.Parameters.Add("@id_semestre", SqlDbType.Int).Value = obj_Info.Id_semestre;
                 comando.Parameters.Add("@id_carrera", SqlDbType.Int).Value = obj_Info.Id_carrera;
-                comando.Parameters.Add("@cedula", SqlDbType.Int).Value = obj_Info.Cedula;
+                comando.Parameters.Add("@cedula", SqlDbType.VarChar).Value = obj_Info.Cedula;
                 comando.Parameters.Add("@contrasenia", SqlDbType.VarChar).Value = obj_Info.Contrasenia;
-                comando.Parameters.Add("@rol_usuario", SqlDbType.Int).Value = obj_Info.Rol_usuario;
-                comando.ExecuteNonQuery();
+                comando.Parameters.Add("@rol_usuario", SqlDbType.VarChar).Value = obj_Info.Rol_usuario;
 
-                respuesta = 1;
+                respuesta = comando.ExecuteNonQuery();
                 return respuesta;
             }
             catch (Exception ex)
             {
+                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Warning );
                 return 0;
-                throw ex.InnerException;
             }
             finally
             {
                 if (con != null)
-                {
-                    con.Close();
-                }
+                    objConexion.CerrarConexion();
             }
         }
-        public DataTable Combo_Estudiante(ClsEstudiante obj_Info, int tipoCrud)
+
+        public DataTable Combo_Estudiante(int tipoCrud)
         {
             try
             {
                 string query = "SP_CRUD_ESTUDIANTE";
-                con = objConexion.GetConnection();
+                con = objConexion.GetOpenConnection();
                 comando = new SqlCommand(query, con)
                 {
                     CommandTimeout = 1000000
                 };
-                con.Open();
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@id_crud", SqlDbType.Int).Value = tipoCrud;
                 DataTable ds = new DataTable();
@@ -78,24 +78,59 @@ namespace SIEleccionReina.AccesoDatos
             }
             catch (Exception ex)
             {
-                throw ex.InnerException;
+                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
+                return null;
             }
             finally
             {
-                if (con != null)
-                {
-                    con.Close();
-                }
+                if ( con != null )
+                    objConexion.CerrarConexion();
             }
         }
+    
+        public DataTable ValidarLogin( ClsEstudiante obj_Info, int tipoCrud )
+        {
+            try
+            {
+                string query = "SP_CRUD_ESTUDIANTE";
+                con = objConexion.GetOpenConnection();
+                comando = new SqlCommand( query, con )
+                {
+                    CommandTimeout = 1000000
+                };
+                //con.Open();
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add( "@id_crud", SqlDbType.Int ).Value = tipoCrud;
+                comando.Parameters.Add( "@cedula", SqlDbType.VarChar ).Value = obj_Info.Cedula;
+                comando.Parameters.Add( "@contrasenia", SqlDbType.VarChar ).Value = obj_Info.Contrasenia;
+                comando.Parameters.Add( "@rol_usuario", SqlDbType.VarChar ).Value = obj_Info.Rol_usuario;
 
+                DataTable dt = new DataTable();
+                SqlDataAdapter adapter = new SqlDataAdapter( comando );
+
+                adapter.Fill( dt );
+
+                return dt;
+            }
+            catch ( Exception ex )
+            {
+                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                return null;
+            }
+            finally
+            {
+                if ( con != null )
+                    objConexion.CerrarConexion();
+            }
+
+        }
 
         //public DataTable Combo_Validar(ClsEstudiante obj_Info, int tipoCrud)
         //{
         //    try
         //    {
         //        string query = "SP_CRUD_ESTUDIANTE";
-        //        con = objConexion.GetConnection();
+        //        con = objConexion.GetOpenConnection();
         //        comando = new SqlCommand(query, con)
         //        {
         //            CommandTimeout = 1000000
@@ -130,25 +165,22 @@ namespace SIEleccionReina.AccesoDatos
         //        }
         //    }
         //}
-                //DataTable ds = new DataTable();
-                //SqlDataAdapter adapter = new SqlDataAdapter(comando);
+        //DataTable ds = new DataTable();
+        //SqlDataAdapter adapter = new SqlDataAdapter(comando);
 
-                //adapter.Fill(ds);
+        //adapter.Fill(ds);
 
-            //    return ds;
-            ////}
-            //catch (Exception ex)
-            //{
-            //    throw ex.InnerException;
-            //}
-            //finally
-            //{
-            //    if (con != null)
-            //    {
-            //        con.Close();
-            //    }
+        //    return ds;
+        ////}
+        //catch (Exception ex)
+        //{
+        //    throw ex.InnerException;
+        //}
+        //finally
+        //{
+        //    if (con != null)
+        //    {
+        //        con.Close();
+        //    }
     }
 }
-
-
-

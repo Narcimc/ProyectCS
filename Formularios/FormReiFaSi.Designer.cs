@@ -68,7 +68,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // LblUsuario
             // 
@@ -81,20 +80,17 @@
             this.LblUsuario.TabIndex = 2;
             this.LblUsuario.Text = "Usuario:";
             this.LblUsuario.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.LblUsuario.Click += new System.EventHandler(this.label1_Click);
             // 
             // TxtUsuario
             // 
             this.TxtUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtUsuario.Location = new System.Drawing.Point(99, 181);
             this.TxtUsuario.Margin = new System.Windows.Forms.Padding(2);
-            this.TxtUsuario.Multiline = true;
             this.TxtUsuario.Name = "TxtUsuario";
             this.TxtUsuario.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.TxtUsuario.Size = new System.Drawing.Size(150, 24);
+            this.TxtUsuario.Size = new System.Drawing.Size(150, 23);
             this.TxtUsuario.TabIndex = 3;
             this.TxtUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.TxtUsuario.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // LblContrasenia
             // 
@@ -113,13 +109,12 @@
             this.TxtContrasenia.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtContrasenia.Location = new System.Drawing.Point(99, 241);
             this.TxtContrasenia.Margin = new System.Windows.Forms.Padding(2);
-            this.TxtContrasenia.Multiline = true;
             this.TxtContrasenia.Name = "TxtContrasenia";
             this.TxtContrasenia.PasswordChar = '*';
-            this.TxtContrasenia.Size = new System.Drawing.Size(150, 25);
+            this.TxtContrasenia.Size = new System.Drawing.Size(150, 23);
             this.TxtContrasenia.TabIndex = 5;
             this.TxtContrasenia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.TxtContrasenia.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
+            this.TxtContrasenia.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtContrasenia_KeyUp);
             // 
             // BtnAcceder
             // 
@@ -152,11 +147,10 @@
             // CmbTipoUsuario
             // 
             this.CmbTipoUsuario.FormattingEnabled = true;
-            this.CmbTipoUsuario.Location = new System.Drawing.Point(183, 126);
+            this.CmbTipoUsuario.Location = new System.Drawing.Point(173, 126);
             this.CmbTipoUsuario.Name = "CmbTipoUsuario";
-            this.CmbTipoUsuario.Size = new System.Drawing.Size(69, 21);
+            this.CmbTipoUsuario.Size = new System.Drawing.Size(79, 21);
             this.CmbTipoUsuario.TabIndex = 8;
-            this.CmbTipoUsuario.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // VerContrasenia
             // 
@@ -181,7 +175,6 @@
             this.label1.TabIndex = 11;
             this.label1.Text = "Tipo de Usuario:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.Click += new System.EventHandler(this.label1_Click_2);
             // 
             // FormReiFaSi
             // 

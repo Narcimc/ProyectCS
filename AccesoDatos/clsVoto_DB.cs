@@ -1,11 +1,9 @@
 ﻿using SIEleccionReina.Entidades;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SIEleccionReina.Control;
+using System.Windows.Forms;
 
 namespace SIEleccionReina.AccesoDatos
 {
@@ -14,22 +12,24 @@ namespace SIEleccionReina.AccesoDatos
         private ConexionDAO objConexion;
         private SqlCommand comando;
         private SqlConnection con;
+
         public clsVoto_DB()
         {
             objConexion = ConexionDAO.GetInstance();
         }
+
         public int Ingresar_Voto(clsVoto obj_Info, int tipoCrud)
         {
             try
             {
                 int respuesta = 0;
                 string query = "SP_CRUD_VOTO";
-                con = objConexion.GetConnection();
+                con = objConexion.GetOpenConnection();
                 comando = new SqlCommand(query, con)
                 {
                     CommandTimeout = 1000000
                 };
-                con.Open();
+
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@id_crud", SqlDbType.Int).Value = tipoCrud;
                 comando.Parameters.Add("@id_voto", SqlDbType.Int).Value = obj_Info.Id_voto;
@@ -41,17 +41,15 @@ namespace SIEleccionReina.AccesoDatos
                 respuesta = 1;
                 return respuesta;
             }
-            catch (Exception ex)
+            catch ( Exception ex )
             {
+                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
                 return 0;
-                throw ex.InnerException;
             }
             finally
             {
-                if (con != null)
-                {
-                    con.Close();
-                }
+                if ( con != null )
+                    objConexion.CerrarConexion();
             }
         }
 
@@ -60,12 +58,12 @@ namespace SIEleccionReina.AccesoDatos
             try
             {
                 string query = "SP_CRUD_VOTO";
-                con = objConexion.GetConnection();
+                con = objConexion.GetOpenConnection();
                 comando = new SqlCommand(query, con)
                 {
                     CommandTimeout = 1000000
                 };
-                con.Open();
+
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@id_crud", SqlDbType.Int).Value = tipoCrud;
                 comando.Parameters.Add("@id_voto", SqlDbType.Int).Value = obj_Info.Id_voto;
@@ -79,16 +77,15 @@ namespace SIEleccionReina.AccesoDatos
 
                 return ds;
             }
-            catch (Exception ex)
+            catch ( Exception ex )
             {
-                throw ex.InnerException;
+                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
+                return null;
             }
             finally
             {
-                if (con != null)
-                {
-                    con.Close();
-                }
+                if ( con != null )
+                    objConexion.CerrarConexion();
             }
         }
     }

@@ -24,10 +24,8 @@ namespace SIEleccionReina.AccesoDatos
             return objConexion;
         }
 
-        public SqlConnection GetConnection()
+        public SqlConnection GetOpenConnection()
         {
-            //string connectionString = ConfigurationManager.AppSettings["ConexionSql"];
-            //con = new SqlConnection(connectionString);
             if ( con.State == ConnectionState.Closed )
                 con.Open();
 
@@ -39,12 +37,5 @@ namespace SIEleccionReina.AccesoDatos
             if ( con.State == ConnectionState.Open )
                 con.Close();
         }
-
-        //public SqlConnection getConTanque()
-        //{
-        //    string connectionString = ConfigurationManager.AppSettings["ConexionTanque"];
-        //    con = new SqlConnection(connectionString);
-        //    return con;
-        //}
     }
 }
