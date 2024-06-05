@@ -20,23 +20,20 @@ namespace SIEleccionReina
 
         private void BtnInscripcionCandidatas_Click(object sender, EventArgs e)
         {
-            this.Hide();
             RegistroDeCandidatas vRegistroCand = new RegistroDeCandidatas();
-            vRegistroCand.Show();
+            vRegistroCand.ShowDialog();
         }
 
         private void BtnRegistroFoto_Click(object sender, EventArgs e)
         {
-            this.Hide();
             FRMGaleriaFotos vGaleriaFot = new FRMGaleriaFotos();
-            vGaleriaFot.Show();
+            vGaleriaFot.ShowDialog();
         }
 
         private void BtnResultados_Click( object sender, EventArgs e )
         {
-            this.Hide();
             FrmResultados vResultados = new FrmResultados();
-            vResultados.Show();
+            vResultados.ShowDialog();
         }
     }
 }

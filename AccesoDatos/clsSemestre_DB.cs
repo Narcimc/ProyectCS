@@ -1,11 +1,7 @@
 ﻿using SIEleccionReina.Entidades;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SIEleccionReina.Control;
 using System.Windows.Forms;
 
@@ -26,7 +22,6 @@ namespace SIEleccionReina.AccesoDatos
         {
             try
             {
-                int respuesta = 0;
                 string query = "SP_CRUD_SEMESTRE";
                 con = objConexion.GetOpenConnection();
                 comando = new SqlCommand(query, con)
@@ -41,8 +36,7 @@ namespace SIEleccionReina.AccesoDatos
                 comando.Parameters.Add("@numero_semestre", SqlDbType.VarChar).Value = obj_Info.Numero_semestre;
                 comando.ExecuteNonQuery();
 
-                respuesta = 1;
-                return respuesta;
+                return 1;
             }
             catch ( Exception ex )
             {
@@ -66,6 +60,7 @@ namespace SIEleccionReina.AccesoDatos
                 {
                     CommandTimeout = 1000000
                 };
+
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@id_crud", SqlDbType.Int).Value = tipoCrud;
                 comando.Parameters.Add("@id_semestre", SqlDbType.Int).Value = obj_Info.Id_semestre;

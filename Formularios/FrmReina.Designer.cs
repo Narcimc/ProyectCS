@@ -32,7 +32,7 @@
             this.BtnAtras = new System.Windows.Forms.Button();
             this.LblTitulo = new System.Windows.Forms.Label();
             this.TxtContrasenia = new System.Windows.Forms.TextBox();
-            this.btnSig = new System.Windows.Forms.Button();
+            this.BtnSiguiente = new System.Windows.Forms.Button();
             this.lblComentario = new System.Windows.Forms.Label();
             this.lblNombreCandidata = new System.Windows.Forms.Label();
             this.BTNAbrirInformacion = new System.Windows.Forms.Button();
@@ -42,21 +42,22 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.PBOXDevolverImagen = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.PBOXImagenCandidata = new System.Windows.Forms.PictureBox();
+            this.PBoxUGLogo = new System.Windows.Forms.PictureBox();
             this.btnSalir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PBOXDevolverImagen)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBOXImagenCandidata)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBoxUGLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // BtnAtras
             // 
             this.BtnAtras.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.BtnAtras.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BtnAtras.Enabled = false;
             this.BtnAtras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAtras.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAtras.Location = new System.Drawing.Point(11, 172);
@@ -93,20 +94,20 @@
             this.TxtContrasenia.TabIndex = 16;
             this.TxtContrasenia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // btnSig
+            // BtnSiguiente
             // 
-            this.btnSig.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnSig.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnSig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSig.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSig.Location = new System.Drawing.Point(263, 172);
-            this.btnSig.Margin = new System.Windows.Forms.Padding(2);
-            this.btnSig.Name = "btnSig";
-            this.btnSig.Size = new System.Drawing.Size(18, 25);
-            this.btnSig.TabIndex = 22;
-            this.btnSig.Text = ">";
-            this.btnSig.UseVisualStyleBackColor = false;
-            this.btnSig.Click += new System.EventHandler(this.btnSig_Click);
+            this.BtnSiguiente.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BtnSiguiente.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BtnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSiguiente.Location = new System.Drawing.Point(263, 172);
+            this.BtnSiguiente.Margin = new System.Windows.Forms.Padding(2);
+            this.BtnSiguiente.Name = "BtnSiguiente";
+            this.BtnSiguiente.Size = new System.Drawing.Size(18, 25);
+            this.BtnSiguiente.TabIndex = 22;
+            this.BtnSiguiente.Text = ">";
+            this.BtnSiguiente.UseVisualStyleBackColor = false;
+            this.BtnSiguiente.Click += new System.EventHandler(this.BtnSiguiente_Click);
             // 
             // lblComentario
             // 
@@ -215,29 +216,27 @@
             this.pictureBox2.TabIndex = 37;
             this.pictureBox2.TabStop = false;
             // 
-            // PBOXDevolverImagen
+            // PBOXImagenCandidata
             // 
-            this.PBOXDevolverImagen.Image = global::SIEleccionReina.Properties.Resources.descarga__5_;
-            this.PBOXDevolverImagen.Location = new System.Drawing.Point(34, 90);
-            this.PBOXDevolverImagen.Name = "PBOXDevolverImagen";
-            this.PBOXDevolverImagen.Size = new System.Drawing.Size(224, 207);
-            this.PBOXDevolverImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.PBOXDevolverImagen.TabIndex = 21;
-            this.PBOXDevolverImagen.TabStop = false;
-            this.PBOXDevolverImagen.Click += new System.EventHandler(this.VerContrasenia_Click);
+            this.PBOXImagenCandidata.Image = global::SIEleccionReina.Properties.Resources.descarga__5_;
+            this.PBOXImagenCandidata.Location = new System.Drawing.Point(34, 90);
+            this.PBOXImagenCandidata.Name = "PBOXImagenCandidata";
+            this.PBOXImagenCandidata.Size = new System.Drawing.Size(224, 207);
+            this.PBOXImagenCandidata.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PBOXImagenCandidata.TabIndex = 21;
+            this.PBOXImagenCandidata.TabStop = false;
             // 
-            // pictureBox1
+            // PBoxUGLogo
             // 
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(44, 11);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(161, 44);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 12;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.PBoxUGLogo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PBoxUGLogo.Image = ((System.Drawing.Image)(resources.GetObject("PBoxUGLogo.Image")));
+            this.PBoxUGLogo.Location = new System.Drawing.Point(44, 11);
+            this.PBoxUGLogo.Margin = new System.Windows.Forms.Padding(2);
+            this.PBoxUGLogo.Name = "PBoxUGLogo";
+            this.PBoxUGLogo.Size = new System.Drawing.Size(161, 44);
+            this.PBoxUGLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PBoxUGLogo.TabIndex = 12;
+            this.PBoxUGLogo.TabStop = false;
             // 
             // btnSalir
             // 
@@ -270,21 +269,22 @@
             this.Controls.Add(this.BTNAbrirInformacion);
             this.Controls.Add(this.lblNombreCandidata);
             this.Controls.Add(this.lblComentario);
-            this.Controls.Add(this.btnSig);
-            this.Controls.Add(this.PBOXDevolverImagen);
+            this.Controls.Add(this.BtnSiguiente);
+            this.Controls.Add(this.PBOXImagenCandidata);
             this.Controls.Add(this.BtnAtras);
             this.Controls.Add(this.TxtContrasenia);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.PBoxUGLogo);
             this.Controls.Add(this.LblTitulo);
             this.Name = "FrmReina";
-            this.Text = "Form2";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Candidatas";
             this.Load += new System.EventHandler(this.FrmReina_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PBOXDevolverImagen)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBOXImagenCandidata)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBoxUGLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -292,12 +292,12 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox PBOXDevolverImagen;
+        private System.Windows.Forms.PictureBox PBOXImagenCandidata;
         private System.Windows.Forms.Button BtnAtras;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox PBoxUGLogo;
         private System.Windows.Forms.Label LblTitulo;
         private System.Windows.Forms.TextBox TxtContrasenia;
-        private System.Windows.Forms.Button btnSig;
+        private System.Windows.Forms.Button BtnSiguiente;
         private System.Windows.Forms.Label lblComentario;
         private System.Windows.Forms.Label lblNombreCandidata;
         private System.Windows.Forms.Button BTNAbrirInformacion;

@@ -17,11 +17,11 @@ namespace SIEleccionReina.AccesoDatos
         {
             objConexion = ConexionDAO.GetInstance();
         }
+
         public int Ingresar_Carrera(clsCarrera obj_Info, int tipoCrud)
         {
             try
             {
-                int respuesta = 0;
                 string query = "SP_CRUD_CARRERA";
                 con = objConexion.GetOpenConnection();
                 comando = new SqlCommand(query, con)
@@ -34,8 +34,8 @@ namespace SIEleccionReina.AccesoDatos
                 comando.Parameters.Add("@id_carrera", SqlDbType.Int).Value = obj_Info.Id_carrera;
                 comando.Parameters.Add("@nombre_carrera", SqlDbType.VarChar).Value = obj_Info.Nombre_carrera;
                 
-                respuesta = comando.ExecuteNonQuery();
-                return respuesta;
+                comando.ExecuteNonQuery();
+                return 1;
             }
             catch ( Exception ex )
             {

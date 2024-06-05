@@ -1,11 +1,7 @@
 ﻿using SIEleccionReina.Entidades;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SIEleccionReina.Control;
 using System.Windows.Forms;
 
@@ -26,7 +22,6 @@ namespace SIEleccionReina.AccesoDatos
         {
             try
             {
-                int respuesta = 0;
                 string query = "SP_CRUD_FOTO";
                 con = objConexion.GetOpenConnection();
                 comando = new SqlCommand(query, con)
@@ -44,8 +39,7 @@ namespace SIEleccionReina.AccesoDatos
                 comando.Parameters.Add("@comentario", SqlDbType.VarChar).Value = obj_Info.Comentario;
                 comando.ExecuteNonQuery();
 
-                respuesta = 1;
-                return respuesta;
+                return 1;
             }
             catch ( Exception ex )
             {

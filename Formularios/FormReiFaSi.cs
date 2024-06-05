@@ -1,4 +1,5 @@
 ﻿using SIEleccionReina.AccesoDatos;
+using SIEleccionReina.Control;
 using SIEleccionReina.Entidades;
 using SIEleccionReina.Formularios;
 using System;
@@ -11,12 +12,14 @@ namespace SIEleccionReina
     {
         private clsEstudiante_DB Obj_conexion;
         private ClsEstudiante obj_Estudiante;
+        private SIEleccionReinaController controlador;
 
         public FormReiFaSi()
         {
             InitializeComponent();
             Obj_conexion = new clsEstudiante_DB();
             obj_Estudiante = new ClsEstudiante();
+            controlador = SIEleccionReinaController.Instance;
         }
        
         private void BtnAcceder_Click(object sender, EventArgs e)
@@ -31,7 +34,9 @@ namespace SIEleccionReina
 
             if ( tb != null && tb.Rows.Count > 0 )
             {
-                RegistrarEstudianteLogueado( datosEstudiante: tb );
+                controlador.RegistrarEstudianteLogueado( datosEstudiante: tb );
+                controlador.VerificarVotosRegistradosEstudiante();
+                controlador.ObtenerCandidatas();
 
                 // Ir al menu
                 this.Hide();
@@ -39,32 +44,21 @@ namespace SIEleccionReina
                 if ( CmbTipoUsuario.Text.ToString().Equals( "Administrador", StringComparison.InvariantCultureIgnoreCase ) )
                 {
                     ModuloAdministrador vAdministrador = new ModuloAdministrador();
-                    vAdministrador.Show();
+                    vAdministrador.ShowDialog();
                 }
                 else
                 {
-                    FRMGaleriaFotos vFotos = new FRMGaleriaFotos();
-                    vFotos.Show();
+                    FrmEstudiante ventanaPrincipalEstudiante = new FrmEstudiante();
+                    ventanaPrincipalEstudiante.ShowDialog();
                 }
+
+                this.Close();
             }
             else
             {
                 MessageBox.Show("Ingrese los campos Usuario y Contraseña correctamente, o selecciona el Rol que corresponde al usuario de manera correcta", "Administrador del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 TxtUsuario.Focus();
             }
-        }
-
-        private void RegistrarEstudianteLogueado( DataTable datosEstudiante )
-        {
-            clsEstudiante_DB.EstudianteLogueado = new ClsEstudiante()
-            {
-                Id_estudiante = ( int ) datosEstudiante.Rows[ 0 ]["id_estudiante"],
-                Id_semestre = ( int ) datosEstudiante.Rows[ 0 ][ "id_semestre" ],
-                Id_carrera = ( int ) datosEstudiante.Rows[ 0 ][ "id_carrera" ],
-                Cedula = datosEstudiante.Rows[ 0 ][ "cedula" ].ToString(),
-                Contrasenia = datosEstudiante.Rows[ 0 ][ "contrasenia" ].ToString(),
-                Rol_usuario = datosEstudiante.Rows[ 0 ][ "rol_usuario" ].ToString()
-            };
         }
 
         private void VerContrasenia_Click(object sender, EventArgs e)

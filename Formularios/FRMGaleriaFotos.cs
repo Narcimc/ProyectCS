@@ -12,11 +12,13 @@ namespace SIEleccionReina.Formularios
     public partial class FRMGaleriaFotos : Form
     {
         private clsAlbum_DB Obj_Conexion;
+        private SIEleccionReinaController controlador;
 
         public FRMGaleriaFotos()
         {
             InitializeComponent();
             Obj_Conexion = new clsAlbum_DB();
+            controlador = SIEleccionReinaController.Instance;
         }
 
         private void FRMGaleriaFotos_Load(object sender, EventArgs e) => llenarDatosAlbum();
@@ -55,14 +57,14 @@ namespace SIEleccionReina.Formularios
             try
             {
                 // byte[] array = File.ReadAllBytes(TxtDescripcionImage.Text);
-                var strImagen = ImageToBase64(PBoxCargarFotografia.Image, System.Drawing.Imaging.ImageFormat.Jpeg);
+                var strImagen = controlador.ImageToBase64( PBoxCargarFotografia.Image, System.Drawing.Imaging.ImageFormat.Jpeg );
 
                 clsFoto fotoGaleria = new clsFoto()
                 {
                     Titulo_foto = TXTTituloFoto.Text,
                     Descripcion = RTBDescripcionFoto.Text,
                     Foto_Album = strImagen,
-                    Id_album = Convert.ToInt32(CmbFotosGaleria.SelectedValue),
+                    Id_album = ( int ) CmbFotosGaleria.SelectedValue,
                 };
 
                 clsFoto_DB canFoto = new clsFoto_DB();
@@ -71,21 +73,7 @@ namespace SIEleccionReina.Formularios
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.ToString(), CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
-            }
-        }
-
-        public string ImageToBase64(Image image, System.Drawing.Imaging.ImageFormat format)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                // Convert Image to byte[]
-                image.Save(ms, format);
-                byte[] imageBytes = ms.ToArray();
-
-                // Convert byte[] to Base64 String
-                string base64String = Convert.ToBase64String(imageBytes);
-                return base64String;
+                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
             }
         }
 

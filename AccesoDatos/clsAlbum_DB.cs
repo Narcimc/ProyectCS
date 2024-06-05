@@ -22,21 +22,21 @@ namespace SIEleccionReina.AccesoDatos
         {
             try
             {
-                int respuesta = 0;
                 string query = "SP_CRUD_ALBUMES";
                 con = objConexion.GetOpenConnection();
                 comando = new SqlCommand(query, con)
                 {
                     CommandTimeout = 1000000
                 };
+
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@id_crud", SqlDbType.Int).Value = tipoCrud;
                 comando.Parameters.Add("@id_album", SqlDbType.Int).Value = obj_Info.Id_album;
                 comando.Parameters.Add("@id_candidata", SqlDbType.Int).Value = obj_Info.Id_candidata;
                 comando.Parameters.Add("@titulo", SqlDbType.VarChar).Value = obj_Info.Titulo;
                 
-                respuesta = comando.ExecuteNonQuery();
-                return respuesta;
+                comando.ExecuteNonQuery();
+                return 1;
             }
             catch ( Exception ex )
             {
@@ -60,6 +60,7 @@ namespace SIEleccionReina.AccesoDatos
                 {
                     CommandTimeout = 1000000
                 };
+
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@id_crud", SqlDbType.Int).Value = tipoCrud;
                 comando.Parameters.Add("@id_album", SqlDbType.Int).Value = obj_Info.Id_album;

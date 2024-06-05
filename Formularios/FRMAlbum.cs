@@ -1,4 +1,5 @@
 ﻿using SIEleccionReina.AccesoDatos;
+using SIEleccionReina.Control;
 using SIEleccionReina.Entidades;
 using System;
 using System.Collections.Generic;
@@ -29,12 +30,12 @@ namespace SIEleccionReina.Formularios
             DataTable tb = new DataTable();
             clsCandidata_DB Obj_Conexion = new clsCandidata_DB();
 
-            clsCandidatas Obj_Candidata = new clsCandidatas()
+            clsCandidata Obj_Candidata = new clsCandidata()
             {
                 Nombre = " "
             };
 
-            tb = Obj_Conexion.Combo_Candidata(Obj_Candidata, 6);
+            tb = Obj_Conexion.ConsultarCandidatas( obj_Info: Obj_Candidata, tipoCrud: CandidataTipoCrud.ConsultaCortaTodasCandidatasIdNombreApellido );
 
             //CmbCandidata.DisplayMember = "nombre + ' ' + apellido";
             //CmbCandidata.ValueMember = "id_candidata";

@@ -29,40 +29,40 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FRMVistaDatosCandidata));
-            this.BTNAbrirAlbum = new System.Windows.Forms.Button();
+            this.BTNVolverAlbum = new System.Windows.Forms.Button();
             this.lblEdad = new System.Windows.Forms.Label();
-            this.btnSig = new System.Windows.Forms.Button();
+            this.BtnSiguiente = new System.Windows.Forms.Button();
             this.BtnAtras = new System.Windows.Forms.Button();
             this.LblNmbCandidata = new System.Windows.Forms.Label();
             this.LblTitulo = new System.Windows.Forms.Label();
-            this.PBOXDevolverImagen = new System.Windows.Forms.PictureBox();
+            this.PBOXImagenCandidata = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblCarrera = new System.Windows.Forms.Label();
             this.lblSemestre = new System.Windows.Forms.Label();
             this.lblInteres = new System.Windows.Forms.Label();
-            this.lblInteresDato = new System.Windows.Forms.Label();
-            this.lblHabilidadesDatos = new System.Windows.Forms.Label();
+            this.lblInteresesDato = new System.Windows.Forms.Label();
+            this.lblHabilidadesDato = new System.Windows.Forms.Label();
             this.lblHabilidades = new System.Windows.Forms.Label();
-            this.lblAspitacionesDato = new System.Windows.Forms.Label();
+            this.lblAspiracionesDato = new System.Windows.Forms.Label();
             this.lblAspiraciones = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.PBOXDevolverImagen)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBOXImagenCandidata)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // BTNAbrirAlbum
+            // BTNVolverAlbum
             // 
-            this.BTNAbrirAlbum.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BTNAbrirAlbum.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.BTNAbrirAlbum.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.BTNAbrirAlbum.Font = new System.Drawing.Font("Script MT Bold", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTNAbrirAlbum.Location = new System.Drawing.Point(173, 341);
-            this.BTNAbrirAlbum.Margin = new System.Windows.Forms.Padding(2);
-            this.BTNAbrirAlbum.Name = "BTNAbrirAlbum";
-            this.BTNAbrirAlbum.Size = new System.Drawing.Size(99, 23);
-            this.BTNAbrirAlbum.TabIndex = 34;
-            this.BTNAbrirAlbum.Text = "Volver al Album";
-            this.BTNAbrirAlbum.UseVisualStyleBackColor = false;
-            this.BTNAbrirAlbum.Click += new System.EventHandler(this.BTNAbrirInformacion_Click);
+            this.BTNVolverAlbum.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BTNVolverAlbum.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.BTNVolverAlbum.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BTNVolverAlbum.Font = new System.Drawing.Font("Script MT Bold", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTNVolverAlbum.Location = new System.Drawing.Point(173, 341);
+            this.BTNVolverAlbum.Margin = new System.Windows.Forms.Padding(2);
+            this.BTNVolverAlbum.Name = "BTNVolverAlbum";
+            this.BTNVolverAlbum.Size = new System.Drawing.Size(99, 23);
+            this.BTNVolverAlbum.TabIndex = 34;
+            this.BTNVolverAlbum.Text = "Volver al Album";
+            this.BTNVolverAlbum.UseVisualStyleBackColor = false;
+            this.BTNVolverAlbum.Click += new System.EventHandler(this.BTNVolverAlbum_Click);
             // 
             // lblEdad
             // 
@@ -72,25 +72,25 @@
             this.lblEdad.Location = new System.Drawing.Point(314, 99);
             this.lblEdad.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblEdad.Name = "lblEdad";
-            this.lblEdad.Size = new System.Drawing.Size(121, 18);
+            this.lblEdad.Size = new System.Drawing.Size(42, 18);
             this.lblEdad.TabIndex = 33;
-            this.lblEdad.Text = "Edad de la Candidata";
+            this.lblEdad.Text = "Edad: ";
             this.lblEdad.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.lblEdad.Click += new System.EventHandler(this.lblComentario_Click);
             // 
-            // btnSig
+            // BtnSiguiente
             // 
-            this.btnSig.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnSig.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnSig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSig.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSig.Location = new System.Drawing.Point(277, 186);
-            this.btnSig.Margin = new System.Windows.Forms.Padding(2);
-            this.btnSig.Name = "btnSig";
-            this.btnSig.Size = new System.Drawing.Size(18, 25);
-            this.btnSig.TabIndex = 32;
-            this.btnSig.Text = ">";
-            this.btnSig.UseVisualStyleBackColor = false;
+            this.BtnSiguiente.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BtnSiguiente.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BtnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSiguiente.Location = new System.Drawing.Point(277, 186);
+            this.BtnSiguiente.Margin = new System.Windows.Forms.Padding(2);
+            this.BtnSiguiente.Name = "BtnSiguiente";
+            this.BtnSiguiente.Size = new System.Drawing.Size(18, 25);
+            this.BtnSiguiente.TabIndex = 32;
+            this.BtnSiguiente.Text = ">";
+            this.BtnSiguiente.UseVisualStyleBackColor = false;
+            this.BtnSiguiente.Click += new System.EventHandler(this.BtnSiguiente_Click);
             // 
             // BtnAtras
             // 
@@ -105,6 +105,7 @@
             this.BtnAtras.TabIndex = 30;
             this.BtnAtras.Text = "<";
             this.BtnAtras.UseVisualStyleBackColor = false;
+            this.BtnAtras.Click += new System.EventHandler(this.BtnAtras_Click);
             // 
             // LblNmbCandidata
             // 
@@ -118,7 +119,6 @@
             this.LblNmbCandidata.TabIndex = 28;
             this.LblNmbCandidata.Text = "Nombre de la Candidata";
             this.LblNmbCandidata.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.LblNmbCandidata.Click += new System.EventHandler(this.LblNmbCandidata_Click);
             // 
             // LblTitulo
             // 
@@ -132,18 +132,16 @@
             this.LblTitulo.TabIndex = 25;
             this.LblTitulo.Text = "Elección Reina de la Facultad de Matemáticas";
             this.LblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.LblTitulo.Click += new System.EventHandler(this.LblTitulo_Click);
             // 
-            // PBOXDevolverImagen
+            // PBOXImagenCandidata
             // 
-            this.PBOXDevolverImagen.Image = global::SIEleccionReina.Properties.Resources.descarga__5_;
-            this.PBOXDevolverImagen.Location = new System.Drawing.Point(64, 99);
-            this.PBOXDevolverImagen.Name = "PBOXDevolverImagen";
-            this.PBOXDevolverImagen.Size = new System.Drawing.Size(208, 226);
-            this.PBOXDevolverImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.PBOXDevolverImagen.TabIndex = 31;
-            this.PBOXDevolverImagen.TabStop = false;
-            this.PBOXDevolverImagen.Click += new System.EventHandler(this.PBOXDevolverImagen_Click);
+            this.PBOXImagenCandidata.Image = global::SIEleccionReina.Properties.Resources.descarga__5_;
+            this.PBOXImagenCandidata.Location = new System.Drawing.Point(64, 99);
+            this.PBOXImagenCandidata.Name = "PBOXImagenCandidata";
+            this.PBOXImagenCandidata.Size = new System.Drawing.Size(208, 226);
+            this.PBOXImagenCandidata.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PBOXImagenCandidata.TabIndex = 31;
+            this.PBOXImagenCandidata.TabStop = false;
             // 
             // pictureBox1
             // 
@@ -165,9 +163,9 @@
             this.lblCarrera.Location = new System.Drawing.Point(314, 140);
             this.lblCarrera.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCarrera.Name = "lblCarrera";
-            this.lblCarrera.Size = new System.Drawing.Size(148, 18);
+            this.lblCarrera.Size = new System.Drawing.Size(55, 18);
             this.lblCarrera.TabIndex = 35;
-            this.lblCarrera.Text = "Carrera a la que pertenece";
+            this.lblCarrera.Text = "Carrera: ";
             this.lblCarrera.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // lblSemestre
@@ -178,9 +176,9 @@
             this.lblSemestre.Location = new System.Drawing.Point(314, 177);
             this.lblSemestre.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSemestre.Name = "lblSemestre";
-            this.lblSemestre.Size = new System.Drawing.Size(143, 18);
+            this.lblSemestre.Size = new System.Drawing.Size(64, 18);
             this.lblSemestre.TabIndex = 36;
-            this.lblSemestre.Text = "Semestre de la Candidata";
+            this.lblSemestre.Text = "Semestre: ";
             this.lblSemestre.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // lblInteres
@@ -194,34 +192,32 @@
             this.lblInteres.TabIndex = 37;
             this.lblInteres.Text = "Intereses:";
             this.lblInteres.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.lblInteres.Click += new System.EventHandler(this.label1_Click);
             // 
-            // lblInteresDato
+            // lblInteresesDato
             // 
-            this.lblInteresDato.AutoSize = true;
-            this.lblInteresDato.Font = new System.Drawing.Font("Sitka Heading", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInteresDato.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.lblInteresDato.Location = new System.Drawing.Point(388, 212);
-            this.lblInteresDato.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblInteresDato.Name = "lblInteresDato";
-            this.lblInteresDato.Size = new System.Drawing.Size(131, 18);
-            this.lblInteresDato.TabIndex = 38;
-            this.lblInteresDato.Text = "Sus intereses son estos ";
-            this.lblInteresDato.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.lblInteresDato.Click += new System.EventHandler(this.label1_Click_1);
+            this.lblInteresesDato.AutoSize = true;
+            this.lblInteresesDato.Font = new System.Drawing.Font("Sitka Heading", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInteresesDato.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.lblInteresesDato.Location = new System.Drawing.Point(388, 212);
+            this.lblInteresesDato.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblInteresesDato.Name = "lblInteresesDato";
+            this.lblInteresesDato.Size = new System.Drawing.Size(102, 18);
+            this.lblInteresesDato.TabIndex = 38;
+            this.lblInteresesDato.Text = "Sus intereses son ";
+            this.lblInteresesDato.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
-            // lblHabilidadesDatos
+            // lblHabilidadesDato
             // 
-            this.lblHabilidadesDatos.AutoSize = true;
-            this.lblHabilidadesDatos.Font = new System.Drawing.Font("Sitka Heading", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHabilidadesDatos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.lblHabilidadesDatos.Location = new System.Drawing.Point(388, 248);
-            this.lblHabilidadesDatos.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblHabilidadesDatos.Name = "lblHabilidadesDatos";
-            this.lblHabilidadesDatos.Size = new System.Drawing.Size(148, 18);
-            this.lblHabilidadesDatos.TabIndex = 40;
-            this.lblHabilidadesDatos.Text = "Sus Habilidades son estos ";
-            this.lblHabilidadesDatos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.lblHabilidadesDato.AutoSize = true;
+            this.lblHabilidadesDato.Font = new System.Drawing.Font("Sitka Heading", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHabilidadesDato.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.lblHabilidadesDato.Location = new System.Drawing.Point(388, 248);
+            this.lblHabilidadesDato.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblHabilidadesDato.Name = "lblHabilidadesDato";
+            this.lblHabilidadesDato.Size = new System.Drawing.Size(119, 18);
+            this.lblHabilidadesDato.TabIndex = 40;
+            this.lblHabilidadesDato.Text = "Sus Habilidades son ";
+            this.lblHabilidadesDato.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // lblHabilidades
             // 
@@ -235,18 +231,18 @@
             this.lblHabilidades.Text = "Habilidades:";
             this.lblHabilidades.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
-            // lblAspitacionesDato
+            // lblAspiracionesDato
             // 
-            this.lblAspitacionesDato.AutoSize = true;
-            this.lblAspitacionesDato.Font = new System.Drawing.Font("Sitka Heading", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAspitacionesDato.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.lblAspitacionesDato.Location = new System.Drawing.Point(388, 287);
-            this.lblAspitacionesDato.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblAspitacionesDato.Name = "lblAspitacionesDato";
-            this.lblAspitacionesDato.Size = new System.Drawing.Size(149, 18);
-            this.lblAspitacionesDato.TabIndex = 42;
-            this.lblAspitacionesDato.Text = "Sus aspiraciones son estos ";
-            this.lblAspitacionesDato.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.lblAspiracionesDato.AutoSize = true;
+            this.lblAspiracionesDato.Font = new System.Drawing.Font("Sitka Heading", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAspiracionesDato.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.lblAspiracionesDato.Location = new System.Drawing.Point(388, 287);
+            this.lblAspiracionesDato.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblAspiracionesDato.Name = "lblAspiracionesDato";
+            this.lblAspiracionesDato.Size = new System.Drawing.Size(120, 18);
+            this.lblAspiracionesDato.TabIndex = 42;
+            this.lblAspiracionesDato.Text = "Sus aspiraciones son ";
+            this.lblAspiracionesDato.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // lblAspiraciones
             // 
@@ -259,7 +255,6 @@
             this.lblAspiraciones.TabIndex = 41;
             this.lblAspiraciones.Text = "Aspiraciones:";
             this.lblAspiraciones.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.lblAspiraciones.Click += new System.EventHandler(this.lblAspiraciones_Click);
             // 
             // FRMVistaDatosCandidata
             // 
@@ -267,26 +262,27 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(553, 389);
-            this.Controls.Add(this.lblAspitacionesDato);
+            this.Controls.Add(this.lblAspiracionesDato);
             this.Controls.Add(this.lblAspiraciones);
-            this.Controls.Add(this.lblHabilidadesDatos);
+            this.Controls.Add(this.lblHabilidadesDato);
             this.Controls.Add(this.lblHabilidades);
-            this.Controls.Add(this.lblInteresDato);
+            this.Controls.Add(this.lblInteresesDato);
             this.Controls.Add(this.lblInteres);
             this.Controls.Add(this.lblSemestre);
             this.Controls.Add(this.lblCarrera);
-            this.Controls.Add(this.BTNAbrirAlbum);
+            this.Controls.Add(this.BTNVolverAlbum);
             this.Controls.Add(this.lblEdad);
-            this.Controls.Add(this.btnSig);
-            this.Controls.Add(this.PBOXDevolverImagen);
+            this.Controls.Add(this.BtnSiguiente);
+            this.Controls.Add(this.PBOXImagenCandidata);
             this.Controls.Add(this.BtnAtras);
             this.Controls.Add(this.LblNmbCandidata);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.LblTitulo);
             this.Name = "FRMVistaDatosCandidata";
-            this.Text = "Form2";
-            this.Load += new System.EventHandler(this.Form2_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.PBOXDevolverImagen)).EndInit();
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Información de la Candidata";
+            this.Load += new System.EventHandler(this.FRMVistaDatosCandidata_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.PBOXImagenCandidata)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -295,10 +291,10 @@
 
         #endregion
 
-        private System.Windows.Forms.Button BTNAbrirAlbum;
+        private System.Windows.Forms.Button BTNVolverAlbum;
         private System.Windows.Forms.Label lblEdad;
-        private System.Windows.Forms.Button btnSig;
-        private System.Windows.Forms.PictureBox PBOXDevolverImagen;
+        private System.Windows.Forms.Button BtnSiguiente;
+        private System.Windows.Forms.PictureBox PBOXImagenCandidata;
         private System.Windows.Forms.Button BtnAtras;
         private System.Windows.Forms.Label LblNmbCandidata;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -306,10 +302,10 @@
         private System.Windows.Forms.Label lblCarrera;
         private System.Windows.Forms.Label lblSemestre;
         private System.Windows.Forms.Label lblInteres;
-        private System.Windows.Forms.Label lblInteresDato;
-        private System.Windows.Forms.Label lblHabilidadesDatos;
+        private System.Windows.Forms.Label lblInteresesDato;
+        private System.Windows.Forms.Label lblHabilidadesDato;
         private System.Windows.Forms.Label lblHabilidades;
-        private System.Windows.Forms.Label lblAspitacionesDato;
+        private System.Windows.Forms.Label lblAspiracionesDato;
         private System.Windows.Forms.Label lblAspiraciones;
     }
 }
