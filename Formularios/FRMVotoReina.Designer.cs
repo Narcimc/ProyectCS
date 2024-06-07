@@ -30,16 +30,16 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FRMVotoReina));
             this.BTNVotar = new System.Windows.Forms.Button();
-            this.btnSig = new System.Windows.Forms.Button();
+            this.BtnSiguiente = new System.Windows.Forms.Button();
             this.BtnAtras = new System.Windows.Forms.Button();
             this.LblNmbCandidata = new System.Windows.Forms.Label();
             this.LblTitulo = new System.Windows.Forms.Label();
             this.BtnFotogenica = new System.Windows.Forms.Button();
-            this.PBOXDevolverImagen = new System.Windows.Forms.PictureBox();
+            this.PBOXImagenCandidata = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblReian = new System.Windows.Forms.Label();
             this.btnSalir = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.PBOXDevolverImagen)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBOXImagenCandidata)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,24 +58,26 @@
             this.BTNVotar.UseVisualStyleBackColor = false;
             this.BTNVotar.Click += new System.EventHandler(this.BTNVotar_Click);
             // 
-            // btnSig
+            // BtnSiguiente
             // 
-            this.btnSig.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnSig.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnSig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSig.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSig.Location = new System.Drawing.Point(274, 202);
-            this.btnSig.Margin = new System.Windows.Forms.Padding(2);
-            this.btnSig.Name = "btnSig";
-            this.btnSig.Size = new System.Drawing.Size(18, 25);
-            this.btnSig.TabIndex = 39;
-            this.btnSig.Text = ">";
-            this.btnSig.UseVisualStyleBackColor = false;
+            this.BtnSiguiente.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BtnSiguiente.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BtnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSiguiente.Location = new System.Drawing.Point(274, 202);
+            this.BtnSiguiente.Margin = new System.Windows.Forms.Padding(2);
+            this.BtnSiguiente.Name = "BtnSiguiente";
+            this.BtnSiguiente.Size = new System.Drawing.Size(18, 25);
+            this.BtnSiguiente.TabIndex = 39;
+            this.BtnSiguiente.Text = ">";
+            this.BtnSiguiente.UseVisualStyleBackColor = false;
+            this.BtnSiguiente.Click += new System.EventHandler(this.BtnSiguiente_Click);
             // 
             // BtnAtras
             // 
             this.BtnAtras.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.BtnAtras.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BtnAtras.Enabled = false;
             this.BtnAtras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnAtras.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnAtras.Location = new System.Drawing.Point(38, 202);
@@ -85,6 +87,7 @@
             this.BtnAtras.TabIndex = 37;
             this.BtnAtras.Text = "<";
             this.BtnAtras.UseVisualStyleBackColor = false;
+            this.BtnAtras.Click += new System.EventHandler(this.BtnAtras_Click);
             // 
             // LblNmbCandidata
             // 
@@ -98,7 +101,6 @@
             this.LblNmbCandidata.TabIndex = 36;
             this.LblNmbCandidata.Text = "Nombre de la Candidata";
             this.LblNmbCandidata.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.LblNmbCandidata.Click += new System.EventHandler(this.LblNmbCandidata_Click);
             // 
             // LblTitulo
             // 
@@ -128,15 +130,15 @@
             this.BtnFotogenica.UseVisualStyleBackColor = false;
             this.BtnFotogenica.Click += new System.EventHandler(this.BtnFotogenica_Click);
             // 
-            // PBOXDevolverImagen
+            // PBOXImagenCandidata
             // 
-            this.PBOXDevolverImagen.Image = global::SIEleccionReina.Properties.Resources.descarga__5_;
-            this.PBOXDevolverImagen.Location = new System.Drawing.Point(61, 114);
-            this.PBOXDevolverImagen.Name = "PBOXDevolverImagen";
-            this.PBOXDevolverImagen.Size = new System.Drawing.Size(208, 226);
-            this.PBOXDevolverImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.PBOXDevolverImagen.TabIndex = 38;
-            this.PBOXDevolverImagen.TabStop = false;
+            this.PBOXImagenCandidata.Image = global::SIEleccionReina.Properties.Resources.descarga__5_;
+            this.PBOXImagenCandidata.Location = new System.Drawing.Point(61, 114);
+            this.PBOXImagenCandidata.Name = "PBOXImagenCandidata";
+            this.PBOXImagenCandidata.Size = new System.Drawing.Size(208, 226);
+            this.PBOXImagenCandidata.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PBOXImagenCandidata.TabIndex = 38;
+            this.PBOXImagenCandidata.TabStop = false;
             // 
             // pictureBox1
             // 
@@ -189,15 +191,16 @@
             this.Controls.Add(this.BtnFotogenica);
             this.Controls.Add(this.LblTitulo);
             this.Controls.Add(this.BTNVotar);
-            this.Controls.Add(this.btnSig);
-            this.Controls.Add(this.PBOXDevolverImagen);
+            this.Controls.Add(this.BtnSiguiente);
+            this.Controls.Add(this.PBOXImagenCandidata);
             this.Controls.Add(this.BtnAtras);
             this.Controls.Add(this.LblNmbCandidata);
             this.Controls.Add(this.pictureBox1);
             this.Name = "FRMVotoReina";
-            this.Text = "Form2";
-            this.Load += new System.EventHandler(this.Form2_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.PBOXDevolverImagen)).EndInit();
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Votación - Reina";
+            this.Load += new System.EventHandler(this.FRMVotoReina_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.PBOXImagenCandidata)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -207,8 +210,8 @@
         #endregion
 
         private System.Windows.Forms.Button BTNVotar;
-        private System.Windows.Forms.Button btnSig;
-        private System.Windows.Forms.PictureBox PBOXDevolverImagen;
+        private System.Windows.Forms.Button BtnSiguiente;
+        private System.Windows.Forms.PictureBox PBOXImagenCandidata;
         private System.Windows.Forms.Button BtnAtras;
         private System.Windows.Forms.Label LblNmbCandidata;
         private System.Windows.Forms.PictureBox pictureBox1;

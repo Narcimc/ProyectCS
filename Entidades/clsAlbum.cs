@@ -10,12 +10,11 @@ namespace SIEleccionReina.Entidades
     {
         #region "Atributos Privados"
 
-        private int _id_album;
-        private int _id_candidata;
-        private string _titulo;
+        private int _id_album = 0;
+        private int _id_candidata = 0;
+        private string _titulo = "";
 
         #endregion
-
 
         #region "Propiedades Públicas"
 
@@ -25,5 +24,10 @@ namespace SIEleccionReina.Entidades
 
         #endregion
 
+        #region Constructor by Default
+
+        public clsAlbum() {}
+
+        #endregion
     }
 }

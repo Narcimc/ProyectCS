@@ -1,95 +1,74 @@
-﻿using SIEleccionReina.Entidades;
+﻿using SIEleccionReina.Control;
+using SIEleccionReina.Entidades;
 using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace SIEleccionReina.AccesoDatos
 {
     internal class clsVoto_DB
     {
         private ConexionDAO objConexion;
-        private SqlCommand comando;
         private SqlConnection con;
-        public clsVoto_DB()
-        {
-            objConexion = ConexionDAO.checkEstado();
-        }
-        public int Ingresar_Voto(clsVoto obj_Info, int tipoCrud)
+        private const string QUERY = "SP_CRUD_VOTO";
+
+        public clsVoto_DB() => objConexion = ConexionDAO.GetInstance(); // Constructor
+
+        public int Ingresar_Voto( clsVoto obj_Info, VotoTipoCRUD tipoCrud )
         {
             try
             {
-                int respuesta = 0;
-                string query = "SP_CRUD_VOTO";
-                con = objConexion.getCon();
-                comando = new SqlCommand(query, con)
-                {
-                    CommandTimeout = 1000000
-                };
-                con.Open();
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@id_crud", SqlDbType.Int).Value = tipoCrud;
-                comando.Parameters.Add("@id_voto", SqlDbType.Int).Value = obj_Info.Id_voto;
-                comando.Parameters.Add("@id_estudiante", SqlDbType.Int).Value = obj_Info.Id_estudiante;
-                comando.Parameters.Add("@id_candidata", SqlDbType.Int).Value = obj_Info.Id_candidata;
-                comando.Parameters.Add("@tipo_voto", SqlDbType.VarChar).Value = obj_Info.Tipo_voto;
+                SqlCommand comando = ArmarComandoSql( obj_Info, tipoCrud );
                 comando.ExecuteNonQuery();
-
-                respuesta = 1;
-                return respuesta;
+                return 1;
             }
-            catch (Exception ex)
+            catch ( Exception ex )
             {
+                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
                 return 0;
-                throw ex.InnerException;
             }
             finally
             {
-                if (con != null)
-                {
-                    con.Close();
-                }
+                if ( con != null )
+                    objConexion.CerrarConexion();
             }
         }
 
-        public DataTable Combo_Voto(clsVoto obj_Info, int tipoCrud)
+        public bool VerificarVotoRegistrado( clsVoto obj_Info, VotoTipoCRUD tipoCrud )
         {
             try
             {
-                string query = "SP_CRUD_VOTO";
-                con = objConexion.getCon();
-                comando = new SqlCommand(query, con)
-                {
-                    CommandTimeout = 1000000
-                };
-                con.Open();
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@id_crud", SqlDbType.Int).Value = tipoCrud;
-                comando.Parameters.Add("@id_voto", SqlDbType.Int).Value = obj_Info.Id_voto;
-                comando.Parameters.Add("@id_estudiante", SqlDbType.Int).Value = obj_Info.Id_estudiante;
-                comando.Parameters.Add("@id_candidata", SqlDbType.Int).Value = obj_Info.Id_candidata;
-                comando.Parameters.Add("@tipo_voto", SqlDbType.VarChar).Value = obj_Info.Tipo_voto;
-                DataTable ds = new DataTable();
-                SqlDataAdapter adapter = new SqlDataAdapter(comando);
-
-                adapter.Fill(ds);
-
-                return ds;
+                SqlCommand comando = ArmarComandoSql( obj_Info, tipoCrud );
+                SqlDataReader reader = comando.ExecuteReader( CommandBehavior.SingleRow );
+                reader.Read();
+                return reader.GetBoolean( 0 );
             }
-            catch (Exception ex)
+            catch ( Exception ex )
             {
-                throw ex.InnerException;
+                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
+                return false;
             }
             finally
             {
-                if (con != null)
-                {
-                    con.Close();
-                }
+                if ( con != null )
+                    objConexion.CerrarConexion();
             }
+        }
+
+        private SqlCommand ArmarComandoSql( clsVoto obj_Info, VotoTipoCRUD tipoCrud )
+        {
+            con = objConexion.GetOpenConnection();
+            SqlCommand comando = new SqlCommand( QUERY, con ) { CommandTimeout = 1000000 };
+
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add( "@id_crud", SqlDbType.Int ).Value = ( int ) tipoCrud;
+            comando.Parameters.Add( "@id_voto", SqlDbType.Int ).Value = obj_Info.Id_voto;
+            comando.Parameters.Add( "@id_estudiante", SqlDbType.Int ).Value = obj_Info.Id_estudiante;
+            comando.Parameters.Add( "@id_candidata", SqlDbType.Int ).Value = obj_Info.Id_candidata;
+            comando.Parameters.Add( "@tipo_voto", SqlDbType.VarChar ).Value = obj_Info.Tipo_voto;
+
+            return comando;
         }
     }
 }
