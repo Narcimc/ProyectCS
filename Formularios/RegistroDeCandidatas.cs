@@ -375,18 +375,18 @@ namespace SIEleccionReina
 
         }
 
-        private void bntSalir_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        //private void bntSalir_Click(object sender, EventArgs e)
+        //{
+        //    this.Close();
+        //}
 
-        private void btnCrearAlbum_Click(object sender, EventArgs e)
-        {
-            // Crear una instancia del nuevo formulario
-            FRMGaleriaFotos Galeria = new FRMGaleriaFotos();
+        //private void btnCrearAlbum_Click(object sender, EventArgs e)
+        //{
+        //    // Crear una instancia del nuevo formulario
+        //    FRMGaleriaFotos Galeria = new FRMGaleriaFotos();
 
-            // Mostrar el formulario
-            Galeria.Show();
-        }
+        //    // Mostrar el formulario
+        //    Galeria.Show();
+        //}
     }
 }
