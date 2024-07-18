@@ -1,11 +1,9 @@
 ﻿using SIEleccionReina.Entidades;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
+using SIEleccionReina.Control;
 
 namespace SIEleccionReina.AccesoDatos
 {
@@ -14,43 +12,41 @@ namespace SIEleccionReina.AccesoDatos
         private ConexionDAO objConexion;
         private SqlCommand comando;
         private SqlConnection con;
+
         public clsAlbum_DB()
         {
-            objConexion = ConexionDAO.checkEstado();
+            objConexion = ConexionDAO.GetInstance();
         }
+
         public int Ingresar_Album(clsAlbum obj_Info, int tipoCrud)
         {
             try
             {
-                int respuesta = 0;
                 string query = "SP_CRUD_ALBUMES";
-                con = objConexion.getCon();
+                con = objConexion.GetOpenConnection();
                 comando = new SqlCommand(query, con)
                 {
                     CommandTimeout = 1000000
                 };
-                con.Open();
+
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@id_crud", SqlDbType.Int).Value = tipoCrud;
                 comando.Parameters.Add("@id_album", SqlDbType.Int).Value = obj_Info.Id_album;
                 comando.Parameters.Add("@id_candidata", SqlDbType.Int).Value = obj_Info.Id_candidata;
                 comando.Parameters.Add("@titulo", SqlDbType.VarChar).Value = obj_Info.Titulo;
+                
                 comando.ExecuteNonQuery();
-
-                respuesta = 1;
-                return respuesta;
+                return 1;
             }
-            catch (Exception ex)
+            catch ( Exception ex )
             {
+                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Warning );
                 return 0;
-                throw ex.InnerException;
             }
             finally
             {
-                if (con != null)
-                {
-                    con.Close();
-                }
+                if ( con != null )
+                    objConexion.CerrarConexion();
             }
         }
 
@@ -59,12 +55,12 @@ namespace SIEleccionReina.AccesoDatos
             try
             {
                 string query = "SP_CRUD_ALBUMES";
-                con = objConexion.getCon();
+                con = objConexion.GetOpenConnection();
                 comando = new SqlCommand(query, con)
                 {
                     CommandTimeout = 1000000
                 };
-                con.Open();
+
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@id_crud", SqlDbType.Int).Value = tipoCrud;
                 comando.Parameters.Add("@id_album", SqlDbType.Int).Value = obj_Info.Id_album;
@@ -77,16 +73,15 @@ namespace SIEleccionReina.AccesoDatos
 
                 return ds;
             }
-            catch (Exception ex)
+            catch ( Exception ex )
             {
-                throw ex.InnerException;
+                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
+                return null;
             }
             finally
             {
-                if (con != null)
-                {
-                    con.Close();
-                }
+                if ( con != null )
+                    objConexion.CerrarConexion();
             }
         }
 

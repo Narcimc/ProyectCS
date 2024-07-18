@@ -17,10 +17,7 @@ namespace SIEleccionReina.Entidades
         private string _contrasenia;
         private string _rol_usuario;
 
-
-
         #endregion
-
 
         #region "Propiedades Públicas"
 
@@ -31,6 +28,25 @@ namespace SIEleccionReina.Entidades
         public string Contrasenia { get => _contrasenia; set => _contrasenia = value; }
         public string Rol_usuario { get => _rol_usuario; set => _rol_usuario = value; }
 
+        #endregion
+
+        #region Constructor by Default
+
+        public ClsEstudiante() {}
+
+        #endregion
+
+        #region Parameterized Constructor
+
+        public ClsEstudiante( int id_estudiante, int id_semestre, int id_carrera, string cedula, string contrasenia, string rol_usuario )
+        {
+            _id_estudiante = id_estudiante;
+            _id_semestre = id_semestre;
+            _id_carrera = id_carrera;
+            _cedula = cedula;
+            _contrasenia = contrasenia;
+            _rol_usuario = rol_usuario;
+        }
 
         #endregion
     }

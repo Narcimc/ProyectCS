@@ -128,7 +128,8 @@
             this.Controls.Add(this.BtnVotarPorFotogenica);
             this.Controls.Add(this.BtnVotoReina);
             this.Name = "FrmEstudiante";
-            this.Text = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Panel de Opciones";
             ((System.ComponentModel.ISupportInitialize)(this.PBoxResultados)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBoxGaleria)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBoxRegistroCandidata)).EndInit();

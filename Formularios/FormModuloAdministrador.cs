@@ -18,30 +18,22 @@ namespace SIEleccionReina
             InitializeComponent();
         }
 
-        private void ModuloAdministrador_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            //FRMResultados vResultados = new FRMResultados();
-            //vResultados.Show();
-        }
-
         private void BtnInscripcionCandidatas_Click(object sender, EventArgs e)
         {
-            this.Hide();
             RegistroDeCandidatas vRegistroCand = new RegistroDeCandidatas();
-            vRegistroCand.Show();
+            vRegistroCand.ShowDialog();
         }
 
         private void BtnRegistroFoto_Click(object sender, EventArgs e)
         {
-            this.Hide();
             FRMGaleriaFotos vGaleriaFot = new FRMGaleriaFotos();
-            vGaleriaFot.Show();
+            vGaleriaFot.ShowDialog();
+        }
+
+        private void BtnResultados_Click( object sender, EventArgs e )
+        {
+            FrmResultados vResultados = new FrmResultados();
+            vResultados.ShowDialog();
         }
     }
 }

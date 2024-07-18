@@ -1,11 +1,9 @@
 ﻿using SIEleccionReina.Entidades;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
+using SIEleccionReina.Control;
 
 namespace SIEleccionReina.AccesoDatos
 {
@@ -14,59 +12,58 @@ namespace SIEleccionReina.AccesoDatos
         private ConexionDAO objConexion;
         private SqlCommand comando;
         private SqlConnection con;
+
         public clsEstudiante_DB()
         {
-            objConexion = ConexionDAO.checkEstado();
+            objConexion = ConexionDAO.GetInstance();
         }
+
         public int Ingresar_Estudiante(ClsEstudiante obj_Info, int tipoCrud)
         {
             try
             {
-                int respuesta = 0;
                 string query = "SP_CRUD_ESTUDIANTE";
-                con = objConexion.getCon();
+                con = objConexion.GetOpenConnection();
                 comando = new SqlCommand(query, con)
                 {
                     CommandTimeout = 1000000
                 };
-                con.Open();
+
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@id_crud", SqlDbType.Int).Value = tipoCrud;
                 comando.Parameters.Add("@id_estudiante", SqlDbType.Int).Value = obj_Info.Id_estudiante;
                 comando.Parameters.Add("@id_semestre", SqlDbType.Int).Value = obj_Info.Id_semestre;
                 comando.Parameters.Add("@id_carrera", SqlDbType.Int).Value = obj_Info.Id_carrera;
-                comando.Parameters.Add("@cedula", SqlDbType.Int).Value = obj_Info.Cedula;
+                comando.Parameters.Add("@cedula", SqlDbType.VarChar).Value = obj_Info.Cedula;
                 comando.Parameters.Add("@contrasenia", SqlDbType.VarChar).Value = obj_Info.Contrasenia;
-                comando.Parameters.Add("@rol_usuario", SqlDbType.Int).Value = obj_Info.Rol_usuario;
-                comando.ExecuteNonQuery();
+                comando.Parameters.Add("@rol_usuario", SqlDbType.VarChar).Value = obj_Info.Rol_usuario;
 
-                respuesta = 1;
-                return respuesta;
+                comando.ExecuteNonQuery();
+                return 1;
             }
             catch (Exception ex)
             {
+                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Warning );
                 return 0;
-                throw ex.InnerException;
             }
             finally
             {
                 if (con != null)
-                {
-                    con.Close();
-                }
+                    objConexion.CerrarConexion();
             }
         }
-        public DataTable Combo_Estudiante(ClsEstudiante obj_Info, int tipoCrud)
+
+        public DataTable Combo_Estudiante(int tipoCrud)
         {
             try
             {
                 string query = "SP_CRUD_ESTUDIANTE";
-                con = objConexion.getCon();
+                con = objConexion.GetOpenConnection();
                 comando = new SqlCommand(query, con)
                 {
                     CommandTimeout = 1000000
                 };
-                con.Open();
+
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@id_crud", SqlDbType.Int).Value = tipoCrud;
                 DataTable ds = new DataTable();
@@ -78,77 +75,52 @@ namespace SIEleccionReina.AccesoDatos
             }
             catch (Exception ex)
             {
-                throw ex.InnerException;
+                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
+                return null;
             }
             finally
             {
-                if (con != null)
-                {
-                    con.Close();
-                }
+                if ( con != null )
+                    objConexion.CerrarConexion();
             }
         }
+    
+        public DataTable ValidarLogin( ClsEstudiante obj_Info, int tipoCrud )
+        {
+            try
+            {
+                string query = "SP_CRUD_ESTUDIANTE";
+                con = objConexion.GetOpenConnection();
+                comando = new SqlCommand( query, con )
+                {
+                    CommandTimeout = 1000000
+                };
 
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add( "@id_crud", SqlDbType.Int ).Value = tipoCrud;
+                comando.Parameters.Add( "@cedula", SqlDbType.VarChar ).Value = obj_Info.Cedula;
+                comando.Parameters.Add( "@contrasenia", SqlDbType.VarChar ).Value = obj_Info.Contrasenia;
+                comando.Parameters.Add( "@rol_usuario", SqlDbType.VarChar ).Value = obj_Info.Rol_usuario;
 
-        //public DataTable Combo_Validar(ClsEstudiante obj_Info, int tipoCrud)
-        //{
-        //    try
-        //    {
-        //        string query = "SP_CRUD_ESTUDIANTE";
-        //        con = objConexion.getCon();
-        //        comando = new SqlCommand(query, con)
-        //        {
-        //            CommandTimeout = 1000000
-        //        };
-        //        con.Open();
-        //        comando.CommandType = CommandType.StoredProcedure;
-        //        comando.Parameters.Add("@id_crud", SqlDbType.Int).Value = tipoCrud;
-        //        //using (SqlConnection connection = new SqlConnection(CadenaDeConexion))
-        //        //{
-        //        //    connection.Open();
+                DataTable dt = new DataTable();
+                SqlDataAdapter adapter = new SqlDataAdapter( comando );
 
-        //        using (SqlCommand command = new SqlCommand("SP_CRUD_ESTUDIANTE"))
-        //        {
-        //            command.CommandType = CommandType.StoredProcedure;
+                adapter.Fill( dt );
 
-        //            //// Agregar parámetros al procedimiento almacenado
-        //            //command.Parameters.Add("@cedula", ced);
-        //            //command.Parameters.AddWithValue("@Contrasenia", contrasenia);
+                return dt;
+            }
+            catch ( Exception ex )
+            {
+                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                return null;
+            }
+            finally
+            {
+                if ( con != null )
+                    objConexion.CerrarConexion();
+            }
 
-        //            ////// Agregar parámetro de salida para obtener el resultado
-        //            //sqlParameter resultadoParam = new SqlParameter("@Resultado", SqlDbType.Bit);
-        //            //resultadoParam.Direction = ParameterDirection.Output;
-        //            //command.Parameters.Add(resultadoParam);
+        }
 
-        //            ////// Ejecutar el procedimiento almacenado
-        //            ////command.ExecuteNonQuery();
-
-        //            //// Obtener el resultado del parámetro de salida
-        //            //bool resultado = (bool)resultadoParam.Value;
-
-        //            //return resultado;
-        //        }
-        //    }
-        //}
-                //DataTable ds = new DataTable();
-                //SqlDataAdapter adapter = new SqlDataAdapter(comando);
-
-                //adapter.Fill(ds);
-
-            //    return ds;
-            ////}
-            //catch (Exception ex)
-            //{
-            //    throw ex.InnerException;
-            //}
-            //finally
-            //{
-            //    if (con != null)
-            //    {
-            //        con.Close();
-            //    }
     }
 }
-
-
-

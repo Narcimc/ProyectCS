@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SIEleccionReina.Formularios
@@ -23,7 +16,7 @@ namespace SIEleccionReina.Formularios
             FrmReina formularioReina = new FrmReina();
 
             // Mostrar el formulario
-            formularioReina.Show();
+            formularioReina.ShowDialog();
         }
 
         private void BtnVotoReina_Click(object sender, EventArgs e)
@@ -32,7 +25,7 @@ namespace SIEleccionReina.Formularios
             FRMVotoReina VotoReina = new FRMVotoReina();
 
             // Mostrar el formulario
-            VotoReina.Show();
+            VotoReina.ShowDialog();
         }
 
         private void BtnVotarPorFotogenica_Click(object sender, EventArgs e)
@@ -41,7 +34,7 @@ namespace SIEleccionReina.Formularios
             FrmVotarFotogenica VotoFotogenica = new FrmVotarFotogenica();
 
             // Mostrar el formulario
-            VotoFotogenica.Show();
+            VotoFotogenica.ShowDialog();
         }
     }
 }

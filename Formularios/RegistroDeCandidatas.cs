@@ -1,4 +1,5 @@
 ﻿using SIEleccionReina.AccesoDatos;
+using SIEleccionReina.Control;
 using SIEleccionReina.Entidades;
 using SIEleccionReina.Formularios;
 using System;
@@ -20,12 +21,15 @@ namespace SIEleccionReina
 {
     public partial class RegistroDeCandidatas : Form
     {
+        private SIEleccionReinaController controlador;
+
         public RegistroDeCandidatas()
         {
             InitializeComponent();
+            controlador = SIEleccionReinaController.Instance;
+
             // Asignar el manejador de eventos al TextBox
             TxtCedula.KeyPress += new KeyPressEventHandler(TxtCedula_KeyPress);
-
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
@@ -205,26 +209,24 @@ namespace SIEleccionReina
             }
 
             try
-
             {
-
                 // byte[] array = File.ReadAllBytes(TxtDescripcionImage.Text);
 
-                var strImagen = ImageToBase64(PBoxFotografia.Image, System.Drawing.Imaging.ImageFormat.Jpeg);
+                var strImagen = controlador.ImageToBase64( PBoxFotografia.Image, System.Drawing.Imaging.ImageFormat.Jpeg );
 
-                clsCandidatas candidata = new clsCandidatas()
+                clsCandidata candidata = new clsCandidata()
                 {
                     Apellido = TxtApellido.Text,
                     Fecha_nacimiento = DateFechaDeNacimiento.Value,
                     Nombre = TxtNombre.Text,
                     Cedula = TxtCedula.Text,
-                    Edad = Int16.Parse(TxtEdad.Text),  //Convert.ToInt32(TxtEdad.Text),
+                    Edad = Int16.Parse( TxtEdad.Text ),
                     Aspiraciones = TxtAspiraciones.Text,
                     Habilidades = TxtHabilidades.Text,
                     Intereses = TxtIntereses.Text,
                     Foto = strImagen,
-                    Id_carrera = Convert.ToInt32(CmbCarrera.SelectedValue),
-                    Id_semestre = Convert.ToInt32(CmbSemestre.SelectedValue)
+                    Carrera = new KeyValuePair<int, string>( ( int ) CmbCarrera.SelectedValue, "" ),
+                    Semestre = new KeyValuePair<int, int>( ( int ) CmbSemestre.SelectedValue, 0 )
                 };
                 TxtCedula.Clear();
                 TxtNombre.Clear();
@@ -236,26 +238,11 @@ namespace SIEleccionReina
                 TxtDescripcionImage.Clear();
 
                 clsCandidata_DB canDB = new clsCandidata_DB();
-                canDB.Ingresar_Candidata(candidata, 2);
-
+                canDB.IngresarModificarEliminarCandidata( candidata, CandidataTipoCrud.InsertarCandidata );
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-
-        public string ImageToBase64(Image image, System.Drawing.Imaging.ImageFormat format)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                // Convert Image to byte[]
-                image.Save(ms, format);
-                byte[] imageBytes = ms.ToArray();
-
-                // Convert byte[] to Base64 String
-                string base64String = Convert.ToBase64String(imageBytes);
-                return base64String;
+                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ + "\n\nIntentelo nuevamente.", MessageBoxButtons.OK, MessageBoxIcon.Warning );
             }
         }
 
@@ -374,11 +361,6 @@ namespace SIEleccionReina
         {
 
         }
-
-        //private void bntSalir_Click(object sender, EventArgs e)
-        //{
-        //    this.Close();
-        //}
 
         //private void btnCrearAlbum_Click(object sender, EventArgs e)
         //{

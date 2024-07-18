@@ -46,7 +46,7 @@
             this.BtnInscripcionCandidatas.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
             this.BtnInscripcionCandidatas.Font = new System.Drawing.Font("Script MT Bold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnInscripcionCandidatas.Location = new System.Drawing.Point(11, 41);
-            this.BtnInscripcionCandidatas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BtnInscripcionCandidatas.Margin = new System.Windows.Forms.Padding(2);
             this.BtnInscripcionCandidatas.Name = "BtnInscripcionCandidatas";
             this.BtnInscripcionCandidatas.Size = new System.Drawing.Size(206, 41);
             this.BtnInscripcionCandidatas.TabIndex = 0;
@@ -59,7 +59,7 @@
             this.BtnRegistroFoto.BackColor = System.Drawing.Color.Plum;
             this.BtnRegistroFoto.Font = new System.Drawing.Font("Script MT Bold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnRegistroFoto.Location = new System.Drawing.Point(143, 114);
-            this.BtnRegistroFoto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BtnRegistroFoto.Margin = new System.Windows.Forms.Padding(2);
             this.BtnRegistroFoto.Name = "BtnRegistroFoto";
             this.BtnRegistroFoto.Size = new System.Drawing.Size(188, 41);
             this.BtnRegistroFoto.TabIndex = 1;
@@ -72,13 +72,13 @@
             this.BtnResultados.BackColor = System.Drawing.Color.MediumPurple;
             this.BtnResultados.Font = new System.Drawing.Font("Script MT Bold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnResultados.Location = new System.Drawing.Point(11, 185);
-            this.BtnResultados.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BtnResultados.Margin = new System.Windows.Forms.Padding(2);
             this.BtnResultados.Name = "BtnResultados";
             this.BtnResultados.Size = new System.Drawing.Size(188, 41);
             this.BtnResultados.TabIndex = 5;
             this.BtnResultados.Text = "Resultados";
             this.BtnResultados.UseVisualStyleBackColor = false;
-            this.BtnResultados.Click += new System.EventHandler(this.button1_Click);
+            this.BtnResultados.Click += new System.EventHandler(this.BtnResultados_Click);
             // 
             // PBoxResultados
             // 
@@ -130,11 +130,10 @@
             this.Controls.Add(this.PBoxRegistroCandidata);
             this.Controls.Add(this.BtnRegistroFoto);
             this.Controls.Add(this.BtnInscripcionCandidatas);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ModuloAdministrador";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Modulo Administrador";
-            this.Load += new System.EventHandler(this.ModuloAdministrador_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PBoxResultados)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBoxGaleria)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBoxRegistroCandidata)).EndInit();

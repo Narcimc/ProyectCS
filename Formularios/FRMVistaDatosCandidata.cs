@@ -1,70 +1,70 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SIEleccionReina.Control;
+using SIEleccionReina.Entidades;
+using System;
 using System.Windows.Forms;
 
 namespace SIEleccionReina.Formularios
 {
     public partial class FRMVistaDatosCandidata : Form
     {
-        public FRMVistaDatosCandidata()
+        private SIEleccionReinaController controlador;
+        private int indexCandidata = 0;
+
+        public FRMVistaDatosCandidata( int indexCandidata )
         {
             InitializeComponent();
+            controlador = SIEleccionReinaController.Instance;
+            this.indexCandidata = indexCandidata;
         }
 
-        private void Form2_Load(object sender, EventArgs e)
+        private void FRMVistaDatosCandidata_Load( object sender, EventArgs e )
         {
+            MostrarInfoCandidata();
 
+            if ( indexCandidata == 0 )
+                BtnAtras.Enabled = false;
+
+            if ( indexCandidata == controlador.ListaCandidatas.Count - 1 )
+                BtnSiguiente.Enabled = false;
         }
 
-        private void LblTitulo_Click(object sender, EventArgs e)
-        {
+        private void BTNVolverAlbum_Click( object sender, EventArgs e ) => this.Close();
 
+        private void BtnAtras_Click( object sender, EventArgs e )
+        {
+            if ( !BtnSiguiente.Enabled )
+                BtnSiguiente.Enabled = true;
+
+            indexCandidata--;
+            MostrarInfoCandidata();
+
+            if ( indexCandidata == 0 )
+                BtnAtras.Enabled = false;
         }
 
-        private void LblInformacion_Click(object sender, EventArgs e)
+        private void BtnSiguiente_Click( object sender, EventArgs e )
         {
+            if ( !BtnAtras.Enabled )
+                BtnAtras.Enabled = true;
 
+            indexCandidata++;
+            MostrarInfoCandidata();
+
+            if ( indexCandidata == controlador.ListaCandidatas.Count - 1 )
+                BtnSiguiente.Enabled = false;
         }
 
-        private void LblNmbCandidata_Click(object sender, EventArgs e)
+        private void MostrarInfoCandidata()
         {
-
-        }
-
-        private void PBOXDevolverImagen_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void BTNAbrirInformacion_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void lblComentario_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblAspiraciones_Click(object sender, EventArgs e)
-        {
-
+            clsCandidata candidata = controlador.ListaCandidatas[ indexCandidata ];
+            LblNmbCandidata.Text = $"{candidata.Nombre} {candidata.Apellido}";
+            lblEdad.Text = $"Edad: {candidata.Edad} años";
+            lblCarrera.Text = $"Carrera: { candidata.Carrera.Value }";
+            lblSemestre.Text = $"Semestre: {candidata.Semestre.Value}";
+            lblInteresesDato.Text = $"Sus intereses son {candidata.Intereses}";
+            lblHabilidadesDato.Text = $"Sus habilidades son {candidata.Habilidades}";
+            lblAspiracionesDato.Text = $"Sus aspiraciones son {candidata.Aspiraciones}";
+            PBOXImagenCandidata.Image = controlador.Base64ToImage( candidata.Foto );
         }
     }
 }
