@@ -1,18 +1,13 @@
-﻿using System;
+﻿using SIEleccionReina.Modelos;
+using System;
 using System.Collections.Generic;
 
 namespace SIEleccionReina.Entidades
 {
-    internal class clsCandidata
+    internal class ClsCandidata : PersonaUG
     {
         #region "Atributos Privados"
-
-        private int _id_candidata = 0;
-        private KeyValuePair<int, string> _carrera;
-        private KeyValuePair<int, int> _semestre;
-        private string _cedula = "";
-        private string _nombre = "";
-        private string _apellido = "";
+        // Aclaracion: Los atributos y propiedades que aparentemente faltan aqui, en realidad si estan, pero ocultas por el polimorfismo, dado que ahora se hereda de la clase abstracta PersonaUG, la cual posee estros atributos y propiedades
         private string foto = "";
         private DateTime fecha_nacimiento;
         private int edad = 0;
@@ -24,12 +19,6 @@ namespace SIEleccionReina.Entidades
 
         #region "Propiedades Publicas"
 
-        public int Id_candidata { get => _id_candidata; set => _id_candidata = value; }
-        public KeyValuePair<int, string> Carrera { get => _carrera; set => _carrera = value; }
-        public KeyValuePair<int, int> Semestre { get => _semestre; set => _semestre = value; }
-        public string Cedula { get => _cedula; set => _cedula = value; }
-        public string Nombre { get => _nombre; set => _nombre = value; }
-        public string Apellido { get => _apellido; set => _apellido = value; }
         public string Foto { get => foto; set => foto = value; }
         public DateTime Fecha_nacimiento { get => fecha_nacimiento; set => fecha_nacimiento = value; }
         public int Edad { get => edad; set => edad = value; }
@@ -41,7 +30,17 @@ namespace SIEleccionReina.Entidades
 
         #region Constructor by Default
 
-        public clsCandidata() {}
+        public ClsCandidata() {}
+
+        public ClsCandidata( int _idEstudiante, int _idCarrera, string _cedula, string _nombres, string _apellidos, int _semestre, string foto, DateTime fecha_nacimiento, int edad, string aspiraciones, string intereses, string habilidades ) : base( id: _idEstudiante, carreraId: _idCarrera, cedula: _cedula, nombres: _nombres, apellidos: _apellidos, semestre: _semestre )
+        {
+            this.foto = foto;
+            this.fecha_nacimiento = fecha_nacimiento;
+            this.edad = edad;
+            this.aspiraciones = aspiraciones;
+            this.intereses = intereses;
+            this.habilidades = habilidades;
+        }
 
         #endregion
     }

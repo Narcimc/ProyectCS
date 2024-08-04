@@ -6,22 +6,31 @@ using System.Threading.Tasks;
 
 namespace SIEleccionReina.Entidades
 {
-    internal class clsCarrera
+    internal class ClsCarrera
     {
         #region "Atributos Privados"
 
-        private int _id_carrera;
-        private string _nombre_carrera;
+        private int _idCarrera;
+        private string _nombreCarrera;
 
         #endregion
-
-
 
         #region "Propiedades Públicas"
 
-        public int Id_carrera { get => _id_carrera; set => _id_carrera = value; }
-        public string Nombre_carrera { get => _nombre_carrera; set => _nombre_carrera = value; }
+        public int IdCarrera { get => _idCarrera; set => _idCarrera = value; }
+        public string NombreCarrera { get => _nombreCarrera; set => _nombreCarrera = value; }
 
         #endregion
+
+        #region Constructor Parametrizado
+        
+        public ClsCarrera( int idCarrera, string nombreCarrera )
+        {
+            _idCarrera = idCarrera;
+            _nombreCarrera = nombreCarrera;
+        }
+
+        #endregion
+
     }
 }

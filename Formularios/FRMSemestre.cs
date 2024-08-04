@@ -12,6 +12,9 @@ using System.Windows.Forms;
 
 namespace SIEleccionReina.Formularios
 {
+    [Obsolete( "DEPRECATED: Esta clase está actualmente Obsoleta y ha sido marcada para ser eliminada en una próxima iteración, " +
+        "por favor evite su uso, y el de cualquiera de sus métodos, dado que actualmente carece de propósito y ya no existen los " +
+        "medios en la Base de Datos para poder usarla, por lo tanto su intento de uso dará como resultado un error.", true )]
     public partial class FRMSemestre : Form
     {
         public FRMSemestre()
@@ -29,12 +32,12 @@ namespace SIEleccionReina.Formularios
                 return;
             }
 
-            clsSemestre Obj_Semestre = new clsSemestre()
+            ClsSemestre Obj_Semestre = new ClsSemestre()
             {
                 Numero_semestre = TxtSemestre.Text
             };
 
-            clsSemestre_DB Obj_Conexion = new clsSemestre_DB();
+            ClsSemestre_DB Obj_Conexion = new ClsSemestre_DB();
             Obj_Conexion.Ingresar_Semestre(Obj_Semestre, 2);
 
             TxtSemestre.Clear();

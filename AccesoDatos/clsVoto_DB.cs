@@ -7,15 +7,15 @@ using System.Windows.Forms;
 
 namespace SIEleccionReina.AccesoDatos
 {
-    internal class clsVoto_DB
+    internal class ClsVoto_DB
     {
         private ConexionDAO objConexion;
         private SqlConnection con;
         private const string QUERY = "SP_CRUD_VOTO";
 
-        public clsVoto_DB() => objConexion = ConexionDAO.GetInstance(); // Constructor
+        public ClsVoto_DB() => objConexion = ConexionDAO.GetInstance(); // Constructor
 
-        public int Ingresar_Voto( clsVoto obj_Info, VotoTipoCRUD tipoCrud )
+        public int Ingresar_Voto( ClsVoto obj_Info, VotoTipoCRUD tipoCrud )
         {
             try
             {
@@ -25,7 +25,7 @@ namespace SIEleccionReina.AccesoDatos
             }
             catch ( Exception ex )
             {
-                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
+                MessageBox.Show( ex.Message, CommonUtils.Messages.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
                 return 0;
             }
             finally
@@ -35,7 +35,7 @@ namespace SIEleccionReina.AccesoDatos
             }
         }
 
-        public bool VerificarVotoRegistrado( clsVoto obj_Info, VotoTipoCRUD tipoCrud )
+        public bool VerificarVotoRegistrado( ClsVoto obj_Info, VotoTipoCRUD tipoCrud )
         {
             try
             {
@@ -46,7 +46,7 @@ namespace SIEleccionReina.AccesoDatos
             }
             catch ( Exception ex )
             {
-                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
+                MessageBox.Show( ex.Message, CommonUtils.Messages.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
                 return false;
             }
             finally
@@ -56,7 +56,7 @@ namespace SIEleccionReina.AccesoDatos
             }
         }
 
-        private SqlCommand ArmarComandoSql( clsVoto obj_Info, VotoTipoCRUD tipoCrud )
+        private SqlCommand ArmarComandoSql( ClsVoto obj_Info, VotoTipoCRUD tipoCrud )
         {
             con = objConexion.GetOpenConnection();
             SqlCommand comando = new SqlCommand( QUERY, con ) { CommandTimeout = 1000000 };

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIEleccionReina.Modelos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,27 +7,19 @@ using System.Threading.Tasks;
 
 namespace SIEleccionReina.Entidades
 {
-    internal class ClsEstudiante
+    internal class ClsEstudiante : PersonaUG
     {
         #region  "Atributos Privados"
-
-        private int _id_estudiante;
-        private int _id_semestre;
-        private int _id_carrera;
-        private string _cedula;
+        // Aclaracion: Los atributos y propiedades que aparentemente faltan aqui, en realidad si estan, pero ocultas por el polimorfismo, dado que ahora se hereda de la clase abstracta PersonaUG, la cual posee estros atributos y propiedades
         private string _contrasenia;
-        private string _rol_usuario;
+        private decimal _idRolUsuario;
 
         #endregion
 
         #region "Propiedades Públicas"
 
-        public int Id_estudiante { get => _id_estudiante; set => _id_estudiante = value; }
-        public int Id_semestre { get => _id_semestre; set => _id_semestre = value; }
-        public int Id_carrera { get => _id_carrera; set => _id_carrera = value; }
-        public string Cedula { get => _cedula; set => _cedula = value; }
         public string Contrasenia { get => _contrasenia; set => _contrasenia = value; }
-        public string Rol_usuario { get => _rol_usuario; set => _rol_usuario = value; }
+        public decimal IdRolUsuario { get => _idRolUsuario; set => _idRolUsuario = value; }
 
         #endregion
 
@@ -36,16 +29,18 @@ namespace SIEleccionReina.Entidades
 
         #endregion
 
-        #region Parameterized Constructor
+        #region Parameterized Constructors
 
-        public ClsEstudiante( int id_estudiante, int id_semestre, int id_carrera, string cedula, string contrasenia, string rol_usuario )
+        public ClsEstudiante( int idEstudiante, int idCarrera, string cedula, int semestre, string contrasenia, decimal id_rol_usuario, string nombres, string apellidos ) : base( id: idEstudiante, carreraId: idCarrera, cedula: cedula, nombres: nombres, apellidos: apellidos, semestre: semestre )
         {
-            _id_estudiante = id_estudiante;
-            _id_semestre = id_semestre;
-            _id_carrera = id_carrera;
-            _cedula = cedula;
             _contrasenia = contrasenia;
-            _rol_usuario = rol_usuario;
+            _idRolUsuario = id_rol_usuario;
+        }
+
+        public ClsEstudiante( string cedula, string contrasenia, decimal id_rol_usuario ) : base ( cedula: cedula )
+        {
+            _contrasenia = contrasenia;
+            _idRolUsuario = id_rol_usuario;
         }
 
         #endregion

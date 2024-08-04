@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace SIEleccionReina.Entidades
 {
-    internal class clsSemestre
+    [Obsolete( "DEPRECATED: Esta clase está actualmente Obsoleta y ha sido marcada para ser eliminada en una próxima iteración, " +
+        "por favor evite su uso, y el de cualquiera de sus métodos, dado que actualmente carece de propósito y ya no existen los " +
+        "medios en la Base de Datos para poder usarla, por lo tanto su intento de uso dará como resultado un error.", true )]
+    internal class ClsSemestre
     {
         #region "Atributos Privados"
 
@@ -14,9 +17,6 @@ namespace SIEleccionReina.Entidades
         private string _numero_semestre;
 
         #endregion
-
-
-
         #region "Propiedades Públicas"
 
         public int Id_semestre { get => _id_semestre; set => _id_semestre = value; }

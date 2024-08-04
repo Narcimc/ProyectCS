@@ -121,7 +121,7 @@
   <data name="PBoxResultados.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vQAADr0BR/uQrQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAC8ySURBVHhe7d17
+        vAAADrwBlbxySQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAC8ySURBVHhe7d17
         lN11fe7xmcmdu4BcBEICCcilgmJQuYmIVi6BBQqiLQEEEUM4CUIMiQYorYggFC9tFbE9x552eanKAc9q
         e6o9bT2Hha0V1GoVxWIvirS02oNcld/5fIO6EB6cvb/72d/Zn5n3e63XPyyYZH6Zlc9DMrNnjIiIiIiI
         iIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiI
@@ -329,7 +329,7 @@
   <data name="PBoxGaleria.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vQAADr0BR/uQrQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAHm7SURBVHhe7d0H
+        vAAADrwBlbxySQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAHm7SURBVHhe7d0H
         eFVF+gbwJSSBhJCEQCD03iGh964UAekd6UVBUQQE7L1h7733gl1EbGvvvWAXxbquBXWLrrvzn+/sHzfA
         C8zcmXNue9/n+T3PFr05d+6c+e49Z87MnxiGYRiGYRiGYRiGYRiGYRiGYRiGYRiGYRiGYRiGYRiGYRiG
         YRiGYRiGYRiGYZidpapWTWugNdHKtM5a+///76KeJv+MyNUYhmEYhkmw1NX6apO1Jdpx2iXaXdrT2gfa
@@ -2508,4 +2508,7 @@
         PaxWpqn9Q0rmwNeRAAoKD/zOIrPNWVwzR4rm/wDhBQFIAFBQf/iX/9k=
 </value>
   </data>
+  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>

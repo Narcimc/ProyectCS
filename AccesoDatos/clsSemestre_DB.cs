@@ -7,18 +7,21 @@ using System.Windows.Forms;
 
 namespace SIEleccionReina.AccesoDatos
 {
-    internal class clsSemestre_DB
+    [Obsolete( "DEPRECATED: Esta clase está actualmente Obsoleta y ha sido marcada para ser eliminada en una próxima iteración, " +
+        "por favor evite su uso, y el de cualquiera de sus métodos, dado que actualmente carece de propósito y ya no existen los " +
+        "medios en la Base de Datos para poder usarla, por lo tanto su intento de uso dará como resultado un error.", true )]
+    internal class ClsSemestre_DB
     {
         private ConexionDAO objConexion;
         private SqlCommand comando;
         private SqlConnection con;
 
-        public clsSemestre_DB()
+        public ClsSemestre_DB()
         {
             objConexion = ConexionDAO.GetInstance();
         }
 
-        public int Ingresar_Semestre(clsSemestre obj_Info, int tipoCrud)
+        public int Ingresar_Semestre(ClsSemestre obj_Info, int tipoCrud)
         {
             try
             {
@@ -40,7 +43,7 @@ namespace SIEleccionReina.AccesoDatos
             }
             catch ( Exception ex )
             {
-                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
+                MessageBox.Show( ex.Message, CommonUtils.Messages.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
                 return 0;
             }
             finally
@@ -50,7 +53,7 @@ namespace SIEleccionReina.AccesoDatos
             }
         }
 
-        public DataTable Combo_semestre (clsSemestre obj_Info, int tipoCrud)
+        public DataTable Combo_semestre (ClsSemestre obj_Info, int tipoCrud)
         {
             try
             {

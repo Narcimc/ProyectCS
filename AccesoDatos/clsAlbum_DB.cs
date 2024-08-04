@@ -7,18 +7,18 @@ using SIEleccionReina.Control;
 
 namespace SIEleccionReina.AccesoDatos
 {
-    internal class clsAlbum_DB
+    internal class ClsAlbum_DB
     {
         private ConexionDAO objConexion;
         private SqlCommand comando;
         private SqlConnection con;
 
-        public clsAlbum_DB()
+        public ClsAlbum_DB()
         {
             objConexion = ConexionDAO.GetInstance();
         }
 
-        public int Ingresar_Album(clsAlbum obj_Info, int tipoCrud)
+        public int Ingresar_Album( ClsAlbum albumObjInfo, int tipoCrud )
         {
             try
             {
@@ -31,16 +31,16 @@ namespace SIEleccionReina.AccesoDatos
 
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@id_crud", SqlDbType.Int).Value = tipoCrud;
-                comando.Parameters.Add("@id_album", SqlDbType.Int).Value = obj_Info.Id_album;
-                comando.Parameters.Add("@id_candidata", SqlDbType.Int).Value = obj_Info.Id_candidata;
-                comando.Parameters.Add("@titulo", SqlDbType.VarChar).Value = obj_Info.Titulo;
+                comando.Parameters.Add("@id_album", SqlDbType.Int).Value = albumObjInfo.Id_album;
+                comando.Parameters.Add("@id_candidata", SqlDbType.Int).Value = albumObjInfo.Id_candidata;
+                comando.Parameters.Add("@titulo", SqlDbType.VarChar).Value = albumObjInfo.Titulo;
                 
                 comando.ExecuteNonQuery();
                 return 1;
             }
             catch ( Exception ex )
             {
-                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                MessageBox.Show( ex.Message, CommonUtils.Messages.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Warning );
                 return 0;
             }
             finally
@@ -50,7 +50,7 @@ namespace SIEleccionReina.AccesoDatos
             }
         }
 
-        public DataTable Combo_Album(clsAlbum obj_Info, int tipoCrud)
+        public DataTable Combo_Album( ClsAlbum albumObjInfo, int tipoCrud )
         {
             try
             {
@@ -63,9 +63,9 @@ namespace SIEleccionReina.AccesoDatos
 
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("@id_crud", SqlDbType.Int).Value = tipoCrud;
-                comando.Parameters.Add("@id_album", SqlDbType.Int).Value = obj_Info.Id_album;
-                comando.Parameters.Add("@id_candidata", SqlDbType.Int).Value = obj_Info.Id_candidata;
-                comando.Parameters.Add("@titulo", SqlDbType.VarChar).Value = obj_Info.Titulo;
+                comando.Parameters.Add("@id_album", SqlDbType.Int).Value = albumObjInfo.Id_album;
+                comando.Parameters.Add("@id_candidata", SqlDbType.Int).Value = albumObjInfo.Id_candidata;
+                comando.Parameters.Add("@titulo", SqlDbType.VarChar).Value = albumObjInfo.Titulo;
                 DataTable ds = new DataTable();
                 SqlDataAdapter adapter = new SqlDataAdapter(comando);
 

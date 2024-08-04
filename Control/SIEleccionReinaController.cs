@@ -1,5 +1,7 @@
 ﻿using SIEleccionReina.AccesoDatos;
 using SIEleccionReina.Entidades;
+using SIEleccionReina.Formularios;
+using SIEleccionReina.Properties;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,8 +14,10 @@ namespace SIEleccionReina.Control
     internal sealed class SIEleccionReinaController
     {
         //***** Objetos de Instancia de otras clases
-        private clsVoto_DB voto_DB;
-        private clsCandidata_DB candidata_DB;
+        private ClsEstudiante_DB estudiante_DB;
+        private ClsVoto_DB voto_DB;
+        private ClsCandidata_DB candidata_DB;
+        private ClsCarrera_DB carrera_DB;
 
         //***** Objeto de Sesión del Usuario logueado
         private ClsEstudiante _estudianteLogueado;
@@ -26,39 +30,103 @@ namespace SIEleccionReina.Control
         public bool EstudianteVotoReinaYaRegistrado { get => _estudianteVotoReinaYaRegistrado; set => _estudianteVotoReinaYaRegistrado = value; }
         public bool EstudianteVotoFotogeniaYaRegistrado { get => _estudianteVotoFotogeniaYaRegistrado; set => _estudianteVotoFotogeniaYaRegistrado = value; }
 
-        private List<clsCandidata> _listaCandidatas;
-        public List<clsCandidata> ListaCandidatas { get => _listaCandidatas; }
+        private List<ClsCandidata> _listaCandidatas;
+        public List<ClsCandidata> ListaCandidatas { get => _listaCandidatas; }
+
+        private Dictionary<int, string> _carrerasDisponibles;
+        public Dictionary<int, string> CarrerasDisponibles { get => _carrerasDisponibles; }
+
 
         //***** Singleton Pattern using a Lazy approach
         private static readonly Lazy<SIEleccionReinaController> lazy = new Lazy<SIEleccionReinaController>( () => new SIEleccionReinaController() );
         public static SIEleccionReinaController Instance { get { return lazy.Value; } }
         private SIEleccionReinaController() // Private Constructor
         { 
-            voto_DB = new clsVoto_DB();
-            candidata_DB = new clsCandidata_DB();
-            _listaCandidatas = new List<clsCandidata>();
+            estudiante_DB = new ClsEstudiante_DB();
+            voto_DB = new ClsVoto_DB();
+            candidata_DB = new ClsCandidata_DB();
+            carrera_DB = new ClsCarrera_DB();
+            _listaCandidatas = new List<ClsCandidata>();
+            _carrerasDisponibles = new Dictionary<int, string>();
         }
 
         //***** Métodos
+
+        // * Métodos más Generales
+
+        internal void ObtenerCarreras() 
+        {
+            DataTable carrerasDt = new DataTable();
+            carrerasDt = carrera_DB.Obtener_Carreras( tipoCrud: CarreraTipoCrud.ConsultaTodasCarreras );
+
+            foreach ( DataRow row in carrerasDt.Rows )
+            {
+                _carrerasDisponibles.Add( ( int ) row[ "id_carrera" ], ( string ) row[ "nombre_carrera" ] );
+            }
+        }
+
+        // * Métodos relacionados con la Sesión y Registro de Estudiante y Candidata
+
+        internal bool ValidarLogin( string usuario, string pwd, decimal userType, System.Windows.Forms.Control exControl ) 
+        {
+            ClsEstudiante estudianteObj = new ClsEstudiante( cedula: usuario, contrasenia: pwd, id_rol_usuario: userType );
+            System.Data.DataTable tablaDatosValidacionUsuario = new System.Data.DataTable();
+            tablaDatosValidacionUsuario = estudiante_DB.ValidarLogin( estudianteObj, EstudianteTipoCRUD.ValidarLoginUsuario ); // Validar Usuario y Contraseña
+
+            if ( tablaDatosValidacionUsuario != null && tablaDatosValidacionUsuario.Rows.Count > 0 )
+            {
+                RegistrarEstudianteLogueado( datosEstudiante: tablaDatosValidacionUsuario );
+                VerificarVotosRegistradosEstudiante();
+                ObtenerCandidatas();
+                ObtenerCarreras();
+                return true;
+            }
+            else
+                throw new LoginUnsuccessfulException( exceptionMessage: "Usuario, contraseña y/o Tipo de Usuario no válidos, los tres datos deben ser correctos, verifique nuevamente por favor.", errorOnControl: exControl );
+        }
 
         internal void RegistrarEstudianteLogueado( DataTable datosEstudiante )
         {
             _estudianteLogueado = new ClsEstudiante()
             {
-                Id_estudiante = ( int ) datosEstudiante.Rows[ 0 ][ "id_estudiante" ],
-                Id_semestre = ( int ) datosEstudiante.Rows[ 0 ][ "id_semestre" ],
-                Id_carrera = ( int ) datosEstudiante.Rows[ 0 ][ "id_carrera" ],
+                Id = ( int ) datosEstudiante.Rows[ 0 ][ "id_estudiante" ],
+                CarreraId = ( int ) datosEstudiante.Rows[ 0 ][ "id_carrera" ],
                 Cedula = datosEstudiante.Rows[ 0 ][ "cedula" ].ToString(),
+                Semestre = ( int ) datosEstudiante.Rows[ 0 ][ "semestre" ],
                 Contrasenia = datosEstudiante.Rows[ 0 ][ "contrasenia" ].ToString(),
-                Rol_usuario = datosEstudiante.Rows[ 0 ][ "rol_usuario" ].ToString()
+                IdRolUsuario = ( decimal ) datosEstudiante.Rows[ 0 ][ "id_rol_usuario" ]
             };
+        }
+
+        internal void LimpiarDatosCierreSesion()
+        {
+            _estudianteLogueado.Id = 0;
+            _estudianteLogueado.CarreraId = 0;
+            _estudianteLogueado.Semestre = 0;
+            _estudianteLogueado.Cedula = "";
+            _estudianteLogueado.Contrasenia = "";
+            _estudianteLogueado.IdRolUsuario = 0;
+        }
+
+        internal void MostrarOcultarContrasenia( TextBox txtContrasenia, PictureBox pbShowingIcon ) 
+        {   // Cambiar la visibilidad de la contraseña
+            if ( txtContrasenia.PasswordChar == '*' )
+            {
+                txtContrasenia.PasswordChar = '\0'; // Se Muestra la Contraseña
+                pbShowingIcon.Image = Resources.noVer;
+            }
+            else
+            {
+                txtContrasenia.PasswordChar = '*'; // Se Oculta la Contraseña
+                pbShowingIcon.Image = Resources.ver;
+            }
         }
 
         // * Métodos relacionados con los Votos
 
         internal void VerificarVotosRegistradosEstudiante()
         {
-            clsVoto votoObj = new clsVoto() { Id_estudiante = _estudianteLogueado.Id_estudiante, Tipo_voto = TipoVoto.Reina.ToString().ToUpper() };
+            ClsVoto votoObj = new ClsVoto() { Id_estudiante = _estudianteLogueado.Id, Tipo_voto = TipoVoto.Reina.ToString().ToUpper() };
 
             _estudianteVotoReinaYaRegistrado = voto_DB.VerificarVotoRegistrado( obj_Info: votoObj, tipoCrud: VotoTipoCRUD.ConsultaIndividualEstudiante );
             
@@ -68,9 +136,9 @@ namespace SIEleccionReina.Control
 
         internal int Votar( int idCandidata, TipoVoto tipoVoto )
         {
-            clsVoto voto = new clsVoto()
+            ClsVoto voto = new ClsVoto()
             {
-                Id_estudiante = _estudianteLogueado.Id_estudiante,
+                Id_estudiante = _estudianteLogueado.Id,
                 Id_candidata = idCandidata,
                 Tipo_voto = tipoVoto.ToString().ToUpper()
             };
@@ -84,7 +152,7 @@ namespace SIEleccionReina.Control
             ErrorProvider votoYaRegistradoErrorProvider = new ErrorProvider();
             votoYaRegistradoErrorProvider.Icon = new Icon( SystemIcons.Information, 8, 8 );
             votoYaRegistradoErrorProvider.SetIconPadding( botonVotar, 10    );
-            votoYaRegistradoErrorProvider.SetError( botonVotar, CommonUtils.VOTO_YA_REGISTRADO_MSJ );
+            votoYaRegistradoErrorProvider.SetError( botonVotar, CommonUtils.Messages.VOTO_YA_REGISTRADO_MSJ );
         }
 
         // * Métodos relacionados con las Candidatas
@@ -92,20 +160,20 @@ namespace SIEleccionReina.Control
         internal void ObtenerCandidatas() 
         { 
             DataTable candidatasDt = new DataTable();
-            candidatasDt = candidata_DB.ConsultarCandidatas( obj_Info: new clsCandidata(), tipoCrud: CandidataTipoCrud.ConsultaTodasCandidatas );
+            candidatasDt = candidata_DB.ConsultarCandidatas( candidataObjInfo: new ClsCandidata(), tipoCrud: CandidataTipoCrud.ConsultaTodasCandidatas );
 
             foreach ( DataRow row in candidatasDt.Rows )
             {
                 _listaCandidatas.Add
                 ( 
-                    new clsCandidata()
+                    new ClsCandidata()
                     {
-                        Id_candidata = ( int ) row[ "id_candidata" ],
-                        Carrera = new KeyValuePair<int, string>( ( int ) row[ "id_carrera" ], ( string ) row[ "nombre_carrera" ] ),
-                        Semestre = new KeyValuePair<int, int>( ( int ) row[ "id_semestre" ], ( int ) row[ "numero_semestre" ] ),
+                        Id = ( int ) row[ "id_candidata" ],
+                        CarreraId = ( int ) row[ "id_carrera" ],
+                        Semestre = ( int ) row[ "id_semestre" ],
                         Cedula = ( string ) row[ "cedula" ],
-                        Nombre = ( string ) row[ "nombre" ],
-                        Apellido = ( string ) row[ "apellido" ],
+                        Nombres = ( string ) row[ "nombre" ],
+                        Apellidos = ( string ) row[ "apellido" ],
                         Foto = ( string ) row[ "foto" ],
                         Fecha_nacimiento = ( DateTime ) row[ "fecha_nacimiento" ],
                         Edad = ( int ) row[ "edad" ],
@@ -119,7 +187,7 @@ namespace SIEleccionReina.Control
 
         public void MostrarInfoCandidata( Label nombreCandidata, PictureBox imagenCandidata, int indexCandidata )
         {
-            nombreCandidata.Text = _listaCandidatas[indexCandidata].Nombre + " " + _listaCandidatas[ indexCandidata ].Apellido;
+            nombreCandidata.Text = _listaCandidatas[indexCandidata].Nombres + " " + _listaCandidatas[ indexCandidata ].Apellidos;
             imagenCandidata.Image = Base64ToImage( _listaCandidatas[ indexCandidata ].Foto );
         }
 

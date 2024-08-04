@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SIEleccionReina.Entidades
 {
-    internal class clsAlbum
+    internal class ClsAlbum
     {
         #region "Atributos Privados"
 
@@ -26,7 +26,7 @@ namespace SIEleccionReina.Entidades
 
         #region Constructor by Default
 
-        public clsAlbum() {}
+        public ClsAlbum() {}
 
         #endregion
     }
