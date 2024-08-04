@@ -31,7 +31,7 @@
         }
         public string Apellidos { get => apellidos; set => apellidos = value; }
         public int Semestre { get => semestre; set => semestre = value; }
-        public string PimerNombre { get => primerNombre; }
+        public string PrimerNombre { get => primerNombre; }
         public string SegundoNombre { get => segundoNombre; }
 
         #endregion

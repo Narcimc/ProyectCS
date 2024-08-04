@@ -48,10 +48,10 @@
             this.TxtConfirmarContrasenia = new System.Windows.Forms.TextBox();
             this.LblConfirmarContrasenia = new System.Windows.Forms.Label();
             this.EPRegistroEstudiante = new System.Windows.Forms.ErrorProvider(this.components);
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
             this.LblNombres = new System.Windows.Forms.Label();
-            this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
             this.LblApellidos = new System.Windows.Forms.Label();
+            this.TxtNombres = new System.Windows.Forms.TextBox();
+            this.TxtApellidos = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.PBVerContrasenia)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDSemestre)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBVerConfirmContrasenia)).BeginInit();
@@ -300,22 +300,6 @@
             // 
             this.EPRegistroEstudiante.ContainerControl = this;
             // 
-            // maskedTextBox1
-            // 
-            this.maskedTextBox1.AllowPromptAsInput = false;
-            this.maskedTextBox1.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
-            this.maskedTextBox1.Font = new System.Drawing.Font("Leelawadee UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.maskedTextBox1.HidePromptOnLeave = true;
-            this.maskedTextBox1.Location = new System.Drawing.Point(146, 210);
-            this.maskedTextBox1.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
-            this.maskedTextBox1.Mask = "000 000 0000";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.PromptChar = ' ';
-            this.maskedTextBox1.Size = new System.Drawing.Size(300, 27);
-            this.maskedTextBox1.TabIndex = 24;
-            this.maskedTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.maskedTextBox1.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
-            // 
             // LblNombres
             // 
             this.LblNombres.AutoSize = true;
@@ -327,22 +311,6 @@
             this.LblNombres.Size = new System.Drawing.Size(77, 20);
             this.LblNombres.TabIndex = 25;
             this.LblNombres.Text = "Nombres: ";
-            // 
-            // maskedTextBox2
-            // 
-            this.maskedTextBox2.AllowPromptAsInput = false;
-            this.maskedTextBox2.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
-            this.maskedTextBox2.Font = new System.Drawing.Font("Leelawadee UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.maskedTextBox2.HidePromptOnLeave = true;
-            this.maskedTextBox2.Location = new System.Drawing.Point(146, 260);
-            this.maskedTextBox2.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
-            this.maskedTextBox2.Mask = "000 000 0000";
-            this.maskedTextBox2.Name = "maskedTextBox2";
-            this.maskedTextBox2.PromptChar = ' ';
-            this.maskedTextBox2.Size = new System.Drawing.Size(300, 27);
-            this.maskedTextBox2.TabIndex = 26;
-            this.maskedTextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.maskedTextBox2.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
             // LblApellidos
             // 
@@ -356,6 +324,26 @@
             this.LblApellidos.TabIndex = 27;
             this.LblApellidos.Text = "Apellidos: ";
             // 
+            // TxtNombres
+            // 
+            this.TxtNombres.Font = new System.Drawing.Font("Leelawadee UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtNombres.Location = new System.Drawing.Point(146, 210);
+            this.TxtNombres.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
+            this.TxtNombres.MaxLength = 50;
+            this.TxtNombres.Name = "TxtNombres";
+            this.TxtNombres.Size = new System.Drawing.Size(300, 27);
+            this.TxtNombres.TabIndex = 28;
+            // 
+            // TxtApellidos
+            // 
+            this.TxtApellidos.Font = new System.Drawing.Font("Leelawadee UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtApellidos.Location = new System.Drawing.Point(146, 260);
+            this.TxtApellidos.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
+            this.TxtApellidos.MaxLength = 50;
+            this.TxtApellidos.Name = "TxtApellidos";
+            this.TxtApellidos.Size = new System.Drawing.Size(300, 27);
+            this.TxtApellidos.TabIndex = 29;
+            // 
             // FormRegistroEstudiante
             // 
             this.AcceptButton = this.BtnRegistrar;
@@ -365,9 +353,9 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.CancelButton = this.BtnCancelar;
             this.ClientSize = new System.Drawing.Size(474, 591);
-            this.Controls.Add(this.maskedTextBox2);
+            this.Controls.Add(this.TxtApellidos);
+            this.Controls.Add(this.TxtNombres);
             this.Controls.Add(this.LblApellidos);
-            this.Controls.Add(this.maskedTextBox1);
             this.Controls.Add(this.LblNombres);
             this.Controls.Add(this.PBVerConfirmContrasenia);
             this.Controls.Add(this.TxtConfirmarContrasenia);
@@ -425,9 +413,9 @@
         private System.Windows.Forms.TextBox TxtConfirmarContrasenia;
         private System.Windows.Forms.Label LblConfirmarContrasenia;
         private System.Windows.Forms.ErrorProvider EPRegistroEstudiante;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox2;
         private System.Windows.Forms.Label LblApellidos;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
         private System.Windows.Forms.Label LblNombres;
+        private System.Windows.Forms.TextBox TxtApellidos;
+        private System.Windows.Forms.TextBox TxtNombres;
     }
 }

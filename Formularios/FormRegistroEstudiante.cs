@@ -15,16 +15,12 @@ namespace SIEleccionReina.Formularios
 {
     public partial class FormRegistroEstudiante : Form
     {
-        //private ClsEstudiante_DB Obj_conexion;
-        private ClsEstudiante estudianteObj;
         private SIEleccionReinaController controlador;
-        TipoUsuario tipoUsuarioInvocador;
+        private TipoUsuario tipoUsuarioInvocador;
 
         public FormRegistroEstudiante( TipoUsuario tipoUsuarioInvocador )
         {
             InitializeComponent();
-            //Obj_conexion = new ClsEstudiante_DB();
-            estudianteObj = new ClsEstudiante();
             controlador = SIEleccionReinaController.Instance;
             this.tipoUsuarioInvocador = tipoUsuarioInvocador;
         }
@@ -61,6 +57,8 @@ namespace SIEleccionReina.Formularios
             CmbTipoUsuario.Font = CommonUtils.PredefinedCustomFonts.ContentFont;
             CmbCarrera.Font = CommonUtils.PredefinedCustomFonts.ContentFont;
             NUDSemestre.Font = CommonUtils.PredefinedCustomFonts.ContentFont;
+            TxtNombres.Font = CommonUtils.PredefinedCustomFonts.ContentFont;
+            TxtApellidos.Font = CommonUtils.PredefinedCustomFonts.ContentFont;
             TxtContrasenia.Font = CommonUtils.PredefinedCustomFonts.ContentFont;
             TxtConfirmarContrasenia.Font = CommonUtils.PredefinedCustomFonts.ContentFont;
             BtnRegistrar.Font = CommonUtils.PredefinedCustomFonts.MainActionButtonFont;
@@ -69,10 +67,12 @@ namespace SIEleccionReina.Formularios
 
         private void BtnRegistrar_Click( object sender, EventArgs e )
         {
+            ClsEstudiante estudiante = new ClsEstudiante();
 
         }
 
-        private void BtnCancelar_Click( object sender, EventArgs e ) => Close();
+        private void BtnCancelar_Click( object sender, EventArgs e ) 
+            => Close();
 
         private void PBVerContrasenia_Click( object sender, EventArgs e ) 
             => controlador.MostrarOcultarContrasenia( txtContrasenia: TxtContrasenia, pbShowingIcon: PBVerContrasenia );

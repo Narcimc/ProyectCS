@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace SIEleccionReina.Control
 {
-    public enum TipoUsuario 
+    public enum TipoUsuario // Es público porque se usa como parametro de constructor en un Formulario y el modificador de acceso debe ser compatible
     { 
         Administrador,
         Estudiante

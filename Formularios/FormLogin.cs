@@ -19,6 +19,7 @@ namespace SIEleccionReina
         {
             InitializeComponent();
             controlador = SIEleccionReinaController.Instance;
+            controlador.ObtenerCarreras();
         }
 
         private void FormLogin_Load( object sender, EventArgs e )

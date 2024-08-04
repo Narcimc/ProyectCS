@@ -78,7 +78,6 @@ namespace SIEleccionReina.Control
                 RegistrarEstudianteLogueado( datosEstudiante: tablaDatosValidacionUsuario );
                 VerificarVotosRegistradosEstudiante();
                 ObtenerCandidatas();
-                ObtenerCarreras();
                 return true;
             }
             else

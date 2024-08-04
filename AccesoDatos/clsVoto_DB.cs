@@ -13,9 +13,9 @@ namespace SIEleccionReina.AccesoDatos
         private SqlConnection con;
         private const string QUERY = "SP_CRUD_VOTO";
 
-        public ClsVoto_DB() => objConexion = ConexionDAO.GetInstance(); // Constructor
+        internal ClsVoto_DB() => objConexion = ConexionDAO.GetInstance(); // Constructor
 
-        public int Ingresar_Voto( ClsVoto obj_Info, VotoTipoCRUD tipoCrud )
+        internal int Ingresar_Voto( ClsVoto obj_Info, VotoTipoCRUD tipoCrud )
         {
             try
             {
@@ -35,7 +35,7 @@ namespace SIEleccionReina.AccesoDatos
             }
         }
 
-        public bool VerificarVotoRegistrado( ClsVoto obj_Info, VotoTipoCRUD tipoCrud )
+        internal bool VerificarVotoRegistrado( ClsVoto obj_Info, VotoTipoCRUD tipoCrud )
         {
             try
             {

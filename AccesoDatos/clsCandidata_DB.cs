@@ -13,9 +13,9 @@ namespace SIEleccionReina.AccesoDatos
         private SqlConnection con;
         private const string QUERY = "SP_CRUD_CANDIDATA";
 
-        public ClsCandidata_DB() => objConexion = ConexionDAO.GetInstance(); // Constructor
+        internal ClsCandidata_DB() => objConexion = ConexionDAO.GetInstance(); // Constructor
 
-        public int IngresarModificarEliminarCandidata( CandidataTipoCrud tipoCrud, object candidataObjInfo )
+        internal int IngresarModificarEliminarCandidata( CandidataTipoCrud tipoCrud, object candidataObjInfo )
         {
             try
             {
@@ -35,7 +35,7 @@ namespace SIEleccionReina.AccesoDatos
             }
         }
 
-        public DataTable ConsultarCandidatas( CandidataTipoCrud tipoCrud ) 
+        internal DataTable ConsultarCandidatas( CandidataTipoCrud tipoCrud ) 
         {
             try
             {
@@ -56,7 +56,7 @@ namespace SIEleccionReina.AccesoDatos
             }
         }
 
-        public DataTable ConsultarCandidatas( CandidataTipoCrud tipoCrud, object candidataObjInfo )
+        internal DataTable ConsultarCandidatas( CandidataTipoCrud tipoCrud, object candidataObjInfo )
         {   
             try
             {

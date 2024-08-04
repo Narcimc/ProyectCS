@@ -31,7 +31,7 @@ namespace SIEleccionReina.Formularios
             {
                 Validaciones.IsCarreraValid( TxtCarrera.Text, TxtCarrera );
                 ClsCarrera_DB Obj_Conexion = new ClsCarrera_DB();
-                Obj_Conexion.Ingresar_Carrera( new KeyValuePair<int?, string>( null, TxtCarrera.Text ), CarreraTipoCrud.InsertarCarrera );
+                Obj_Conexion.IngresarModificarEliminarCarrera( new KeyValuePair<int, string>( 0, TxtCarrera.Text ), CarreraTipoCrud.InsertarCarrera );
             }
             catch ( InvalidValueException invex )
             {

@@ -16,9 +16,9 @@ namespace SIEleccionReina.AccesoDatos
         private SqlConnection con;
         private const string QUERY = "SP_CRUD_ESTUDIANTE";
 
-        public ClsEstudiante_DB() => objConexion = ConexionDAO.GetInstance(); // Constructor
+        internal ClsEstudiante_DB() => objConexion = ConexionDAO.GetInstance(); // Constructor
 
-        public int IngresarModificarEliminarEstudiante( object estudianteObjInfo, EstudianteTipoCRUD tipoCrud ) 
+        internal int IngresarModificarEliminarEstudiante( object estudianteObjInfo, EstudianteTipoCRUD tipoCrud ) 
         {
             try
             {
@@ -38,7 +38,7 @@ namespace SIEleccionReina.AccesoDatos
             }
         }
         
-        public DataTable ValidarLogin( ClsEstudiante estudianteObjInfo, EstudianteTipoCRUD tipoCrud )
+        internal DataTable ValidarLogin( ClsEstudiante estudianteObjInfo, EstudianteTipoCRUD tipoCrud )
         {
             try
             {
@@ -59,7 +59,7 @@ namespace SIEleccionReina.AccesoDatos
             }
         }
 
-        private SqlCommand ArmarComandoSql( object estudianteObjInfo, EstudianteTipoCRUD tipoCrud )
+        internal SqlCommand ArmarComandoSql( object estudianteObjInfo, EstudianteTipoCRUD tipoCrud )
         {
             con = objConexion.GetOpenConnection();
             SqlCommand comando = new SqlCommand( QUERY, con ) { CommandTimeout = 1000000 };

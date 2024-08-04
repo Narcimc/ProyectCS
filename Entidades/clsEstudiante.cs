@@ -29,8 +29,8 @@ namespace SIEleccionReina.Entidades
 
         #endregion
 
-        #region Parameterized Constructors
-
+        #region Parameterized Constructors - with Overloads - con sobrecarga de constructores para flexibilidad y facilidad de uso
+        // Se envia al superconstructor 'base' los parametros de la superclase o clase padre de la cual se hereda para setear los atributos generales que hereda esta clase de PersonaUG
         public ClsEstudiante( int idEstudiante, int idCarrera, string cedula, int semestre, string contrasenia, decimal id_rol_usuario, string nombres, string apellidos ) : base( id: idEstudiante, carreraId: idCarrera, cedula: cedula, nombres: nombres, apellidos: apellidos, semestre: semestre )
         {
             _contrasenia = contrasenia;

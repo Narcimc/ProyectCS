@@ -13,12 +13,12 @@ namespace SIEleccionReina.AccesoDatos
         private SqlCommand comando;
         private SqlConnection con;
 
-        public ClsAlbum_DB()
+        internal ClsAlbum_DB()
         {
             objConexion = ConexionDAO.GetInstance();
         }
 
-        public int Ingresar_Album( ClsAlbum albumObjInfo, int tipoCrud )
+        internal int Ingresar_Album( ClsAlbum albumObjInfo, int tipoCrud )
         {
             try
             {
@@ -50,7 +50,7 @@ namespace SIEleccionReina.AccesoDatos
             }
         }
 
-        public DataTable Combo_Album( ClsAlbum albumObjInfo, int tipoCrud )
+        internal DataTable Combo_Album( ClsAlbum albumObjInfo, int tipoCrud )
         {
             try
             {
@@ -75,7 +75,7 @@ namespace SIEleccionReina.AccesoDatos
             }
             catch ( Exception ex )
             {
-                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
+                MessageBox.Show( ex.Message, CommonUtils.Messages.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
                 return null;
             }
             finally
