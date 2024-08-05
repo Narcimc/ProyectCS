@@ -32,8 +32,8 @@ using System.Runtime.InteropServices;
 // Puede especificar todos los valores o usar los valores predeterminados de número de compilación y de revisión
 // utilizando el carácter "*", como se muestra a continuación:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion( "0.2.2484.1" )]
-[assembly: AssemblyFileVersion( "1.2.2484.1" )]
+[assembly: AssemblyVersion( "1.0.2485.1" )]
+[assembly: AssemblyFileVersion( "1.3.2485.1" )]
 
 // El siguiente atributo permite al proyecto de Pruebas Unitarias SIEleccionReinaTests acceder a los miembros
 // con modificador internal de este proyecto principal
