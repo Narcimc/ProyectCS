@@ -7,25 +7,25 @@ using System.Windows.Forms;
 
 namespace SIEleccionReina.AccesoDatos
 {
-    internal class clsCandidata_DB
+    internal class ClsCandidata_DB
     {
         private ConexionDAO objConexion;
         private SqlConnection con;
         private const string QUERY = "SP_CRUD_CANDIDATA";
 
-        public clsCandidata_DB() => objConexion = ConexionDAO.GetInstance(); // Constructor
+        internal ClsCandidata_DB() => objConexion = ConexionDAO.GetInstance(); // Constructor
 
-        public int IngresarModificarEliminarCandidata( clsCandidata obj_Info, CandidataTipoCrud tipoCrud )
+        internal int IngresarModificarEliminarCandidata( CandidataTipoCrud tipoCrud, object candidataObjInfo )
         {
             try
             {
-                SqlCommand comando = ArmarComandoSql( obj_Info, tipoCrud );
+                SqlCommand comando = ArmarComandoSql( tipoCrud, candidataObjInfo );
                 comando.ExecuteNonQuery();
                 return 1;
             }
             catch ( Exception ex )
             {
-                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                MessageBox.Show( ex.Message, CommonUtils.Messages.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Warning );
                 return 0;
             }
             finally
@@ -35,18 +35,18 @@ namespace SIEleccionReina.AccesoDatos
             }
         }
 
-        public DataTable ConsultarCandidatas( clsCandidata obj_Info, CandidataTipoCrud tipoCrud )
-        {   // Método Tanto para Obtener una candidata Individual como para Obtenerlas todas
+        internal DataTable ConsultarCandidatas( CandidataTipoCrud tipoCrud ) 
+        {
             try
             {
                 DataTable ds = new DataTable();
-                SqlDataAdapter adapter = new SqlDataAdapter( ArmarComandoSql( obj_Info, tipoCrud ) );
+                SqlDataAdapter adapter = new SqlDataAdapter( ArmarComandoSqlBase( tipoCrud ) );
                 adapter.Fill( ds );
                 return ds;
             }
             catch ( Exception ex )
             {
-                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
+                MessageBox.Show( ex.Message, CommonUtils.Messages.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
                 return null;
             }
             finally
@@ -56,39 +56,96 @@ namespace SIEleccionReina.AccesoDatos
             }
         }
 
-        private SqlCommand ArmarComandoSql( clsCandidata obj_Info, CandidataTipoCrud tipoCrud )
+        internal DataTable ConsultarCandidatas( CandidataTipoCrud tipoCrud, object candidataObjInfo )
+        {   
+            try
+            {
+                DataTable ds = new DataTable();
+                SqlDataAdapter adapter = new SqlDataAdapter( ArmarComandoSql( tipoCrud, candidataObjInfo ) );
+                adapter.Fill( ds );
+                return ds;
+            }
+            catch ( Exception ex )
+            {
+                MessageBox.Show( ex.Message, CommonUtils.Messages.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
+                return null;
+            }
+            finally
+            {
+                if ( con != null )
+                    objConexion.CerrarConexion();
+            }
+        }
+
+        internal bool VerificarRegistroCandidata( string candidataCedula, CandidataTipoCrud tipoCrud )
+        {
+            try
+            {
+                SqlCommand comando = ArmarComandoSql( tipoCrud, candidataCedula );
+                SqlDataReader reader = comando.ExecuteReader( CommandBehavior.SingleRow );
+                reader.Read();
+                return reader.GetBoolean( 0 );
+            }
+            catch ( Exception ex )
+            {
+                MessageBox.Show( ex.Message, CommonUtils.Messages.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                return true;
+            }
+            finally
+            {
+                if ( con != null )
+                    objConexion.CerrarConexion();
+            }
+        }
+
+        private SqlCommand ArmarComandoSqlBase( CandidataTipoCrud tipoCrud ) 
         {
             con = objConexion.GetOpenConnection();
             SqlCommand comando = new SqlCommand( QUERY, con ) { CommandTimeout = 1000000 };
-
             comando.CommandType = CommandType.StoredProcedure;
             comando.Parameters.Add( "@id_crud", SqlDbType.Int ).Value = ( int ) tipoCrud;
-            comando.Parameters.Add( "@id_candidata", SqlDbType.Int ).Value = obj_Info.Id_candidata;
+            return comando;
+        }
+
+        private SqlCommand ArmarComandoSql( CandidataTipoCrud tipoCrud, object candidataObjInfo )
+        {
+            SqlCommand comando = ArmarComandoSqlBase( tipoCrud );
+
+            ClsCandidata candidataObj = null;
+
+            if ( candidataObjInfo is ClsCandidata )
+                candidataObj = candidataObjInfo as ClsCandidata;
 
             switch ( tipoCrud )
             {
                 case CandidataTipoCrud.InsertarCandidata:
-                case CandidataTipoCrud.ModificarCantidata:
-                    comando.Parameters.Add( "@id_carrera", SqlDbType.Int ).Value = obj_Info.Carrera.Key;
-                    comando.Parameters.Add( "@id_semestre", SqlDbType.Int ).Value = obj_Info.Semestre.Key;
-                    comando.Parameters.Add( "@cedula", SqlDbType.VarChar ).Value = obj_Info.Cedula;
-                    comando.Parameters.Add( "@nombre", SqlDbType.VarChar ).Value = obj_Info.Nombre;
-                    comando.Parameters.Add( "@apellido", SqlDbType.VarChar ).Value = obj_Info.Apellido;
-                    comando.Parameters.Add( "@foto", SqlDbType.VarChar ).Value = obj_Info.Foto;
-                    comando.Parameters.Add( "@fecha_nacimiento", SqlDbType.Date ).Value = obj_Info.Fecha_nacimiento;
-                    comando.Parameters.Add( "@edad", SqlDbType.Int ).Value = obj_Info.Edad;
-                    comando.Parameters.Add( "@aspiraciones", SqlDbType.VarChar ).Value = obj_Info.Aspiraciones;
-                    comando.Parameters.Add( "@intereses", SqlDbType.VarChar ).Value = obj_Info.Intereses;
-                    comando.Parameters.Add( "@habilidades", SqlDbType.VarChar ).Value = obj_Info.Habilidades;
+                case CandidataTipoCrud.ModificarCandidata:
+                    comando.Parameters.Add( "@id_candidata", SqlDbType.Int ).Value = candidataObj.Id;
+                    comando.Parameters.Add( "@id_carrera", SqlDbType.Int ).Value = candidataObj.CarreraId;
+                    comando.Parameters.Add( "@semestre", SqlDbType.Int ).Value = candidataObj.Semestre;
+                    comando.Parameters.Add( "@cedula", SqlDbType.VarChar ).Value = candidataObj.Cedula;
+                    comando.Parameters.Add( "@nombres", SqlDbType.VarChar ).Value = candidataObj.Nombres;
+                    comando.Parameters.Add( "@apellidos", SqlDbType.VarChar ).Value = candidataObj.Apellidos;
+                    comando.Parameters.Add( "@foto", SqlDbType.VarChar ).Value = candidataObj.Foto;
+                    comando.Parameters.Add( "@fecha_nacimiento", SqlDbType.Date ).Value = candidataObj.Fecha_nacimiento;
+                    comando.Parameters.Add( "@edad", SqlDbType.Int ).Value = candidataObj.Edad;
+                    comando.Parameters.Add( "@aspiraciones", SqlDbType.VarChar ).Value = candidataObj.Aspiraciones;
+                    comando.Parameters.Add( "@intereses", SqlDbType.VarChar ).Value = candidataObj.Intereses;
+                    comando.Parameters.Add( "@habilidades", SqlDbType.VarChar ).Value = candidataObj.Habilidades;
+
+                    break;
+                case CandidataTipoCrud.ConsultaIndividualCandidata:
+                case CandidataTipoCrud.EliminarCandidata:
+                    if ( candidataObjInfo is int idCand )
+                        comando.Parameters.Add( "@id_candidata", SqlDbType.Int ).Value = idCand;
+
+                    break;
+                case CandidataTipoCrud.VerificarCandidataYaExiste:
+                    if ( candidataObjInfo is string cedulaCand )
+                        comando.Parameters.Add( "@cedula", SqlDbType.VarChar ).Value = cedulaCand;
 
                     break;
                 default:
-                    // Dado que el caso de ConsultaTodasCandidatas solo necesita el tipoCrud, el cual ya esta establecido, entonces no se incluye aquí
-                    // Dado que el id_candidata se utiliza casi en todos los casos, también se lo establece antes del switch
-                    // El único caso en el que no se utiliza el id_candidata es en el de ConsultaTodasCandidatas y en Insertar, pero tampoco pasa nada
-                    // si se lo asigna o no, de todas maneras el procedimiento almacenado espera recibir ese parámetro aunque lo utilice o no, lo cual 
-                    // por otro lado tampoco deberia ser así, ese sería un problema lógico del Procedimiento Almacenado en la Base de Datos, lo cual 
-                    // sería bueno solucionar, pero eso es harina de otro costal
                     break;
             }
 

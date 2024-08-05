@@ -13,7 +13,7 @@ namespace SIEleccionReina
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormReiFaSi());
+            Application.Run(new FormLogin());
         }
     }
 }

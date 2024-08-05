@@ -7,18 +7,18 @@ using System.Windows.Forms;
 
 namespace SIEleccionReina.AccesoDatos
 {
-    internal class clsFoto_DB
+    internal class ClsFoto_DB
     {
         private ConexionDAO objConexion;
         private SqlCommand comando;
         private SqlConnection con;
 
-        public clsFoto_DB()
+        internal ClsFoto_DB()
         {
             objConexion = ConexionDAO.GetInstance();
         }
 
-        public int Ingresar_Foto(clsFoto obj_Info, int tipoCrud)
+        internal int Ingresar_Foto(ClsFoto obj_Info, int tipoCrud)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace SIEleccionReina.AccesoDatos
             }
             catch ( Exception ex )
             {
-                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
+                MessageBox.Show( ex.Message, CommonUtils.Messages.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
                 return 0;
             }
             finally
@@ -53,7 +53,7 @@ namespace SIEleccionReina.AccesoDatos
             }
         }
 
-        public DataTable Combo_Foto(clsFoto obj_Info, int tipoCrud)
+        internal DataTable Combo_Foto(ClsFoto obj_Info, int tipoCrud)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace SIEleccionReina.AccesoDatos
             }
             catch ( Exception ex )
             {
-                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
+                MessageBox.Show( ex.Message, CommonUtils.Messages.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
                 return null;
             }
             finally

@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 namespace SIEleccionReina.AccesoDatos
 {
-    public class ConexionDAO
+    internal class ConexionDAO
     {
         private static ConexionDAO objConexion = null;
         private SqlConnection con;
@@ -15,7 +15,7 @@ namespace SIEleccionReina.AccesoDatos
             con = new SqlConnection(connectionString);
         }
 
-        public static ConexionDAO GetInstance()
+        internal static ConexionDAO GetInstance()
         {
             if (objConexion == null)
             {
@@ -24,7 +24,7 @@ namespace SIEleccionReina.AccesoDatos
             return objConexion;
         }
 
-        public SqlConnection GetOpenConnection()
+        internal SqlConnection GetOpenConnection()
         {
             if ( con.State == ConnectionState.Closed )
                 con.Open();
@@ -32,7 +32,7 @@ namespace SIEleccionReina.AccesoDatos
             return con;
         }
 
-        public void CerrarConexion()
+        internal void CerrarConexion()
         {
             if ( con.State == ConnectionState.Open )
                 con.Close();

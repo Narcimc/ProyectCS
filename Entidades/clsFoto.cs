@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SIEleccionReina.Entidades
 {
-    internal class clsFoto
+    internal class ClsFoto
     {
         #region "Atributos Privados"
 

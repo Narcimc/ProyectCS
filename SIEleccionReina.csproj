@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>0.1.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -22,6 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,10 +48,16 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>SIEleccionReina.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,83 +69,97 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccesoDatos\clsEstudiante_DB.cs" />
-    <Compile Include="AccesoDatos\clsAlbum_DB.cs" />
-    <Compile Include="AccesoDatos\clsCandidata_DB.cs" />
-    <Compile Include="AccesoDatos\clsCarrera_DB.cs" />
-    <Compile Include="AccesoDatos\clsFoto_DB.cs" />
-    <Compile Include="AccesoDatos\clsSemestre_DB.cs" />
-    <Compile Include="AccesoDatos\clsVoto_DB.cs" />
+    <Compile Include="AccesoDatos\ClsEstudiante_DB.cs" />
+    <Compile Include="AccesoDatos\ClsAlbum_DB.cs" />
+    <Compile Include="AccesoDatos\ClsCandidata_DB.cs" />
+    <Compile Include="AccesoDatos\ClsCarrera_DB.cs" />
+    <Compile Include="AccesoDatos\ClsFoto_DB.cs" />
+    <Compile Include="AccesoDatos\ClsVoto_DB.cs" />
     <Compile Include="AccesoDatos\ConexionDAO.cs" />
     <Compile Include="Control\CommonUtils.cs" />
+    <Compile Include="Control\InvalidValueException.cs" />
+    <Compile Include="Control\LoginUnsuccessfulException.cs" />
     <Compile Include="Control\SIEleccionReinaController.cs" />
+    <Compile Include="Control\SIEleccionReinaException.cs" />
     <Compile Include="Control\Validaciones.cs" />
-    <Compile Include="Entidades\clsEstudiante.cs" />
-    <Compile Include="Entidades\clsAlbum.cs" />
-    <Compile Include="Entidades\clsCandidata.cs" />
-    <Compile Include="Entidades\clsCarrera.cs" />
-    <Compile Include="Entidades\clsFoto.cs" />
-    <Compile Include="Entidades\clsSemestre.cs" />
-    <Compile Include="Entidades\clsVoto.cs" />
-    <Compile Include="Formularios\FrmEstudiante.cs">
+    <Compile Include="Entidades\ClsEstudiante.cs" />
+    <Compile Include="Entidades\ClsAlbum.cs" />
+    <Compile Include="Entidades\ClsCandidata.cs" />
+    <Compile Include="Entidades\ClsCarrera.cs" />
+    <Compile Include="Entidades\ClsFoto.cs" />
+    <Compile Include="Entidades\ClsVoto.cs" />
+    <Compile Include="Entidades\ComboBoxItem.cs" />
+    <Compile Include="Formularios\FormAcercaDe.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FrmEstudiante.Designer.cs">
-      <DependentUpon>FrmEstudiante.cs</DependentUpon>
+    <Compile Include="Formularios\FormAcercaDe.Designer.cs">
+      <DependentUpon>FormAcercaDe.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FrmEstadisticaFotogenica.cs">
+    <Compile Include="Formularios\FormModuloEstudiante.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FrmEstadisticaFotogenica.Designer.cs">
-      <DependentUpon>FrmEstadisticaFotogenica.cs</DependentUpon>
+    <Compile Include="Formularios\FormModuloEstudiante.Designer.cs">
+      <DependentUpon>FormModuloEstudiante.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FRMEstadisticasReinas.cs">
+    <Compile Include="Formularios\FormEstadisticasFotogenica.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FRMEstadisticasReinas.Designer.cs">
-      <DependentUpon>FRMEstadisticasReinas.cs</DependentUpon>
+    <Compile Include="Formularios\FormEstadisticasFotogenica.Designer.cs">
+      <DependentUpon>FormEstadisticasFotogenica.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FrmResultadosFotogenica.cs">
+    <Compile Include="Formularios\FormEstadisticasReina.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FrmResultadosFotogenica.Designer.cs">
-      <DependentUpon>FrmResultadosFotogenica.cs</DependentUpon>
+    <Compile Include="Formularios\FormEstadisticasReina.Designer.cs">
+      <DependentUpon>FormEstadisticasReina.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FrmResultados.cs">
+    <Compile Include="Formularios\FormElectaMissFotogenica.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FrmResultados.Designer.cs">
-      <DependentUpon>FrmResultados.cs</DependentUpon>
+    <Compile Include="Formularios\FormElectaMissFotogenica.Designer.cs">
+      <DependentUpon>FormElectaMissFotogenica.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FormReiFaSi.cs">
+    <Compile Include="Formularios\FormRegistroEstudiante.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FormReiFaSi.Designer.cs">
-      <DependentUpon>FormReiFaSi.cs</DependentUpon>
+    <Compile Include="Formularios\FormRegistroEstudiante.Designer.cs">
+      <DependentUpon>FormRegistroEstudiante.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FrmVotarFotogenica.cs">
+    <Compile Include="Formularios\FormResultados.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FrmVotarFotogenica.Designer.cs">
-      <DependentUpon>FrmVotarFotogenica.cs</DependentUpon>
+    <Compile Include="Formularios\FormResultados.Designer.cs">
+      <DependentUpon>FormResultados.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FRMVotoReina.cs">
+    <Compile Include="Formularios\FormLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FRMVotoReina.Designer.cs">
-      <DependentUpon>FRMVotoReina.cs</DependentUpon>
+    <Compile Include="Formularios\FormLogin.Designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FRMVistaDatosCandidata.cs">
+    <Compile Include="Formularios\FormVotoFotogenica.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FRMVistaDatosCandidata.Designer.cs">
-      <DependentUpon>FRMVistaDatosCandidata.cs</DependentUpon>
+    <Compile Include="Formularios\FormVotoFotogenica.Designer.cs">
+      <DependentUpon>FormVotoFotogenica.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FrmReina.cs">
+    <Compile Include="Formularios\FormVotoReina.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FrmReina.Designer.cs">
-      <DependentUpon>FrmReina.cs</DependentUpon>
+    <Compile Include="Formularios\FormVotoReina.Designer.cs">
+      <DependentUpon>FormVotoReina.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FormInfoDetallesCandidata.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FormInfoDetallesCandidata.Designer.cs">
+      <DependentUpon>FormInfoDetallesCandidata.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FormCandidatas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FormCandidatas.Designer.cs">
+      <DependentUpon>FormCandidatas.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FormModuloAdministrador.cs">
       <SubType>Form</SubType>
@@ -131,83 +167,80 @@
     <Compile Include="Formularios\FormModuloAdministrador.Designer.cs">
       <DependentUpon>FormModuloAdministrador.cs</DependentUpon>
     </Compile>
-    <Compile Include="Entidades\PersonaDTO.cs" />
-    <Compile Include="Formularios\FRMAlbum.cs">
+    <Compile Include="Entidades\PersonaUG.cs" />
+    <Compile Include="Formularios\FormAlbumes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FRMAlbum.Designer.cs">
-      <DependentUpon>FRMAlbum.cs</DependentUpon>
+    <Compile Include="Formularios\FormAlbumes.Designer.cs">
+      <DependentUpon>FormAlbumes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FRMCarreras.cs">
+    <Compile Include="Formularios\FormCarreras.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FRMCarreras.Designer.cs">
-      <DependentUpon>FRMCarreras.cs</DependentUpon>
+    <Compile Include="Formularios\FormCarreras.Designer.cs">
+      <DependentUpon>FormCarreras.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FRMGaleriaFotos.cs">
+    <Compile Include="Formularios\FormRegistroFotos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FRMGaleriaFotos.Designer.cs">
-      <DependentUpon>FRMGaleriaFotos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Formularios\FRMSemestre.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Formularios\FRMSemestre.Designer.cs">
-      <DependentUpon>FRMSemestre.cs</DependentUpon>
+    <Compile Include="Formularios\FormRegistroFotos.Designer.cs">
+      <DependentUpon>FormRegistroFotos.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Formularios\RegistroDeCandidatas.cs">
+    <Compile Include="Formularios\FormRegistroCandidata.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\RegistroDeCandidatas.Designer.cs">
-      <DependentUpon>RegistroDeCandidatas.cs</DependentUpon>
+    <Compile Include="Formularios\FormRegistroCandidata.Designer.cs">
+      <DependentUpon>FormRegistroCandidata.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Formularios\FrmEstudiante.resx">
-      <DependentUpon>FrmEstudiante.cs</DependentUpon>
+    <EmbeddedResource Include="Formularios\FormAcercaDe.resx">
+      <DependentUpon>FormAcercaDe.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FormReiFaSi.resx">
-      <DependentUpon>FormReiFaSi.cs</DependentUpon>
+    <EmbeddedResource Include="Formularios\FormModuloEstudiante.resx">
+      <DependentUpon>FormModuloEstudiante.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmEstadisticaFotogenica.resx">
-      <DependentUpon>FrmEstadisticaFotogenica.cs</DependentUpon>
+    <EmbeddedResource Include="Formularios\FormLogin.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FRMEstadisticasReinas.resx">
-      <DependentUpon>FRMEstadisticasReinas.cs</DependentUpon>
+    <EmbeddedResource Include="Formularios\FormEstadisticasFotogenica.resx">
+      <DependentUpon>FormEstadisticasFotogenica.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmResultados.resx">
-      <DependentUpon>FrmResultados.cs</DependentUpon>
+    <EmbeddedResource Include="Formularios\FormEstadisticasReina.resx">
+      <DependentUpon>FormEstadisticasReina.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmResultadosFotogenica.resx">
-      <DependentUpon>FrmResultadosFotogenica.cs</DependentUpon>
+    <EmbeddedResource Include="Formularios\FormRegistroEstudiante.resx">
+      <DependentUpon>FormRegistroEstudiante.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmVotarFotogenica.resx">
-      <DependentUpon>FrmVotarFotogenica.cs</DependentUpon>
+    <EmbeddedResource Include="Formularios\FormResultados.resx">
+      <DependentUpon>FormResultados.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FRMVotoReina.resx">
-      <DependentUpon>FRMVotoReina.cs</DependentUpon>
+    <EmbeddedResource Include="Formularios\FormElectaMissFotogenica.resx">
+      <DependentUpon>FormElectaMissFotogenica.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FRMVistaDatosCandidata.resx">
-      <DependentUpon>FRMVistaDatosCandidata.cs</DependentUpon>
+    <EmbeddedResource Include="Formularios\FormVotoFotogenica.resx">
+      <DependentUpon>FormVotoFotogenica.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmReina.resx">
-      <DependentUpon>FrmReina.cs</DependentUpon>
+    <EmbeddedResource Include="Formularios\FormVotoReina.resx">
+      <DependentUpon>FormVotoReina.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FormInfoDetallesCandidata.resx">
+      <DependentUpon>FormInfoDetallesCandidata.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FormCandidatas.resx">
+      <DependentUpon>FormCandidatas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FormModuloAdministrador.resx">
       <DependentUpon>FormModuloAdministrador.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FRMAlbum.resx">
-      <DependentUpon>FRMAlbum.cs</DependentUpon>
+    <EmbeddedResource Include="Formularios\FormAlbumes.resx">
+      <DependentUpon>FormAlbumes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FRMCarreras.resx">
-      <DependentUpon>FRMCarreras.cs</DependentUpon>
+    <EmbeddedResource Include="Formularios\FormCarreras.resx">
+      <DependentUpon>FormCarreras.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FRMGaleriaFotos.resx">
-      <DependentUpon>FRMGaleriaFotos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FRMSemestre.resx">
-      <DependentUpon>FRMSemestre.cs</DependentUpon>
+    <EmbeddedResource Include="Formularios\FormRegistroFotos.resx">
+      <DependentUpon>FormRegistroFotos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -219,8 +252,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Formularios\RegistroDeCandidatas.resx">
-      <DependentUpon>RegistroDeCandidatas.cs</DependentUpon>
+    <EmbeddedResource Include="Formularios\FormRegistroCandidata.resx">
+      <DependentUpon>FormRegistroCandidata.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -236,10 +269,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Image\" />
     <Folder Include="Reportes\" />
+    <Folder Include="Resources\ImagenesCandidatas\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Fonts\FiraCodeNerdFontMono-Bold.ttf" />
+    <None Include="Resources\Fonts\Alata-Regular.ttf" />
+    <None Include="Resources\Fonts\LeelawadeeUI-Bold.ttf" />
+    <None Include="Resources\Fonts\LeelawadeeUI-Regular.ttf" />
+    <None Include="Resources\Fonts\LeelawadeeUI-SemiLight.ttf" />
+    <None Include="Resources\Fonts\Montserrat-Bold.ttf" />
+    <None Include="Resources\Fonts\Montserrat-Regular.ttf" />
     <None Include="Resources\noVer.png" />
   </ItemGroup>
   <ItemGroup>
@@ -274,6 +314,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\CandidataLogo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Logo_Facultad_CMF.jpg" />
+    <Content Include="Resources\Logo_UG_Imagotipo_horizontal_941x206.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,45 +1,33 @@
 ﻿using SIEleccionReina.Control;
 using SIEleccionReina.Entidades;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Windows.Media.Media3D;
 
 namespace SIEleccionReina.AccesoDatos
 {
-    internal class clsCarrera_DB
+    internal class ClsCarrera_DB
     {
         private ConexionDAO objConexion;
-        private SqlCommand comando;
         private SqlConnection con;
+        private const string QUERY = "SP_CRUD_CARRERA";
 
-        public clsCarrera_DB()
-        {
-            objConexion = ConexionDAO.GetInstance();
-        }
+        internal ClsCarrera_DB() => objConexion = ConexionDAO.GetInstance(); // Constructor
 
-        public int Ingresar_Carrera(clsCarrera obj_Info, int tipoCrud)
+        internal int IngresarModificarEliminarCarrera( KeyValuePair<int, string> carrera, CarreraTipoCrud tipoCrud )
         {
             try
             {
-                string query = "SP_CRUD_CARRERA";
-                con = objConexion.GetOpenConnection();
-                comando = new SqlCommand(query, con)
-                {
-                    CommandTimeout = 1000000
-                };
-                comando.CommandType = CommandType.StoredProcedure;
-
-                comando.Parameters.Add("@id_crud", SqlDbType.Int).Value = tipoCrud;
-                comando.Parameters.Add("@id_carrera", SqlDbType.Int).Value = obj_Info.Id_carrera;
-                comando.Parameters.Add("@nombre_carrera", SqlDbType.VarChar).Value = obj_Info.Nombre_carrera;
-                
+                SqlCommand comando = ArmarComandoSql( carrera, tipoCrud );
                 comando.ExecuteNonQuery();
                 return 1;
             }
             catch ( Exception ex )
             {
-                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
+                MessageBox.Show( ex.Message, CommonUtils.Messages.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
                 return 0;
             }
             finally
@@ -49,30 +37,18 @@ namespace SIEleccionReina.AccesoDatos
             }
         }
 
-        public DataTable Combo_Carrera(clsCarrera obj_Info, int tipoCrud)
+        internal DataTable Obtener_Carreras( CarreraTipoCrud tipoCrud )
         {
             try
             {
-                string query = "SP_CRUD_CARRERA";
-                con = objConexion.GetOpenConnection();
-                comando = new SqlCommand(query, con)
-                {
-                    CommandTimeout = 1000000
-                };
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.Add("@id_crud", SqlDbType.Int).Value = tipoCrud;
-                comando.Parameters.Add("@id_carrera", SqlDbType.Int).Value = obj_Info.Id_carrera;
-                comando.Parameters.Add("@nombre_carrera", SqlDbType.VarChar).Value = obj_Info.Nombre_carrera;
                 DataTable ds = new DataTable();
-                SqlDataAdapter adapter = new SqlDataAdapter(comando);
-
+                SqlDataAdapter adapter = new SqlDataAdapter( ArmarComandoSql( new KeyValuePair<int, string>( 0, "" ), tipoCrud ) );
                 adapter.Fill(ds);
-
                 return ds;
             }
             catch ( Exception ex )
             {
-                MessageBox.Show( ex.Message, CommonUtils.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
+                MessageBox.Show( ex.Message, CommonUtils.Messages.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Error );
                 return null;
             }
             finally
@@ -80,6 +56,18 @@ namespace SIEleccionReina.AccesoDatos
                 if ( con != null )
                     objConexion.CerrarConexion();
             }
+        }
+
+        internal SqlCommand ArmarComandoSql( KeyValuePair<int, string> carrera, CarreraTipoCrud tipoCrud )
+        {
+            con = objConexion.GetOpenConnection();
+            SqlCommand comando = new SqlCommand( QUERY, con ) { CommandTimeout = 1000000 };
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add( "@id_crud", SqlDbType.Int ).Value = ( int ) tipoCrud;
+            comando.Parameters.Add( "@id_carrera", SqlDbType.Int ).Value = carrera.Key;
+            comando.Parameters.Add( "@nombre_carrera", SqlDbType.VarChar ).Value = carrera.Value;
+
+            return comando;
         }
     }
 }

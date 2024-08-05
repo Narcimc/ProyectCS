@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SIEleccionReina.Entidades
 {
-    internal class clsVoto
+    internal class ClsVoto
     {
         #region "Atributos Privados"
 
@@ -29,7 +29,7 @@ namespace SIEleccionReina.Entidades
 
         #region Constructor by Default
 
-        internal clsVoto() {}
+        internal ClsVoto() {}
 
         #endregion
     }
