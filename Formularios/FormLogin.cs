@@ -42,22 +42,18 @@ namespace SIEleccionReina
             BtnRegistrarme.Font = CommonUtils.PredefinedCustomFonts.SubActionButtonFont;
         }
 
-        private void MostrarValor()
-        {
-            MessageBox.Show( "Valor: " + ( int ) CmbTipoUsuario.SelectedValue );
-        }
-
         private void BtnIniciarSesion_Click(object sender, EventArgs e)
         {
             try
             {
-                MostrarValor();
-                if ( Validaciones.IsUserValid( userCedula: MTxtUsuarioCI.Text, exControl: MTxtUsuarioCI ) && 
+                EPLogin.Clear();
+
+                if ( Validaciones.IsUserCedulaValid( userCedula: MTxtUsuarioCI.Text, exControl: MTxtUsuarioCI ) && 
                     Validaciones.IsPasswordValid( password: TxtContrasenia.Text, exControl: TxtContrasenia ) &&
                     controlador.ValidarLogin( 
                         usuario: MTxtUsuarioCI.Text, 
                         pwd: TxtContrasenia.Text, 
-                        userType: ( decimal ) CmbTipoUsuario.SelectedValue, 
+                        userType: ( int ) CmbTipoUsuario.SelectedValue, 
                         exControl: BtnIniciarSesion
                         ) ) 
                 {   // Ir al Panel Principal correspondiente según el Tipo de Usuario
@@ -87,7 +83,7 @@ namespace SIEleccionReina
         }
 
         private void PBVerContrasenia_Click(object sender, EventArgs e) 
-            => controlador.MostrarOcultarContrasenia( TxtContrasenia, PBVerContrasenia );
+            => CommonUtils.MostrarOcultarContrasenia( TxtContrasenia, PBVerContrasenia );
 
         private void LimpiarCampos() 
         { 
@@ -109,5 +105,11 @@ namespace SIEleccionReina
         }
 
         private void BtnRegistrarme_Click( object sender, EventArgs e ) => ( new FormRegistroEstudiante( TipoUsuario.Estudiante ) ).ShowDialog();
+
+        private void MTxtUsuarioCI_KeyUp( object sender, KeyEventArgs e )
+        {
+            if ( e.KeyCode == Keys.Enter )
+                BtnIniciarSesion.PerformClick();
+        }
     }
 }

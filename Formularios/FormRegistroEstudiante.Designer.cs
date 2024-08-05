@@ -79,7 +79,7 @@
             this.BtnCancelar.Location = new System.Drawing.Point(241, 527);
             this.BtnCancelar.Name = "BtnCancelar";
             this.BtnCancelar.Size = new System.Drawing.Size(205, 40);
-            this.BtnCancelar.TabIndex = 7;
+            this.BtnCancelar.TabIndex = 9;
             this.BtnCancelar.Text = "Cancelar";
             this.BtnCancelar.UseVisualStyleBackColor = true;
             this.BtnCancelar.Click += new System.EventHandler(this.BtnCancelar_Click);
@@ -103,9 +103,8 @@
             this.MTxtUsuarioCI.Font = new System.Drawing.Font("Leelawadee UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MTxtUsuarioCI.HidePromptOnLeave = true;
             this.MTxtUsuarioCI.Location = new System.Drawing.Point(146, 93);
-            this.MTxtUsuarioCI.Mask = "000 000 0000";
+            this.MTxtUsuarioCI.Mask = "0000000000";
             this.MTxtUsuarioCI.Name = "MTxtUsuarioCI";
-            this.MTxtUsuarioCI.PromptChar = ' ';
             this.MTxtUsuarioCI.Size = new System.Drawing.Size(300, 27);
             this.MTxtUsuarioCI.TabIndex = 0;
             this.MTxtUsuarioCI.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -146,7 +145,7 @@
             this.CmbCarrera.Margin = new System.Windows.Forms.Padding(3, 20, 30, 3);
             this.CmbCarrera.Name = "CmbCarrera";
             this.CmbCarrera.Size = new System.Drawing.Size(300, 28);
-            this.CmbCarrera.TabIndex = 2;
+            this.CmbCarrera.TabIndex = 4;
             // 
             // BtnRegistrar
             // 
@@ -159,7 +158,7 @@
             this.BtnRegistrar.Margin = new System.Windows.Forms.Padding(2, 34, 2, 2);
             this.BtnRegistrar.Name = "BtnRegistrar";
             this.BtnRegistrar.Size = new System.Drawing.Size(205, 40);
-            this.BtnRegistrar.TabIndex = 6;
+            this.BtnRegistrar.TabIndex = 8;
             this.BtnRegistrar.Text = "Registrar";
             this.BtnRegistrar.UseVisualStyleBackColor = false;
             this.BtnRegistrar.Click += new System.EventHandler(this.BtnRegistrar_Click);
@@ -172,8 +171,9 @@
             this.TxtContrasenia.Name = "TxtContrasenia";
             this.TxtContrasenia.PasswordChar = '*';
             this.TxtContrasenia.Size = new System.Drawing.Size(300, 27);
-            this.TxtContrasenia.TabIndex = 4;
+            this.TxtContrasenia.TabIndex = 6;
             this.TxtContrasenia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TxtContrasenia.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtContrasenia_KeyUp);
             // 
             // LblContrasenia
             // 
@@ -230,7 +230,7 @@
             0});
             this.NUDSemestre.Name = "NUDSemestre";
             this.NUDSemestre.Size = new System.Drawing.Size(300, 27);
-            this.NUDSemestre.TabIndex = 3;
+            this.NUDSemestre.TabIndex = 5;
             this.NUDSemestre.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.NUDSemestre.Value = new decimal(new int[] {
             1,
@@ -281,8 +281,9 @@
             this.TxtConfirmarContrasenia.Name = "TxtConfirmarContrasenia";
             this.TxtConfirmarContrasenia.PasswordChar = '*';
             this.TxtConfirmarContrasenia.Size = new System.Drawing.Size(300, 27);
-            this.TxtConfirmarContrasenia.TabIndex = 5;
+            this.TxtConfirmarContrasenia.TabIndex = 7;
             this.TxtConfirmarContrasenia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TxtConfirmarContrasenia.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtConfirmarContrasenia_KeyUp);
             // 
             // LblConfirmarContrasenia
             // 
@@ -332,7 +333,7 @@
             this.TxtNombres.MaxLength = 50;
             this.TxtNombres.Name = "TxtNombres";
             this.TxtNombres.Size = new System.Drawing.Size(300, 27);
-            this.TxtNombres.TabIndex = 28;
+            this.TxtNombres.TabIndex = 2;
             // 
             // TxtApellidos
             // 
@@ -342,7 +343,7 @@
             this.TxtApellidos.MaxLength = 50;
             this.TxtApellidos.Name = "TxtApellidos";
             this.TxtApellidos.Size = new System.Drawing.Size(300, 27);
-            this.TxtApellidos.TabIndex = 29;
+            this.TxtApellidos.TabIndex = 3;
             // 
             // FormRegistroEstudiante
             // 

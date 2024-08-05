@@ -77,6 +77,27 @@ namespace SIEleccionReina.AccesoDatos
             }
         }
 
+        internal bool VerificarRegistroCandidata( string candidataCedula, CandidataTipoCrud tipoCrud )
+        {
+            try
+            {
+                SqlCommand comando = ArmarComandoSql( tipoCrud, candidataCedula );
+                SqlDataReader reader = comando.ExecuteReader( CommandBehavior.SingleRow );
+                reader.Read();
+                return reader.GetBoolean( 0 );
+            }
+            catch ( Exception ex )
+            {
+                MessageBox.Show( ex.Message, CommonUtils.Messages.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                return true;
+            }
+            finally
+            {
+                if ( con != null )
+                    objConexion.CerrarConexion();
+            }
+        }
+
         private SqlCommand ArmarComandoSqlBase( CandidataTipoCrud tipoCrud ) 
         {
             con = objConexion.GetOpenConnection();
@@ -117,6 +138,11 @@ namespace SIEleccionReina.AccesoDatos
                 case CandidataTipoCrud.EliminarCandidata:
                     if ( candidataObjInfo is int idCand )
                         comando.Parameters.Add( "@id_candidata", SqlDbType.Int ).Value = idCand;
+
+                    break;
+                case CandidataTipoCrud.VerificarCandidataYaExiste:
+                    if ( candidataObjInfo is string cedulaCand )
+                        comando.Parameters.Add( "@cedula", SqlDbType.VarChar ).Value = cedulaCand;
 
                     break;
                 default:

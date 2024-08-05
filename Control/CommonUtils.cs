@@ -38,7 +38,8 @@ namespace SIEleccionReina.Control
         InsertarCandidata,
         ModificarCandidata,
         EliminarCandidata,
-        ConsultaCortaTodasCandidatasIdNombreApellido
+        ConsultaCortaTodasCandidatasIdNombreApellido,
+        VerificarCandidataYaExiste
     }
 
     internal enum EstudianteTipoCRUD 
@@ -48,7 +49,8 @@ namespace SIEleccionReina.Control
         ConsultaEstudiantesXRoles,
         InsertarEstudiante,
         ModificarEstudiante,
-        EliminarEstudiante
+        EliminarEstudiante,
+        VerificarEstudianteYaExiste
     }
 
     internal enum CarreraTipoCrud 
@@ -74,11 +76,14 @@ namespace SIEleccionReina.Control
         private static PrivateFontCollection appFontsCollection;
         private static readonly Dictionary<CustomFontFamilies, FontFamily> customFontFamiliesDict;
         internal static float FONT_SIZE_BIG_TITLE = 28.0F;
+        internal static float FONT_SIZE_BIG_SUB_TITLE = 16.0F;
         internal static float FONT_SIZE_MID_TITLE = 13.0F;
         internal static float FONT_SIZE_CONTENT = 11.0F;
         internal static float FONT_SIZE_OK_CANCEL_BUTTON = 14.0F;
         internal static float FONT_SIZE_SUB_BUTTON = 10.0F;
 
+        // * Datos Utiles de la Aplicacion
+        internal static string LINK_REPO_GITHUB = "https://github.com/Narcimc/ProyectCS";
 
         // *** Constructor Estático
         static CommonUtils() 
@@ -144,14 +149,31 @@ namespace SIEleccionReina.Control
             comboB.ValueMember = "Value";
         }
 
+        internal static void MostrarOcultarContrasenia( TextBox txtContrasenia, PictureBox pbShowingIcon )
+        {   // Cambiar la visibilidad de la contraseña
+            if ( txtContrasenia.PasswordChar == '*' )
+            {
+                txtContrasenia.PasswordChar = '\0'; // Se Muestra la Contraseña
+                pbShowingIcon.Image = Resources.noVer;
+            }
+            else
+            {
+                txtContrasenia.PasswordChar = '*'; // Se Oculta la Contraseña
+                pbShowingIcon.Image = Resources.ver;
+            }
+        }
+
         // *** Clases Estaticas Anidadas - Agrupan Miembros mejorando la sintaxis, legibilidad y practicidad del codigo
 
         // * Fuentes Tipográficas Personalizadas para la aplicación, Predefinidas y listas para usar en controles
         internal static class PredefinedCustomFonts
         {
+            internal static Font BigTitleGreetingsFont = new Font( customFontFamiliesDict[ CustomFontFamilies.LeelawadeeUI ], FONT_SIZE_BIG_TITLE, FontStyle.Regular );
+            internal static Font BigSubTitleWelcomeFont = new Font( customFontFamiliesDict[ CustomFontFamilies.LeelawadeeUI ], FONT_SIZE_BIG_SUB_TITLE, FontStyle.Regular );
             internal static Font MidTitleFont = new Font( customFontFamiliesDict[ CustomFontFamilies.Alata ], FONT_SIZE_MID_TITLE, FontStyle.Regular );
             internal static Font ContentFont = new Font( customFontFamiliesDict[ CustomFontFamilies.LeelawadeeUI ], FONT_SIZE_CONTENT, FontStyle.Regular );
             internal static Font MainActionButtonFont = new Font( customFontFamiliesDict[ CustomFontFamilies.Montserrat ], FONT_SIZE_OK_CANCEL_BUTTON, FontStyle.Bold );
+            internal static Font MainOptionsActionButtonFont = new Font( customFontFamiliesDict[ CustomFontFamilies.Montserrat ], FONT_SIZE_MID_TITLE, FontStyle.Bold );
             internal static Font SubActionButtonFont = new Font( customFontFamiliesDict[ CustomFontFamilies.Montserrat ], FONT_SIZE_SUB_BUTTON, FontStyle.Bold );
             internal static Font SecondaryActionButtonFont = new Font( customFontFamiliesDict[ CustomFontFamilies.LeelawadeeUI ], FONT_SIZE_OK_CANCEL_BUTTON, FontStyle.Regular );
         }
@@ -163,6 +185,8 @@ namespace SIEleccionReina.Control
             internal static string VOTO_YA_REGISTRADO_MSJ = "Su voto ya ha sido registrado";
             internal static string ERROR_AL_VOTAR_MSJ = "Ocurrió un error al registrar el voto, intentelo de nuevo, si este error persiste contacte al administrador del sistema.";
             internal static string NULL_EMPTY_MSJ_FEM = "no puede ser nula, estar vacía o ser solo espacios en blanco, verifique nuevamente por favor.";
+            internal static string FUNCIONALIDAD_EN_CAMINO = "Esta funcionalidad llegará en una próxima versión :).";
+            internal static string[] WELCOME_MSJS = { "Recibe una calurosa Bienvenida.", "Saludos cordiales.", "Espero tengas un ¡excelente día!", "Lindo día para el éxito.", "Hoy triunfaremos en nuestros Proyectos." };
         }
     }
 }

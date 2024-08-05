@@ -113,7 +113,7 @@
             this.TxtContrasenia.Name = "TxtContrasenia";
             this.TxtContrasenia.PasswordChar = '*';
             this.TxtContrasenia.Size = new System.Drawing.Size(238, 27);
-            this.TxtContrasenia.TabIndex = 5;
+            this.TxtContrasenia.TabIndex = 1;
             this.TxtContrasenia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.TxtContrasenia.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtContrasenia_KeyUp);
             // 
@@ -128,7 +128,7 @@
             this.BtnIniciarSesion.Margin = new System.Windows.Forms.Padding(2, 34, 2, 2);
             this.BtnIniciarSesion.Name = "BtnIniciarSesion";
             this.BtnIniciarSesion.Size = new System.Drawing.Size(332, 40);
-            this.BtnIniciarSesion.TabIndex = 6;
+            this.BtnIniciarSesion.TabIndex = 2;
             this.BtnIniciarSesion.Text = "Iniciar Sesión";
             this.BtnIniciarSesion.UseVisualStyleBackColor = false;
             this.BtnIniciarSesion.Click += new System.EventHandler(this.BtnIniciarSesion_Click);
@@ -143,7 +143,7 @@
             this.BtnRegistrarme.Margin = new System.Windows.Forms.Padding(2, 10, 2, 2);
             this.BtnRegistrarme.Name = "BtnRegistrarme";
             this.BtnRegistrarme.Size = new System.Drawing.Size(150, 38);
-            this.BtnRegistrarme.TabIndex = 7;
+            this.BtnRegistrarme.TabIndex = 3;
             this.BtnRegistrarme.Text = "Registrarme";
             this.BtnRegistrarme.UseVisualStyleBackColor = false;
             this.BtnRegistrarme.Click += new System.EventHandler(this.BtnRegistrarme_Click);
@@ -157,7 +157,7 @@
             this.CmbTipoUsuario.Margin = new System.Windows.Forms.Padding(3, 3, 30, 3);
             this.CmbTipoUsuario.Name = "CmbTipoUsuario";
             this.CmbTipoUsuario.Size = new System.Drawing.Size(208, 28);
-            this.CmbTipoUsuario.TabIndex = 8;
+            this.CmbTipoUsuario.TabIndex = 4;
             // 
             // PBVerContrasenia
             // 
@@ -217,7 +217,7 @@
             // 
             // TmrErrorClear
             // 
-            this.TmrErrorClear.Interval = 30000;
+            this.TmrErrorClear.Interval = 20000;
             this.TmrErrorClear.Tick += new System.EventHandler(this.TmrErrorClear_Tick);
             // 
             // MTxtUsuarioCI
@@ -227,16 +227,17 @@
             this.MTxtUsuarioCI.Font = new System.Drawing.Font("Leelawadee UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MTxtUsuarioCI.HidePromptOnLeave = true;
             this.MTxtUsuarioCI.Location = new System.Drawing.Point(137, 259);
-            this.MTxtUsuarioCI.Mask = "000 000 0000";
+            this.MTxtUsuarioCI.Mask = "0000000000";
             this.MTxtUsuarioCI.Name = "MTxtUsuarioCI";
-            this.MTxtUsuarioCI.PromptChar = ' ';
             this.MTxtUsuarioCI.Size = new System.Drawing.Size(238, 27);
-            this.MTxtUsuarioCI.TabIndex = 14;
+            this.MTxtUsuarioCI.TabIndex = 0;
             this.MTxtUsuarioCI.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.MTxtUsuarioCI.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
+            this.MTxtUsuarioCI.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MTxtUsuarioCI_KeyUp);
             // 
             // FormLogin
             // 
+            this.AcceptButton = this.BtnIniciarSesion;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;

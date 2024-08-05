@@ -1,12 +1,9 @@
-﻿using SIEleccionReina.Entidades;
+﻿using SIEleccionReina.Control;
+using SIEleccionReina.Entidades;
 using System;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
 using System.Windows.Forms;
-using SIEleccionReina.Control;
-using System.Collections.Generic;
-using System.Collections;
-using System.Windows.Media.Media3D;
 
 namespace SIEleccionReina.AccesoDatos
 {
@@ -59,6 +56,27 @@ namespace SIEleccionReina.AccesoDatos
             }
         }
 
+        internal bool VerificarRegistroEstudiante( string estudianteCedula, EstudianteTipoCRUD tipoCrud )
+        {
+            try
+            {
+                SqlCommand comando = ArmarComandoSql( estudianteCedula, tipoCrud );
+                SqlDataReader reader = comando.ExecuteReader( CommandBehavior.SingleRow );
+                reader.Read();
+                return reader.GetBoolean( 0 );
+            }
+            catch ( Exception ex )
+            {
+                MessageBox.Show( ex.Message, CommonUtils.Messages.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                return true;
+            }
+            finally
+            {
+                if ( con != null )
+                    objConexion.CerrarConexion();
+            }
+        }
+
         internal SqlCommand ArmarComandoSql( object estudianteObjInfo, EstudianteTipoCRUD tipoCrud )
         {
             con = objConexion.GetOpenConnection();
@@ -91,6 +109,8 @@ namespace SIEleccionReina.AccesoDatos
                     comando.Parameters.Add( "@semestre", SqlDbType.Int ).Value = estudianteObj.Semestre;
                     comando.Parameters.Add( "@cedula", SqlDbType.VarChar ).Value = estudianteObj.Cedula;
                     comando.Parameters.Add( "@contrasenia", SqlDbType.VarChar ).Value = estudianteObj.Contrasenia;
+                    comando.Parameters.Add( "@nombres", SqlDbType.VarChar ).Value = estudianteObj.Nombres;
+                    comando.Parameters.Add( "@apellidos", SqlDbType.VarChar ).Value = estudianteObj.Apellidos;
 
                     SqlParameter rolParameter2 = new SqlParameter( "@id_rol_usuario", SqlDbType.Decimal );
                     rolParameter2.Precision = 3; // Precisión total de dígitos
@@ -103,6 +123,11 @@ namespace SIEleccionReina.AccesoDatos
                 case EstudianteTipoCRUD.EliminarEstudiante:
                     if ( estudianteObjInfo is int idEst )
                         comando.Parameters.Add( "@id_estudiante", SqlDbType.Int ).Value = idEst;
+
+                    break;
+                case EstudianteTipoCRUD.VerificarEstudianteYaExiste:
+                    if ( estudianteObjInfo is string cedulaEst )
+                        comando.Parameters.Add( "@cedula", SqlDbType.VarChar ).Value = cedulaEst;
 
                     break;
                 default:

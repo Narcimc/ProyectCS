@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using System.Windows.Media.Converters;
 
 namespace SIEleccionReina.Control
 {
@@ -52,7 +53,9 @@ namespace SIEleccionReina.Control
 
         //***** Métodos
 
-        // * Métodos más Generales
+        // *** Métodos más Generales
+
+        // * Métodos de Carrera
 
         internal void ObtenerCarreras() 
         {
@@ -60,10 +63,11 @@ namespace SIEleccionReina.Control
             carrerasDt = carrera_DB.Obtener_Carreras( tipoCrud: CarreraTipoCrud.ConsultaTodasCarreras );
 
             foreach ( DataRow row in carrerasDt.Rows )
-            {
                 _carrerasDisponibles.Add( ( int ) row[ "id_carrera" ], ( string ) row[ "nombre_carrera" ] );
-            }
         }
+
+        internal void InsertarModificarEliminarCarrera( CarreraTipoCrud tipoCrud, KeyValuePair<int, string> carrera ) 
+            => carrera_DB.IngresarModificarEliminarCarrera( carrera: carrera, tipoCrud: tipoCrud );
 
         // * Métodos relacionados con la Sesión y Registro de Estudiante y Candidata
 
@@ -93,7 +97,9 @@ namespace SIEleccionReina.Control
                 Cedula = datosEstudiante.Rows[ 0 ][ "cedula" ].ToString(),
                 Semestre = ( int ) datosEstudiante.Rows[ 0 ][ "semestre" ],
                 Contrasenia = datosEstudiante.Rows[ 0 ][ "contrasenia" ].ToString(),
-                IdRolUsuario = ( decimal ) datosEstudiante.Rows[ 0 ][ "id_rol_usuario" ]
+                IdRolUsuario = ( decimal ) datosEstudiante.Rows[ 0 ][ "id_rol_usuario" ],
+                Nombres = datosEstudiante.Rows[ 0 ][ "nombres" ].ToString(),
+                Apellidos = datosEstudiante.Rows[ 0 ][ "apellidos" ].ToString()
             };
         }
 
@@ -107,18 +113,71 @@ namespace SIEleccionReina.Control
             _estudianteLogueado.IdRolUsuario = 0;
         }
 
-        internal void MostrarOcultarContrasenia( TextBox txtContrasenia, PictureBox pbShowingIcon ) 
-        {   // Cambiar la visibilidad de la contraseña
-            if ( txtContrasenia.PasswordChar == '*' )
+
+        // * Métodos relacionados con Estudiantes
+
+        internal bool VerificarRegistroEstudiante( string estudianteCedula, EstudianteTipoCRUD tipoCRUD, System.Windows.Forms.Control exControl ) 
+        {
+            if ( estudiante_DB.VerificarRegistroEstudiante( estudianteCedula, tipoCRUD ) )
+                throw new InvalidValueException( exceptionMessage: "Ya existe un estudiante registrado con el número de cédula indicado, inicie sesión con su usuario(Cédula de Identidad) y contraseña desde la ventana de Inicio de Sesión.", errorOnControl: exControl );
+
+            return false;
+        }
+
+        internal void IngresarModificarEliminarEstudiante( object estudianteObjInfo, EstudianteTipoCRUD tipoCrud ) 
+        { 
+            if ( estudiante_DB.IngresarModificarEliminarEstudiante( estudianteObjInfo, tipoCrud ) == 1 )
+                MessageBox.Show( "Estudiante registrado correctamente.", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information );
+        }
+
+        // * Métodos relacionados con las Candidatas
+
+        internal void ObtenerCandidatas() 
+        { 
+            DataTable candidatasDt = new DataTable();
+            candidatasDt = candidata_DB.ConsultarCandidatas( candidataObjInfo: new ClsCandidata(), tipoCrud: CandidataTipoCrud.ConsultaTodasCandidatas );
+
+            foreach ( DataRow row in candidatasDt.Rows )
             {
-                txtContrasenia.PasswordChar = '\0'; // Se Muestra la Contraseña
-                pbShowingIcon.Image = Resources.noVer;
+                _listaCandidatas.Add
+                ( 
+                    new ClsCandidata()
+                    {
+                        Id = ( int ) row[ "id_candidata" ],
+                        CarreraId = ( int ) row[ "id_carrera" ],
+                        Semestre = ( int ) row[ "semestre" ],
+                        Cedula = ( string ) row[ "cedula" ],
+                        Nombres = ( string ) row[ "nombres" ],
+                        Apellidos = ( string ) row[ "apellidos" ],
+                        Foto = ( string ) row[ "foto" ],
+                        Fecha_nacimiento = ( DateTime ) row[ "fecha_nacimiento" ],
+                        Edad = ( int ) row[ "edad" ],
+                        Aspiraciones = ( string ) row[ "aspiraciones" ],
+                        Intereses = ( string ) row[ "intereses" ],
+                        Habilidades = ( string ) row[ "habilidades" ]
+                    }
+                );
             }
-            else
-            {
-                txtContrasenia.PasswordChar = '*'; // Se Oculta la Contraseña
-                pbShowingIcon.Image = Resources.ver;
-            }
+        }
+
+        public void MostrarInfoCandidata( Label nombreCandidata, PictureBox imagenCandidata, int indexCandidata )
+        {
+            nombreCandidata.Text = _listaCandidatas[indexCandidata].Nombres + " " + _listaCandidatas[ indexCandidata ].Apellidos;
+            imagenCandidata.Image = Base64ToImage( _listaCandidatas[ indexCandidata ].Foto );
+        }
+
+        internal bool VerificarRegistroCandidata( string candidataCedula, CandidataTipoCrud tipoCRUD, System.Windows.Forms.Control exControl )
+        {
+            if ( candidata_DB.VerificarRegistroCandidata( candidataCedula, tipoCRUD ) )
+                throw new InvalidValueException( exceptionMessage: "Ya existe una Candidata registrada con el número de cédula indicado.", errorOnControl: exControl );
+
+            return false;
+        }
+
+        internal void IngresarModificarEliminarCandidata( CandidataTipoCrud tipoCrud, object candidataObjInfo )
+        {
+            if ( candidata_DB.IngresarModificarEliminarCandidata( tipoCrud, candidataObjInfo ) == 1 )
+                MessageBox.Show( "Candidata registrada correctamente.", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information );
         }
 
         // * Métodos relacionados con los Votos
@@ -152,42 +211,6 @@ namespace SIEleccionReina.Control
             votoYaRegistradoErrorProvider.Icon = new Icon( SystemIcons.Information, 8, 8 );
             votoYaRegistradoErrorProvider.SetIconPadding( botonVotar, 10    );
             votoYaRegistradoErrorProvider.SetError( botonVotar, CommonUtils.Messages.VOTO_YA_REGISTRADO_MSJ );
-        }
-
-        // * Métodos relacionados con las Candidatas
-
-        internal void ObtenerCandidatas() 
-        { 
-            DataTable candidatasDt = new DataTable();
-            candidatasDt = candidata_DB.ConsultarCandidatas( candidataObjInfo: new ClsCandidata(), tipoCrud: CandidataTipoCrud.ConsultaTodasCandidatas );
-
-            foreach ( DataRow row in candidatasDt.Rows )
-            {
-                _listaCandidatas.Add
-                ( 
-                    new ClsCandidata()
-                    {
-                        Id = ( int ) row[ "id_candidata" ],
-                        CarreraId = ( int ) row[ "id_carrera" ],
-                        Semestre = ( int ) row[ "id_semestre" ],
-                        Cedula = ( string ) row[ "cedula" ],
-                        Nombres = ( string ) row[ "nombre" ],
-                        Apellidos = ( string ) row[ "apellido" ],
-                        Foto = ( string ) row[ "foto" ],
-                        Fecha_nacimiento = ( DateTime ) row[ "fecha_nacimiento" ],
-                        Edad = ( int ) row[ "edad" ],
-                        Aspiraciones = ( string ) row[ "aspiraciones" ],
-                        Intereses = ( string ) row[ "intereses" ],
-                        Habilidades = ( string ) row[ "habilidades" ]
-                    }
-                );
-            }
-        }
-
-        public void MostrarInfoCandidata( Label nombreCandidata, PictureBox imagenCandidata, int indexCandidata )
-        {
-            nombreCandidata.Text = _listaCandidatas[indexCandidata].Nombres + " " + _listaCandidatas[ indexCandidata ].Apellidos;
-            imagenCandidata.Image = Base64ToImage( _listaCandidatas[ indexCandidata ].Foto );
         }
 
         // * Métodos relacionados con Apertura y Guardado de Imagenes desde y hacia la Base de Datos - Conversión y codificación de imagenes - Serialización

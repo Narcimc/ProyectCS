@@ -67,17 +67,61 @@ namespace SIEleccionReina.Formularios
 
         private void BtnRegistrar_Click( object sender, EventArgs e )
         {
-            ClsEstudiante estudiante = new ClsEstudiante();
+            try
+            {
+                EPRegistroEstudiante.Clear();
 
+                if ( Validaciones.IsUserCedulaValid( userCedula: MTxtUsuarioCI.Text, exControl: MTxtUsuarioCI ) &&
+                     Validaciones.IsNameLastNameValid( nameLastName: TxtNombres.Text.Trim(), exControl: TxtNombres ) &&
+                     Validaciones.IsNameLastNameValid( nameLastName: TxtApellidos.Text.Trim(), exControl: TxtApellidos ) &&
+                     Validaciones.IsCarreraValid( carrera: CmbCarrera.Text, exControl: CmbCarrera ) &&
+                     Validaciones.IsPasswordValid( password: TxtContrasenia.Text, exControl: TxtContrasenia ) &&
+                     Validaciones.IsPasswordConfirmationValid( password: TxtContrasenia.Text, passwordConfirmation: TxtConfirmarContrasenia.Text, exControl: TxtConfirmarContrasenia )
+                    )
+                {
+                    if( !controlador.VerificarRegistroEstudiante( estudianteCedula: MTxtUsuarioCI.Text, tipoCRUD: EstudianteTipoCRUD.VerificarEstudianteYaExiste, exControl: BtnRegistrar ) )
+                    {
+                        ClsEstudiante estudiante = new ClsEstudiante( 0,
+                        idCarrera: ( int ) CmbCarrera.SelectedValue,
+                        cedula: MTxtUsuarioCI.Text,
+                        semestre: ( int ) NUDSemestre.Value,
+                        contrasenia: TxtContrasenia.Text,
+                        id_rol_usuario: ( int ) CmbTipoUsuario.SelectedValue,
+                        nombres: TxtNombres.Text.Trim(),
+                        apellidos: TxtApellidos.Text.Trim()
+                        );
+
+                        controlador.IngresarModificarEliminarEstudiante( estudianteObjInfo: estudiante, EstudianteTipoCRUD.InsertarEstudiante );
+                        Close();
+                    }                    
+                }
+            }
+            catch ( InvalidValueException invEx )
+            {
+                EPRegistroEstudiante.SetError( invEx.ErrorSourceControl, invEx.Message );
+                invEx.ErrorSourceControl.Focus();
+            }
         }
 
         private void BtnCancelar_Click( object sender, EventArgs e ) 
             => Close();
 
         private void PBVerContrasenia_Click( object sender, EventArgs e ) 
-            => controlador.MostrarOcultarContrasenia( txtContrasenia: TxtContrasenia, pbShowingIcon: PBVerContrasenia );
+            => CommonUtils.MostrarOcultarContrasenia( txtContrasenia: TxtContrasenia, pbShowingIcon: PBVerContrasenia );
 
         private void PBVerConfirmContrasenia_Click( object sender, EventArgs e )
-            => controlador.MostrarOcultarContrasenia( txtContrasenia: TxtConfirmarContrasenia, pbShowingIcon: PBVerConfirmContrasenia );
+            => CommonUtils.MostrarOcultarContrasenia( txtContrasenia: TxtConfirmarContrasenia, pbShowingIcon: PBVerConfirmContrasenia );
+
+        private void TxtConfirmarContrasenia_KeyUp( object sender, KeyEventArgs e )
+        {
+            if ( e.KeyCode == Keys.Enter )
+                BtnRegistrar.PerformClick();
+        }
+
+        private void TxtContrasenia_KeyUp( object sender, KeyEventArgs e )
+        {
+            if ( e.KeyCode == Keys.Enter )
+                BtnRegistrar.PerformClick();
+        }
     }
 }
