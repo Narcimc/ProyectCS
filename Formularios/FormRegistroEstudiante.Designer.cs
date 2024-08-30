@@ -76,6 +76,7 @@
             // 
             this.BtnCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.BtnCancelar.Font = new System.Drawing.Font("Leelawadee UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnCancelar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(10)))), ((int)(((byte)(16)))));
             this.BtnCancelar.Location = new System.Drawing.Point(241, 527);
             this.BtnCancelar.Name = "BtnCancelar";
             this.BtnCancelar.Size = new System.Drawing.Size(205, 40);
@@ -125,13 +126,14 @@
             // PBVerContrasenia
             // 
             this.PBVerContrasenia.BackColor = System.Drawing.Color.White;
-            this.PBVerContrasenia.Image = global::SIEleccionReina.Properties.Resources.ver;
+            this.PBVerContrasenia.Image = global::SIEleccionReina.Properties.Resources.visibility_24px_001928_FILL1_wght400_GRAD0_opsz24;
             this.PBVerContrasenia.Location = new System.Drawing.Point(421, 409);
             this.PBVerContrasenia.Name = "PBVerContrasenia";
             this.PBVerContrasenia.Size = new System.Drawing.Size(20, 20);
             this.PBVerContrasenia.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PBVerContrasenia.TabIndex = 15;
             this.PBVerContrasenia.TabStop = false;
+            this.PBVerContrasenia.Visible = false;
             this.PBVerContrasenia.Click += new System.EventHandler(this.PBVerContrasenia_Click);
             // 
             // CmbCarrera
@@ -154,12 +156,15 @@
             this.BtnRegistrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnRegistrar.Font = new System.Drawing.Font("Montserrat", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnRegistrar.ForeColor = System.Drawing.Color.White;
+            this.BtnRegistrar.Image = global::SIEleccionReina.Properties.Resources.person_add_alt_1_24px_F0F0F0_FILL1_wght400_GRAD0_opsz24;
             this.BtnRegistrar.Location = new System.Drawing.Point(20, 527);
             this.BtnRegistrar.Margin = new System.Windows.Forms.Padding(2, 34, 2, 2);
             this.BtnRegistrar.Name = "BtnRegistrar";
             this.BtnRegistrar.Size = new System.Drawing.Size(205, 40);
             this.BtnRegistrar.TabIndex = 8;
             this.BtnRegistrar.Text = "Registrar";
+            this.BtnRegistrar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnRegistrar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.BtnRegistrar.UseVisualStyleBackColor = false;
             this.BtnRegistrar.Click += new System.EventHandler(this.BtnRegistrar_Click);
             // 
@@ -173,7 +178,9 @@
             this.TxtContrasenia.Size = new System.Drawing.Size(300, 27);
             this.TxtContrasenia.TabIndex = 6;
             this.TxtContrasenia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TxtContrasenia.Enter += new System.EventHandler(this.TxtContrasenia_Enter);
             this.TxtContrasenia.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtContrasenia_KeyUp);
+            this.TxtContrasenia.Leave += new System.EventHandler(this.TxtContrasenia_Leave);
             // 
             // LblContrasenia
             // 
@@ -264,13 +271,14 @@
             // PBVerConfirmContrasenia
             // 
             this.PBVerConfirmContrasenia.BackColor = System.Drawing.Color.White;
-            this.PBVerConfirmContrasenia.Image = global::SIEleccionReina.Properties.Resources.ver;
+            this.PBVerConfirmContrasenia.Image = global::SIEleccionReina.Properties.Resources.visibility_24px_001928_FILL1_wght400_GRAD0_opsz24;
             this.PBVerConfirmContrasenia.Location = new System.Drawing.Point(421, 467);
             this.PBVerConfirmContrasenia.Name = "PBVerConfirmContrasenia";
             this.PBVerConfirmContrasenia.Size = new System.Drawing.Size(20, 20);
             this.PBVerConfirmContrasenia.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PBVerConfirmContrasenia.TabIndex = 23;
             this.PBVerConfirmContrasenia.TabStop = false;
+            this.PBVerConfirmContrasenia.Visible = false;
             this.PBVerConfirmContrasenia.Click += new System.EventHandler(this.PBVerConfirmContrasenia_Click);
             // 
             // TxtConfirmarContrasenia
@@ -283,7 +291,9 @@
             this.TxtConfirmarContrasenia.Size = new System.Drawing.Size(300, 27);
             this.TxtConfirmarContrasenia.TabIndex = 7;
             this.TxtConfirmarContrasenia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TxtConfirmarContrasenia.Enter += new System.EventHandler(this.TxtConfirmarContrasenia_Enter);
             this.TxtConfirmarContrasenia.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtConfirmarContrasenia_KeyUp);
+            this.TxtConfirmarContrasenia.Leave += new System.EventHandler(this.TxtConfirmarContrasenia_Leave);
             // 
             // LblConfirmarContrasenia
             // 

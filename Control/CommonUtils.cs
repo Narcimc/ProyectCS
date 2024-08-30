@@ -5,9 +5,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SIEleccionReina.Control
@@ -39,7 +36,8 @@ namespace SIEleccionReina.Control
         ModificarCandidata,
         EliminarCandidata,
         ConsultaCortaTodasCandidatasIdNombreApellido,
-        VerificarCandidataYaExiste
+        VerificarCandidataYaExiste,
+        ConsultaIndividualIdCandidata
     }
 
     internal enum EstudianteTipoCRUD 
@@ -73,14 +71,15 @@ namespace SIEleccionReina.Control
     {
         // *** Miembros de Fuentes Tipográficas Personalizadas
 
-        private static PrivateFontCollection appFontsCollection;
+        private static PrivateFontCollection appFamilyFontCollection;
         private static readonly Dictionary<CustomFontFamilies, FontFamily> customFontFamiliesDict;
-        internal static float FONT_SIZE_BIG_TITLE = 28.0F;
-        internal static float FONT_SIZE_BIG_SUB_TITLE = 16.0F;
-        internal static float FONT_SIZE_MID_TITLE = 13.0F;
-        internal static float FONT_SIZE_CONTENT = 11.0F;
-        internal static float FONT_SIZE_OK_CANCEL_BUTTON = 14.0F;
-        internal static float FONT_SIZE_SUB_BUTTON = 10.0F;
+        internal static float FONT_SIZE_BIG_TITLE = 28.0F,
+            FONT_SIZE_BIG_SUB_TITLE = 16.0F,
+            FONT_SIZE_MID_TITLE = 13.0F,
+            FONT_SIZE_MENU_CONTENT = 10.0F,
+            FONT_SIZE_CONTENT = 11.0F,
+            FONT_SIZE_OK_CANCEL_BUTTON = 14.0F,
+            FONT_SIZE_SUB_BUTTON = 10.0F;
 
         // * Datos Utiles de la Aplicacion
         internal static string LINK_REPO_GITHUB = "https://github.com/Narcimc/ProyectCS";
@@ -91,33 +90,45 @@ namespace SIEleccionReina.Control
             // Se crean varias FontFamily con las fuentes que se cargan desde Resources/Fonts y se las almacena en un Diccionario en tiempo de ejecucion para un facil acceso y seteo de fuentes en la interfaz grafica
             customFontFamiliesDict = new Dictionary<CustomFontFamilies, FontFamily>();
 
-            string fontsDirPath = Path.Combine( Directory.GetParent( Directory.GetParent( Application.StartupPath ).FullName ).FullName, @"Resources\Fonts" );
-            string alataPath = Path.Combine( fontsDirPath, @"Alata-Regular.ttf" );
-            string firaCodePath = Path.Combine( fontsDirPath, @"FiraCodeNerdFontMono-Bold.ttf" );
-            string leelawadeeUIRegularPath = Path.Combine( fontsDirPath, @"LeelawadeeUI-Regular.ttf" );
-            string leelawadeeUIBoldPath = Path.Combine( fontsDirPath, @"LeelawadeeUI-Bold.ttf" );
-            string leelawadeeUISemiLightPath = Path.Combine( fontsDirPath, @"LeelawadeeUI-SemiLight.ttf" );
-            string montserratRegularPath = Path.Combine( fontsDirPath, @"Montserrat-Regular.ttf" );
-            string montserratBoldPath = Path.Combine( fontsDirPath, @"Montserrat-Bold.ttf" );
+            string fontsDirPath = Path.Combine( Directory.GetParent( Directory.GetParent( Application.StartupPath ).FullName ).FullName, @"Resources\Fonts" ),
+                alataPath = Path.Combine( fontsDirPath, @"Alata-Regular.ttf" ),
+                firaCodePath = Path.Combine( fontsDirPath, @"FiraCodeNerdFontMono-Bold.ttf" ),
+                leelawadeeUIRegularPath = Path.Combine( fontsDirPath, @"LeelawadeeUI-Regular.ttf" ),
+                leelawadeeUIBoldPath = Path.Combine( fontsDirPath, @"LeelawadeeUI-Bold.ttf" ),
+                leelawadeeUISemiLightPath = Path.Combine( fontsDirPath, @"LeelawadeeUI-SemiLight.ttf" ),
+                montserratRegularPath = Path.Combine( fontsDirPath, @"Montserrat-Regular.ttf" ),
+                montserratBoldPath = Path.Combine( fontsDirPath, @"Montserrat-Bold.ttf" );
 
-            appFontsCollection = new PrivateFontCollection();
-            appFontsCollection.AddFontFile( alataPath );
-            customFontFamiliesDict.Add( CustomFontFamilies.Alata, new FontFamily( "Alata", appFontsCollection ) );
+            if ( File.Exists( alataPath ) )
+            {
+                appFamilyFontCollection = new PrivateFontCollection();
+                appFamilyFontCollection.AddFontFile( alataPath );
+                customFontFamiliesDict.Add( CustomFontFamilies.Alata, new FontFamily( "Alata", appFamilyFontCollection ) );
+            }
 
-            appFontsCollection = new PrivateFontCollection();
-            appFontsCollection.AddFontFile( firaCodePath );
-            customFontFamiliesDict.Add( CustomFontFamilies.FiraCode, new FontFamily( "FiraCode Nerd Font Mono", appFontsCollection ) );
+            if ( File.Exists( firaCodePath ) ) 
+            {
+                appFamilyFontCollection = new PrivateFontCollection();
+                appFamilyFontCollection.AddFontFile( firaCodePath );
+                customFontFamiliesDict.Add( CustomFontFamilies.FiraCode, new FontFamily( "FiraCode Nerd Font Mono", appFamilyFontCollection ) );
+            }
 
-            appFontsCollection = new PrivateFontCollection();
-            appFontsCollection.AddFontFile( leelawadeeUIRegularPath );
-            appFontsCollection.AddFontFile( leelawadeeUIBoldPath );
-            appFontsCollection.AddFontFile( leelawadeeUISemiLightPath );
-            customFontFamiliesDict.Add( CustomFontFamilies.LeelawadeeUI, new FontFamily( "Leelawadee UI", appFontsCollection ) );
+            if ( File.Exists( leelawadeeUIRegularPath ) && File.Exists( leelawadeeUIBoldPath ) && File.Exists( leelawadeeUISemiLightPath ) ) 
+            {
+                appFamilyFontCollection = new PrivateFontCollection();
+                appFamilyFontCollection.AddFontFile( leelawadeeUIRegularPath );
+                appFamilyFontCollection.AddFontFile( leelawadeeUIBoldPath );
+                appFamilyFontCollection.AddFontFile( leelawadeeUISemiLightPath );
+                customFontFamiliesDict.Add( CustomFontFamilies.LeelawadeeUI, new FontFamily( "Leelawadee UI", appFamilyFontCollection ) );
+            }
 
-            appFontsCollection = new PrivateFontCollection();
-            appFontsCollection.AddFontFile( montserratRegularPath );
-            appFontsCollection.AddFontFile( montserratBoldPath );
-            customFontFamiliesDict.Add( CustomFontFamilies.Montserrat, new FontFamily( "Montserrat", appFontsCollection ) );
+            if ( File.Exists( montserratRegularPath ) && File.Exists( montserratBoldPath ) ) 
+            {
+                appFamilyFontCollection = new PrivateFontCollection();
+                appFamilyFontCollection.AddFontFile( montserratRegularPath );
+                appFamilyFontCollection.AddFontFile( montserratBoldPath );
+                customFontFamiliesDict.Add( CustomFontFamilies.Montserrat, new FontFamily( "Montserrat", appFamilyFontCollection ) );
+            }            
         }
 
         // *** Métodos Estáticos
@@ -154,12 +165,12 @@ namespace SIEleccionReina.Control
             if ( txtContrasenia.PasswordChar == '*' )
             {
                 txtContrasenia.PasswordChar = '\0'; // Se Muestra la Contraseña
-                pbShowingIcon.Image = Resources.noVer;
+                pbShowingIcon.Image = Resources.visibility_off_24px_001928_FILL1_wght400_GRAD0_opsz24;
             }
             else
             {
                 txtContrasenia.PasswordChar = '*'; // Se Oculta la Contraseña
-                pbShowingIcon.Image = Resources.ver;
+                pbShowingIcon.Image = Resources.visibility_24px_001928_FILL1_wght400_GRAD0_opsz24;
             }
         }
 
@@ -168,24 +179,25 @@ namespace SIEleccionReina.Control
         // * Fuentes Tipográficas Personalizadas para la aplicación, Predefinidas y listas para usar en controles
         internal static class PredefinedCustomFonts
         {
-            internal static Font BigTitleGreetingsFont = new Font( customFontFamiliesDict[ CustomFontFamilies.LeelawadeeUI ], FONT_SIZE_BIG_TITLE, FontStyle.Regular );
-            internal static Font BigSubTitleWelcomeFont = new Font( customFontFamiliesDict[ CustomFontFamilies.LeelawadeeUI ], FONT_SIZE_BIG_SUB_TITLE, FontStyle.Regular );
-            internal static Font MidTitleFont = new Font( customFontFamiliesDict[ CustomFontFamilies.Alata ], FONT_SIZE_MID_TITLE, FontStyle.Regular );
-            internal static Font ContentFont = new Font( customFontFamiliesDict[ CustomFontFamilies.LeelawadeeUI ], FONT_SIZE_CONTENT, FontStyle.Regular );
-            internal static Font MainActionButtonFont = new Font( customFontFamiliesDict[ CustomFontFamilies.Montserrat ], FONT_SIZE_OK_CANCEL_BUTTON, FontStyle.Bold );
-            internal static Font MainOptionsActionButtonFont = new Font( customFontFamiliesDict[ CustomFontFamilies.Montserrat ], FONT_SIZE_MID_TITLE, FontStyle.Bold );
-            internal static Font SubActionButtonFont = new Font( customFontFamiliesDict[ CustomFontFamilies.Montserrat ], FONT_SIZE_SUB_BUTTON, FontStyle.Bold );
-            internal static Font SecondaryActionButtonFont = new Font( customFontFamiliesDict[ CustomFontFamilies.LeelawadeeUI ], FONT_SIZE_OK_CANCEL_BUTTON, FontStyle.Regular );
+            internal static Font BigTitleGreetingsFont = new Font( customFontFamiliesDict[ CustomFontFamilies.LeelawadeeUI ], FONT_SIZE_BIG_TITLE, FontStyle.Regular ),
+                BigSubTitleWelcomeFont = new Font( customFontFamiliesDict[ CustomFontFamilies.LeelawadeeUI ], FONT_SIZE_BIG_SUB_TITLE, FontStyle.Regular ),
+                MidTitleFont = new Font( customFontFamiliesDict[ CustomFontFamilies.Alata ], FONT_SIZE_MID_TITLE, FontStyle.Regular ),
+                MenuContentFont = new Font( customFontFamiliesDict[ CustomFontFamilies.LeelawadeeUI ], FONT_SIZE_MENU_CONTENT, FontStyle.Regular ),
+                ContentFont = new Font( customFontFamiliesDict[ CustomFontFamilies.LeelawadeeUI ], FONT_SIZE_CONTENT, FontStyle.Regular ),
+                MainActionButtonFont = new Font( customFontFamiliesDict[ CustomFontFamilies.Montserrat ], FONT_SIZE_OK_CANCEL_BUTTON, FontStyle.Bold ),
+                MainOptionsActionButtonFont = new Font( customFontFamiliesDict[ CustomFontFamilies.Montserrat ], FONT_SIZE_MID_TITLE, FontStyle.Bold ),
+                SubActionButtonFont = new Font( customFontFamiliesDict[ CustomFontFamilies.Montserrat ], FONT_SIZE_SUB_BUTTON, FontStyle.Bold ),
+                SecondaryActionButtonFont = new Font( customFontFamiliesDict[ CustomFontFamilies.LeelawadeeUI ], FONT_SIZE_OK_CANCEL_BUTTON, FontStyle.Regular );
         }
 
         // * Mensajes Comunes
         internal static class Messages
         {
-            internal static string COMMON_ERROR_MSJ = "Oops, algo no salio muy bien...";
-            internal static string VOTO_YA_REGISTRADO_MSJ = "Su voto ya ha sido registrado";
-            internal static string ERROR_AL_VOTAR_MSJ = "Ocurrió un error al registrar el voto, intentelo de nuevo, si este error persiste contacte al administrador del sistema.";
-            internal static string NULL_EMPTY_MSJ_FEM = "no puede ser nula, estar vacía o ser solo espacios en blanco, verifique nuevamente por favor.";
-            internal static string FUNCIONALIDAD_EN_CAMINO = "Esta funcionalidad llegará en una próxima versión :).";
+            internal static string COMMON_ERROR_MSJ = "Oops, algo no salio muy bien...",
+                VOTO_YA_REGISTRADO_MSJ = "Su voto ya ha sido registrado",
+                ERROR_AL_VOTAR_MSJ = "Ocurrió un error al registrar el voto, intentelo de nuevo, si este error persiste contacte al administrador del sistema.",
+                NULL_EMPTY_MSJ_FEM = "no puede ser nula, estar vacía o ser solo espacios en blanco, verifique nuevamente por favor.",
+                FUNCIONALIDAD_EN_CAMINO = "Esta funcionalidad llegará en una próxima versión :).";
             internal static string[] WELCOME_MSJS = { "Recibe una calurosa Bienvenida.", "Saludos cordiales.", "Espero tengas un ¡excelente día!", "Lindo día para el éxito.", "Hoy triunfaremos en nuestros Proyectos." };
         }
     }

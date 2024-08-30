@@ -1,88 +1,103 @@
-﻿using SIEleccionReina.Entidades;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SIEleccionReina.Control
 {
     internal static class Validaciones
     {
-        internal static bool IsNullOrEmptyOrWhitespace( string str ) => String.IsNullOrEmpty( str ) || String.IsNullOrWhiteSpace( str );
+        private static bool IsNullOrEmptyOrWhitespace( string str ) => String.IsNullOrEmpty( str ) || String.IsNullOrWhiteSpace( str );
+        private static bool IsLetterOrWhitespace( string str ) => str.All<char>( c => char.IsLetter( c ) || char.IsWhiteSpace( c ) );
+        private static bool IsLetterOrWhitespaceOrPunctuation( string str ) => str.All<char>( c => char.IsLetter( c ) || char.IsWhiteSpace( c ) || char.IsPunctuation( c ) );
 
         /// <summary>
         /// Evaluates if the specified id <c>userCedula</c>, which corresponds to the username, is or not valid.
         /// Evalúa si la cédula especificada <c>userCedula</c>, la cual corresponde al nombre de usuario, es o no válida.
         /// </summary>
         /// <param name="userCedula">User's username id. Cédula nombre de usuario del Usuario.</param>
-        /// <param name="exControl">Component <c>System.Windows.Forms.Control</c> which caused the error. Componente <c>System.Windows.Forms.Control</c> que causó el error.</param>
+        /// <param name="cedulaControl"><c>System.Windows.Forms.Control</c> Component which caused the error. Componente <c>System.Windows.Forms.Control</c> que causó el error.</param>
         /// <exception cref="InvalidValueException">
         /// Thrown when the specified parameter <paramref name="userCedula"/> does not have 10 digits.
         /// Lanzada cuando el parametro especificado <paramref name="userCedula"/> no tiene 10 dígitos.
         /// </exception>
         /// <returns>
-        /// A <see cref="bool"/> value indicating if the specified parameter <c>userCedula</c> is or not valid, true if valid, false otherwise.
-        /// Un valor <see cref="bool"/> indicando si el parámetro especificado <c>userCedula</c> es o no válido, true si es válido, false de no serlo.
+        /// True if valid, False otherwise.
+        /// True si es válida, False de no serlo.
         /// </returns>
-        internal static bool IsUserCedulaValid( string userCedula, System.Windows.Forms.Control exControl ) 
+        internal static bool IsUserCedulaValid( System.Windows.Forms.Control cedulaControl ) 
         { 
-            if ( userCedula.Length != 10 || userCedula.Any( char.IsWhiteSpace ) )
-                throw new InvalidValueException( exceptionMessage: "El campo de usuario, que corresponde a su número de Cédula de Identidad, debe contener exactamente 10 dígitos numéricos sin espacios, verifique nuevamente por favor.", errorOnControl: exControl );
+            if ( cedulaControl.Text.Length != 10 || cedulaControl.Text.Any( char.IsWhiteSpace ) )
+                throw new InvalidValueException( exceptionMessage: "El campo de usuario, que corresponde a su número de Cédula de Identidad, debe contener exactamente 10 dígitos numéricos sin espacios, verifique nuevamente por favor.", errorOnControl: cedulaControl );
 
             return true;
         }
 
-        internal static bool IsPasswordValid( string password, System.Windows.Forms.Control exControl )
+        internal static bool IsPasswordValid( System.Windows.Forms.Control passwordControl )
         {
-            if ( IsNullOrEmptyOrWhitespace( password ) )
-                throw new InvalidValueException( exceptionMessage: "Su Contraseña " + CommonUtils.Messages.NULL_EMPTY_MSJ_FEM, errorOnControl: exControl );
+            if ( IsNullOrEmptyOrWhitespace( passwordControl.Text ) )
+                throw new InvalidValueException( exceptionMessage: "Su Contraseña " + CommonUtils.Messages.NULL_EMPTY_MSJ_FEM, errorOnControl: passwordControl );
 
             return true;
         }
 
-        internal static bool IsPasswordConfirmationValid( string password,  string passwordConfirmation, System.Windows.Forms.Control exControl )
+        internal static bool IsPasswordConfirmationValid( string password, System.Windows.Forms.Control passwordConfirmationControl )
         {
-            if ( !String.Equals( password, passwordConfirmation ) )
-                throw new InvalidValueException( exceptionMessage: "Las contraseñas no coinciden, por favor verifique nuevamente.", errorOnControl: exControl );
+            if ( !String.Equals( password, passwordConfirmationControl.Text ) )
+                throw new InvalidValueException( exceptionMessage: "Las contraseñas no coinciden, por favor verifique nuevamente.", errorOnControl: passwordConfirmationControl );
 
             return true;
         }
 
-        internal static bool IsNameLastNameValid( string nameLastName, System.Windows.Forms.Control exControl ) 
+        internal static bool IsNameLastNameValid( System.Windows.Forms.Control nameLastNameControl ) 
         {
-            if ( IsNullOrEmptyOrWhitespace( nameLastName ) )
-                throw new InvalidValueException( exceptionMessage: "El campo de nombres y apellidos " + CommonUtils.Messages.NULL_EMPTY_MSJ_FEM, errorOnControl: exControl );
+            if ( IsNullOrEmptyOrWhitespace( nameLastNameControl.Text.Trim() ) )
+                throw new InvalidValueException( exceptionMessage: "El campo de nombres y apellidos " + CommonUtils.Messages.NULL_EMPTY_MSJ_FEM, errorOnControl: nameLastNameControl );
 
-            if( !nameLastName.All<char>( c => char.IsLetter( c ) || char.IsWhiteSpace( c ) ) )
-                throw new InvalidValueException( exceptionMessage: "El campo de nombres y apellidos solo puede contener letras, verifique nuevamente por favor.", errorOnControl: exControl );
+            if( !IsLetterOrWhitespace( nameLastNameControl.Text.Trim() ) )
+                throw new InvalidValueException( exceptionMessage: "El campo de nombres y apellidos solo puede contener letras, verifique nuevamente por favor.", errorOnControl: nameLastNameControl );
 
             return true;
         }
 
-        internal static bool IsInteresesAspiracionesHabilidadesValid( string interAspHab, System.Windows.Forms.Control exControl )
+        internal static bool IsInteresesAspiracionesHabilidadesValid( System.Windows.Forms.Control interAspHabControl )
         {
-            if ( IsNullOrEmptyOrWhitespace( interAspHab ) )
-                throw new InvalidValueException( exceptionMessage: "Los campos de intereses, aspiraciones y habilidades " + CommonUtils.Messages.NULL_EMPTY_MSJ_FEM, errorOnControl: exControl );
+            if ( IsNullOrEmptyOrWhitespace( interAspHabControl.Text.Trim() ) )
+                throw new InvalidValueException( exceptionMessage: "Los campos de intereses, aspiraciones y habilidades " + CommonUtils.Messages.NULL_EMPTY_MSJ_FEM, errorOnControl: interAspHabControl );
 
-            if ( !interAspHab.All<char>( c => char.IsLetter( c ) || char.IsWhiteSpace( c ) ) )
-                throw new InvalidValueException( exceptionMessage: "Los campos de intereses, aspiraciones y habilidades, solo puede contener letras, verifique nuevamente por favor.", errorOnControl: exControl );
+            if ( !IsLetterOrWhitespaceOrPunctuation( interAspHabControl.Text.Trim() ) )
+                throw new InvalidValueException( exceptionMessage: "Los campos de intereses, aspiraciones y habilidades, solo puede contener letras, verifique nuevamente por favor.", errorOnControl: interAspHabControl );
 
             return true;
         }
 
-        internal static bool IsCarreraValid( string carrera, System.Windows.Forms.Control exControl )
+        internal static bool IsCarreraValid( System.Windows.Forms.Control carreraControl )
         {
-            if ( IsNullOrEmptyOrWhitespace( carrera ) )
-                throw new InvalidValueException( exceptionMessage: "La Carrera debe tener un nombre, " + CommonUtils.Messages.NULL_EMPTY_MSJ_FEM, errorOnControl: exControl );
+            if ( IsNullOrEmptyOrWhitespace( carreraControl.Text ) )
+                throw new InvalidValueException( exceptionMessage: "La Carrera debe tener un nombre, " + CommonUtils.Messages.NULL_EMPTY_MSJ_FEM, errorOnControl: carreraControl );
 
-            if ( carrera.StartsWith( "Selecciona" ) )
-                throw new InvalidValueException( exceptionMessage: "Seleccione una carrera valida de la lista, verifique nuevamente por favor.", errorOnControl: exControl );
+            if ( carreraControl.Text.Trim().StartsWith( "Seleccion" ) )
+                throw new InvalidValueException( exceptionMessage: "Seleccione una carrera valida de la lista, verifique nuevamente por favor.", errorOnControl: carreraControl );
+
+            if ( !IsLetterOrWhitespace( carreraControl.Text.Trim() ) )
+                throw new InvalidValueException( exceptionMessage: "La Carrera solo puede contener letras, sin signos de puntuación ni símbolos, verifique nuevamente por favor.", errorOnControl: carreraControl );
 
             return true;
         }
 
+        internal static bool IsFotoDataValid( System.Windows.Forms.Control fotoControl ) 
+        {
+            if ( IsNullOrEmptyOrWhitespace( fotoControl.Text ) )
+                throw new InvalidValueException( exceptionMessage: "El Título o la Descripción de la Foto " + CommonUtils.Messages.NULL_EMPTY_MSJ_FEM, errorOnControl: fotoControl );
 
+            if( fotoControl.Name.Contains( "Titulo" ) )
+            {
+                if ( !IsLetterOrWhitespace( fotoControl.Text.Trim() ) )
+                    throw new InvalidValueException( exceptionMessage: "El Título de la Foto solo puede contener letras, sin signos de puntuación ni símbolos, verifique nuevamente por favor.", errorOnControl: fotoControl );
+            }
+            else
+                if ( !IsLetterOrWhitespaceOrPunctuation( fotoControl.Text.Trim() ) )
+                throw new InvalidValueException( exceptionMessage: "La Descripción de la Foto solo pueden contener letras y signos de puntuación, verifique nuevamente por favor.", errorOnControl: fotoControl );
 
+            return true;
+        }
     }
 }

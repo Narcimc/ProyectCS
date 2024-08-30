@@ -1,7 +1,7 @@
 ﻿using SIEleccionReina.Control;
+using SIEleccionReina.Properties;
 using System;
 using System.Diagnostics;
-using System.Security.Policy;
 using System.Windows.Forms;
 
 namespace SIEleccionReina.Formularios
@@ -15,6 +15,7 @@ namespace SIEleccionReina.Formularios
             InitializeComponent();
             controlador = SIEleccionReinaController.Instance;
             this.DialogResult = DialogResult.Abort; // Se inicia asumiendo que el usuario va a cerrar la ventana, sin embargo si solo cierra sesión este valor cambia
+            this.Icon = Resources.SIER_Icon_Alpha;
         }
 
         private void FormModuloEstudiante_Load( object sender, EventArgs e )
@@ -27,6 +28,7 @@ namespace SIEleccionReina.Formularios
 
         private void EstablecerTipografias()
         {
+            MsMainMenu.Font = CommonUtils.PredefinedCustomFonts.MenuContentFont;
             LblSaludoUser.Font = CommonUtils.PredefinedCustomFonts.BigTitleGreetingsFont;
             LblMsjBienvenida.Font = CommonUtils.PredefinedCustomFonts.BigSubTitleWelcomeFont;
             BtnVerCandidatas.Font = CommonUtils.PredefinedCustomFonts.MainOptionsActionButtonFont;
@@ -95,5 +97,19 @@ namespace SIEleccionReina.Formularios
             }
         }
 
+        private void verCandidatasToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            ( new FormCandidatas() ).ShowDialog();
+        }
+
+        private void votarPorReinaToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            ( new FormVotoReina() ).ShowDialog();
+        }
+
+        private void votarPorMissFotogénicaToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            ( new FormVotoFotogenica() ).ShowDialog();
+        }
     }
 }

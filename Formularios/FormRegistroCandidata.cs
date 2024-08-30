@@ -1,5 +1,6 @@
 ﻿using SIEleccionReina.Control;
 using SIEleccionReina.Entidades;
+using SIEleccionReina.Properties;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -15,7 +16,7 @@ namespace SIEleccionReina
         {
             InitializeComponent();
             controlador = SIEleccionReinaController.Instance;
-
+            this.Icon = Resources.SIER_Icon_Alpha;
         }
 
         private void RegistroDeCandidatas_Load(object sender, EventArgs e)
@@ -58,14 +59,15 @@ namespace SIEleccionReina
             try
             {
                 EPRegistroCandidata.Clear();
+                Cursor = Cursors.WaitCursor;
 
-                if ( Validaciones.IsNameLastNameValid( nameLastName: TxtNombres.Text.Trim(), exControl: TxtNombres ) && 
-                     Validaciones.IsNameLastNameValid( nameLastName: TxtApellidos.Text.Trim(), exControl: TxtApellidos ) && 
-                     Validaciones.IsUserCedulaValid( userCedula: MTxtCedula.Text, exControl: MTxtCedula ) && 
-                     Validaciones.IsCarreraValid( carrera: CmbCarrera.Text, exControl: CmbCarrera ) && 
-                     Validaciones.IsInteresesAspiracionesHabilidadesValid( interAspHab: TxtIntereses.Text.Trim(), exControl: TxtIntereses ) && 
-                     Validaciones.IsInteresesAspiracionesHabilidadesValid( interAspHab: TxtAspiraciones.Text.Trim(), exControl: TxtAspiraciones ) && 
-                     Validaciones.IsInteresesAspiracionesHabilidadesValid( interAspHab: TxtHabilidades.Text.Trim(), exControl: TxtHabilidades ) 
+                if ( Validaciones.IsNameLastNameValid( nameLastNameControl: TxtNombres ) && 
+                     Validaciones.IsNameLastNameValid( nameLastNameControl: TxtApellidos ) && 
+                     Validaciones.IsUserCedulaValid( cedulaControl: MTxtCedula ) && 
+                     Validaciones.IsCarreraValid( carreraControl: CmbCarrera ) && 
+                     Validaciones.IsInteresesAspiracionesHabilidadesValid( interAspHabControl: TxtIntereses ) && 
+                     Validaciones.IsInteresesAspiracionesHabilidadesValid( interAspHabControl: TxtAspiraciones ) && 
+                     Validaciones.IsInteresesAspiracionesHabilidadesValid( interAspHabControl: TxtHabilidades ) 
                     )
                 {
                     if ( !controlador.VerificarRegistroCandidata( candidataCedula: MTxtCedula.Text, tipoCRUD: CandidataTipoCrud.VerificarCandidataYaExiste, exControl: BtnGuardarRegistro ) )
@@ -81,12 +83,14 @@ namespace SIEleccionReina
                         foto: strImagen,
                         fecha_nacimiento: DateFechaNacimiento.Value,
                         edad: edad,
-                        aspiraciones: TxtAspiraciones.Text,
-                        intereses: TxtIntereses.Text,
-                        habilidades: TxtHabilidades.Text
+                        aspiraciones: TxtAspiraciones.Text.Trim(),
+                        intereses: TxtIntereses.Text.Trim(),
+                        habilidades: TxtHabilidades.Text.Trim()
                         );
 
                         controlador.IngresarModificarEliminarCandidata( CandidataTipoCrud.InsertarCandidata, candidataObjInfo: candidata );
+                        Cursor = Cursors.Default;
+
                         Close();
                     }
                 }
@@ -94,18 +98,18 @@ namespace SIEleccionReina
             catch ( InvalidValueException invEx )
             {
                 EPRegistroCandidata.SetError( invEx.ErrorSourceControl, invEx.Message );
+                Cursor = Cursors.Default;
                 invEx.ErrorSourceControl.Focus();
             }
         }
 
         private void BtnCargarFoto_Click(object sender, EventArgs e)
         {
-            OpenFileDialog open = new OpenFileDialog();
-            OpenFilaFoto.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp;)| *.jpg; *.jpeg; *.gif; *.bmp;";
-            if (OpenFilaFoto.ShowDialog() == DialogResult.OK)
+            OpenFileFoto.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp;)| *.jpg; *.jpeg; *.gif; *.bmp;";
+            if (OpenFileFoto.ShowDialog() == DialogResult.OK)
             {
-                TxtDescriptionImage.Text = OpenFilaFoto.FileName;
-                PBoxFotografia.Image = new Bitmap(OpenFilaFoto.FileName);
+                TxtDescriptionImage.Text = OpenFileFoto.FileName;
+                PBoxFotografia.Image = new Bitmap(OpenFileFoto.FileName);
             }
         }
 

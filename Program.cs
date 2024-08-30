@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SIEleccionReina.Formularios;
+using System;
 using System.Windows.Forms;
 
 namespace SIEleccionReina
@@ -13,6 +14,13 @@ namespace SIEleccionReina
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            FormSplash splash = new FormSplash();
+            splash.Show();
+            splash.Refresh();
+            System.Threading.Thread.Sleep( 2100 );
+            splash.Close();
+
             Application.Run(new FormLogin());
         }
     }

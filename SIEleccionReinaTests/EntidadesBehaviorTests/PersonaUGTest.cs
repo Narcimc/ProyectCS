@@ -7,8 +7,13 @@ namespace SIEleccionReinaTests.EntidadesBehaviorTests
     {
         public PersonaUGTest() { }
 
-        [Fact]
-        public void SepararNombresTest() 
+        [Theory]
+        [InlineData( "Jose Alberto", "Jose", "Alberto" )]
+        [InlineData( "Juan  Pablo", "Juan", "Pablo" )]
+        [InlineData( "Clark     Joseph", "Clark", "Joseph" )]
+        [InlineData( "Lois       Andrea", "Lois", "Andrea" )]
+        [InlineData( "Ana          Camila", "Ana", "Camila" )]
+        public void SepararNombresTest( string nombresPersona, string primerNombrePersona, string segundoNombrePersona ) 
         {
             // Dado que PersonaUG es una clase abstracta, para probar su comportamiento, se lo hará desde sus clases hijas ClsEstudiante y ClsCandidata
 
@@ -16,11 +21,10 @@ namespace SIEleccionReinaTests.EntidadesBehaviorTests
             // ***** Arrange - Preparación
             // *****
 
-            string[] nombres = new string[] { "Jose Alberto", "Juan Pablo", "Clark Joseph", "Lois Andrea", "Ana Camila"  };
-            string[] primerNombre = new string[] { "Jose", "Juan", "Clark", "Lois", "Ana" };
-            string[] segundoNombre = new string[] { "Alberto", "Pablo", "Joseph", "Andrea", "Camila" };
-            List<PersonaUG> listaPersonasConstructor = new List<PersonaUG>();
-            List<PersonaUG> listaPersonasPropiedad = new List<PersonaUG>();
+            ClsEstudiante estudianteConstructor;
+            ClsEstudiante estudiantePropiedad;
+            ClsCandidata candidataConstructor;
+            ClsCandidata candidataPropiedad;
 
             // *****
             // ***** Act - Acción
@@ -29,58 +33,46 @@ namespace SIEleccionReinaTests.EntidadesBehaviorTests
             // Prueba pasando parametros al constructor
             // Solamente se asignara el parametro 'nombres' dado que es el objetivo de esta prueba,
             // todos los demas parametros se llenaran con cadenas vacias "", 0 o valores de ejemplo
-            foreach ( string nombresPersona in nombres ) 
-            { 
-                listaPersonasConstructor.Add( new ClsEstudiante(  
-                                                                    idEstudiante: 0, 
-                                                                    idCarrera: 0,
-                                                                    cedula: "",
-                                                                    semestre: 1,
-                                                                    contrasenia: "",
-                                                                    id_rol_usuario: 0,
-                                                                    nombres: nombresPersona,
-                                                                    apellidos: ""
-                                                                ) ); 
-            }
 
-            foreach ( string nombresPersona in nombres )
-            {
-                listaPersonasConstructor.Add( new ClsCandidata(
-                                                                    idCandidata: 0,
-                                                                    idCarrera: 0,
-                                                                    cedula: "",
-                                                                    nombres: nombresPersona,
-                                                                    apellidos: "",
-                                                                    semestre: 1,
-                                                                    foto: "",
-                                                                    fecha_nacimiento: DateTime.Now,
-                                                                    edad: 100,
-                                                                    aspiraciones: "",
-                                                                    intereses: "",
-                                                                    habilidades: ""
-                                                                ) );
-            }
+            estudianteConstructor = new ClsEstudiante( idEstudiante: 0,
+                                                       idCarrera: 0,
+                                                       cedula: "",
+                                                       semestre: 1,
+                                                       contrasenia: "",
+                                                       id_rol_usuario: 0,
+                                                       nombres: nombresPersona,
+                                                       apellidos: "" );
+
+            candidataConstructor = new ClsCandidata( idCandidata: 0,
+                                                     idCarrera: 0,
+                                                     cedula: "",
+                                                     nombres: nombresPersona,
+                                                     apellidos: "",
+                                                     semestre: 1,
+                                                     foto: "",
+                                                     fecha_nacimiento: DateTime.Now,
+                                                     edad: 100,
+                                                     aspiraciones: "",
+                                                     intereses: "",
+                                                     habilidades: "" );
 
             // Prueba usando la Propiedad
-            foreach ( string nombresP in nombres ) { listaPersonasPropiedad.Add( new ClsEstudiante() { Nombres = nombresP } ); }
-            foreach ( string nombresP in nombres ) { listaPersonasPropiedad.Add( new ClsCandidata() { Nombres = nombresP } ); }
+            estudiantePropiedad = new ClsEstudiante() { Nombres = nombresPersona };
+            candidataPropiedad = new ClsCandidata() { Nombres = nombresPersona };
 
             // *****
             // ***** Assert - Afirmación
             // *****
 
-            for( int i = 0; i < primerNombre.Length; i++ ) 
-            {
-                Assert.Equal( expected: primerNombre[ i ], actual: listaPersonasConstructor[ i ].PrimerNombre );
-                Assert.Equal( expected: primerNombre[ i ], actual: listaPersonasPropiedad[ i ].PrimerNombre );
-            }
+            Assert.Equal( expected: primerNombrePersona, actual: estudianteConstructor.PrimerNombre );
+            Assert.Equal( expected: primerNombrePersona, actual: estudiantePropiedad.PrimerNombre );
+            Assert.Equal( expected: primerNombrePersona, actual: candidataConstructor.PrimerNombre );
+            Assert.Equal( expected: primerNombrePersona, actual: candidataPropiedad.PrimerNombre );
 
-            for ( int i = 0; i < segundoNombre.Length; i++ )
-            {
-                Assert.Equal( expected: segundoNombre[ i ], actual: listaPersonasConstructor[ i ].SegundoNombre );
-                Assert.Equal( expected: segundoNombre[ i ], actual: listaPersonasPropiedad[ i ].SegundoNombre );
-            }
-
+            Assert.Equal( expected: segundoNombrePersona, actual: estudianteConstructor.SegundoNombre );
+            Assert.Equal( expected: segundoNombrePersona, actual: estudiantePropiedad.SegundoNombre );
+            Assert.Equal( expected: segundoNombrePersona, actual: candidataConstructor.SegundoNombre );
+            Assert.Equal( expected: segundoNombrePersona, actual: candidataPropiedad.SegundoNombre );
         }
     }
 }

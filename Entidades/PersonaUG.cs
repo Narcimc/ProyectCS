@@ -1,38 +1,40 @@
-﻿namespace SIEleccionReina.Modelos
+﻿using SIEleccionReina.Control;
+
+namespace SIEleccionReina.Modelos
 {
     internal abstract class PersonaUG
     {
         #region Atributos Privados
 
-        private int id;
-        private int carreraId;
-        private string cedula;
-        private string nombres;
-        private string apellidos;
-        private int semestre;
-        private string primerNombre;
-        private string segundoNombre;
+        private int id = 0;
+        private int carreraId = 0;
+        private string cedula = "";
+        private string nombres = "";
+        private string apellidos = "";
+        private int semestre = 0;
+        private string primerNombre = "";
+        private string segundoNombre = "";
 
         #endregion
 
         #region Propiedades Públicas
 
-        public int Id { get => id; set => id = value; }
-        public int CarreraId { get => carreraId; set => carreraId = value; }
-        public string Cedula { get => cedula; set => cedula = value; }
-        public string Nombres 
+        internal int Id { get => id; set => id = value; }
+        internal int CarreraId { get => carreraId; set => carreraId = value; }
+        internal string Cedula { get => cedula; set => cedula = value; }
+        internal string Nombres 
         { 
             get => nombres; 
             set
-            { 
+            {
                 nombres = value;
                 SepararNombres( nombres: value );
             } 
         }
-        public string Apellidos { get => apellidos; set => apellidos = value; }
-        public int Semestre { get => semestre; set => semestre = value; }
-        public string PrimerNombre { get => primerNombre; }
-        public string SegundoNombre { get => segundoNombre; }
+        internal string Apellidos { get => apellidos; set => apellidos = value; }
+        internal int Semestre { get => semestre; set => semestre = value; }
+        internal string PrimerNombre { get => primerNombre; }
+        internal string SegundoNombre { get => segundoNombre; }
 
         #endregion
 
@@ -58,10 +60,18 @@
         private void SepararNombres( string nombres )
         {
             string[] nombresObtenidos = nombres.Split( new char[] { ' ' }, System.StringSplitOptions.RemoveEmptyEntries );
-            primerNombre = nombresObtenidos[ 0 ];
+            
+            if ( nombresObtenidos.Length > 0 )
+                primerNombre = nombresObtenidos[ 0 ];
 
             if( nombresObtenidos.Length > 1 )
                 segundoNombre = nombresObtenidos[ 1 ];
+        }
+
+        internal void LimpiarPrimerSegundoNombre() 
+        {
+            primerNombre = "";
+            segundoNombre = "";
         }
     }
 }

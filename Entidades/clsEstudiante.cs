@@ -1,9 +1,4 @@
 ﻿using SIEleccionReina.Modelos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SIEleccionReina.Entidades
 {
@@ -11,15 +6,15 @@ namespace SIEleccionReina.Entidades
     {
         #region  "Atributos Privados"
         // Aclaracion: Los atributos y propiedades que aparentemente faltan aqui, en realidad si estan, pero ocultas por el polimorfismo, dado que ahora se hereda de la clase abstracta PersonaUG, la cual posee estros atributos y propiedades
-        private string _contrasenia;
-        private decimal _idRolUsuario;
+        private string _contrasenia = "";
+        private decimal _idRolUsuario = 0;
 
         #endregion
 
         #region "Propiedades Públicas"
 
-        public string Contrasenia { get => _contrasenia; set => _contrasenia = value; }
-        public decimal IdRolUsuario { get => _idRolUsuario; set => _idRolUsuario = value; }
+        internal string Contrasenia { get => _contrasenia; set => _contrasenia = value; }
+        internal decimal IdRolUsuario { get => _idRolUsuario; set => _idRolUsuario = value; }
 
         #endregion
 

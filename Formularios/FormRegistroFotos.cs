@@ -21,59 +21,42 @@ namespace SIEleccionReina.Formularios
             controlador = SIEleccionReinaController.Instance;
         }
 
-        private void FRMGaleriaFotos_Load(object sender, EventArgs e) => llenarDatosAlbum();
+        private void FRMGaleriaFotos_Load( object sender, EventArgs e ) => llenarDatosAlbum();
 
         public void llenarDatosAlbum()
         {
             DataTable tb = new DataTable();
 
-            tb = Obj_Conexion.Combo_Album( new ClsAlbum(), 5);
+            tb = Obj_Conexion.Combo_Album( new ClsAlbum(), 5 );
 
             CmbFotosGaleria.DisplayMember = "titulo";
             CmbFotosGaleria.ValueMember = "id_album";
             CmbFotosGaleria.DataSource = tb;
         }
 
-        private void BTNGuardarFoto_Click(object sender, EventArgs e)
+        private void BTNGuardarFoto_Click( object sender, EventArgs e )
         {
-            // Validar Titulo Foto
-            if ( Validaciones.IsNullOrEmptyOrWhitespace( TXTTituloFoto.Text ) )
-            {
-                //MessageBox.Show("Ingresa el campo nombre", "Administradr del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                EP.SetError( TXTTituloFoto, "Ingrese el campo del título, verifique nuevamente." );
-                TXTTituloFoto.Focus();
-                return;
-            }
-
-            // Validar Descripción
-            if ( Validaciones.IsNullOrEmptyOrWhitespace( RTBDescripcionFoto.Text ) )
-            {
-                //MessageBox.Show("Ingresa el campo nombre", "Administradr del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                EP.SetError( RTBDescripcionFoto, "Ingrese el campo de la descripción, verifique nuevamente." );
-                RTBDescripcionFoto.Focus();
-                return;
-            }
-
             try
-            {
-                // byte[] array = File.ReadAllBytes(TxtDescripcionImage.Text);
-                var strImagen = controlador.ImageToBase64( PBoxCargarFotografia.Image, System.Drawing.Imaging.ImageFormat.Jpeg );
+            {   // Validar Titulo y Descripción de la Foto
+                if ( Validaciones.IsFotoDataValid( TXTTituloFoto ) && Validaciones.IsFotoDataValid( RTBDescripcionFoto ) )
+                {   // byte[] array = File.ReadAllBytes(TxtDescripcionImage.Text);
+                    string strImagen = controlador.ImageToBase64( PBoxCargarFotografia.Image, System.Drawing.Imaging.ImageFormat.Jpeg );
 
-                ClsFoto fotoGaleria = new ClsFoto()
-                {
-                    Titulo_foto = TXTTituloFoto.Text,
-                    Descripcion = RTBDescripcionFoto.Text,
-                    Foto_Album = strImagen,
-                    Id_album = ( int ) CmbFotosGaleria.SelectedValue,
-                };
+                    ClsFoto fotoGaleria = new ClsFoto()
+                    {
+                        Titulo_foto = TXTTituloFoto.Text,
+                        Descripcion = RTBDescripcionFoto.Text,
+                        Foto_Album = strImagen,
+                        Id_album = ( int ) CmbFotosGaleria.SelectedValue,
+                    };
 
-                ClsFoto_DB canFoto = new ClsFoto_DB();
-                canFoto.Ingresar_Foto(fotoGaleria, 2);
-
+                    ClsFoto_DB canFoto = new ClsFoto_DB();
+                    canFoto.Ingresar_Foto( fotoGaleria, 2 );
+                }
             }
-            catch (Exception ex)
+            catch ( InvalidValueException invEx)
             {
-                MessageBox.Show( ex.Message, CommonUtils.Messages.COMMON_ERROR_MSJ, MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+                EP.SetError( invEx.ErrorSourceControl, invEx.Message );
             }
         }
 
@@ -81,11 +64,10 @@ namespace SIEleccionReina.Formularios
 
         private void BtnBuscarFoto_Click(object sender, EventArgs e)
         {
-            OpenFileDialog open = new OpenFileDialog();
             OFDBuscarFoto.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp;)| *.jpg; *.jpeg; *.gif; *.bmp;";
-            if (OFDBuscarFoto.ShowDialog() == DialogResult.OK)
-            {
-                //TxtDescripcionImage.Text = OpenFilaFoto.FileName;
+            
+            if ( OFDBuscarFoto.ShowDialog() == DialogResult.OK )
+            {   //TxtDescripcionImage.Text = OpenFilaFoto.FileName;
                 PBoxCargarFotografia.Image = new Bitmap(OFDBuscarFoto.FileName);
             }
         }

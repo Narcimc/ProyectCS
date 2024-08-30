@@ -253,7 +253,7 @@
             this.btnSalir.UseVisualStyleBackColor = false;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
-            // FrmReina
+            // FormCandidatas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -275,7 +275,11 @@
             this.Controls.Add(this.TxtContrasenia);
             this.Controls.Add(this.PBoxUGLogo);
             this.Controls.Add(this.LblTitulo);
-            this.Name = "FrmReina";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.Name = "FormCandidatas";
+            this.ShowInTaskbar = false;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Candidatas";
             this.Load += new System.EventHandler(this.FrmReina_Load);

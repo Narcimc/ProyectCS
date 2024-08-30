@@ -1,4 +1,5 @@
 ﻿using SIEleccionReina.Control;
+using SIEleccionReina.Properties;
 using System;
 using System.Reflection;
 using System.Windows.Forms;
@@ -10,12 +11,12 @@ namespace SIEleccionReina.Formularios
         public FormAcercaDe()
         {
             InitializeComponent();
-            this.Text = String.Format( "Acerca de {0}", AssemblyTitle );
-            this.labelProductName.Text = AssemblyProduct;
+            this.labelProductName.Text = $"SIER - {AssemblyProduct} - Sistema de Elección de Reina de Facultad";
             this.labelVersion.Text = String.Format( "Version {0}", AssemblyVersion );
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
             this.textBoxDescription.Text = AssemblyDescription;
+            this.Icon = Resources.SIER_Icon_Alpha;
         }
 
         #region Assembly Attribute Accessors

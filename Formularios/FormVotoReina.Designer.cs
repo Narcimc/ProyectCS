@@ -180,7 +180,7 @@
             this.btnSalir.UseVisualStyleBackColor = false;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
-            // FRMVotoReina
+            // FormVotoReina
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -196,7 +196,11 @@
             this.Controls.Add(this.BtnAtras);
             this.Controls.Add(this.LblNmbCandidata);
             this.Controls.Add(this.pictureBox1);
-            this.Name = "FRMVotoReina";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.Name = "FormVotoReina";
+            this.ShowInTaskbar = false;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Votación - Reina";
             this.Load += new System.EventHandler(this.FRMVotoReina_Load);

@@ -20,12 +20,12 @@ namespace SIEleccionReina.Entidades
 
         #region "Propiedades Publicas"
 
-        public string Foto { get => _foto; set => _foto = value; }
-        public DateTime Fecha_nacimiento { get => _fecha_nacimiento; set => _fecha_nacimiento = value; }
-        public int Edad { get => _edad; set => _edad = value; }
-        public string Aspiraciones { get => _aspiraciones; set => _aspiraciones = value; }
-        public string Intereses { get => _intereses; set => _intereses = value; }
-        public string Habilidades { get => _habilidades; set => _habilidades = value; }
+        internal string Foto { get => _foto; set => _foto = value; }
+        internal DateTime Fecha_nacimiento { get => _fecha_nacimiento; set => _fecha_nacimiento = value; }
+        internal int Edad { get => _edad; set => _edad = value; }
+        internal string Aspiraciones { get => _aspiraciones; set => _aspiraciones = value; }
+        internal string Intereses { get => _intereses; set => _intereses = value; }
+        internal string Habilidades { get => _habilidades; set => _habilidades = value; }
 
         #endregion
 

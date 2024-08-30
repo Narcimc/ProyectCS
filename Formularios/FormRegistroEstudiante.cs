@@ -1,14 +1,7 @@
-﻿using SIEleccionReina.AccesoDatos;
-using SIEleccionReina.Control;
+﻿using SIEleccionReina.Control;
 using SIEleccionReina.Entidades;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SIEleccionReina.Formularios
@@ -70,17 +63,19 @@ namespace SIEleccionReina.Formularios
             try
             {
                 EPRegistroEstudiante.Clear();
+                Cursor = Cursors.WaitCursor;
 
-                if ( Validaciones.IsUserCedulaValid( userCedula: MTxtUsuarioCI.Text, exControl: MTxtUsuarioCI ) &&
-                     Validaciones.IsNameLastNameValid( nameLastName: TxtNombres.Text.Trim(), exControl: TxtNombres ) &&
-                     Validaciones.IsNameLastNameValid( nameLastName: TxtApellidos.Text.Trim(), exControl: TxtApellidos ) &&
-                     Validaciones.IsCarreraValid( carrera: CmbCarrera.Text, exControl: CmbCarrera ) &&
-                     Validaciones.IsPasswordValid( password: TxtContrasenia.Text, exControl: TxtContrasenia ) &&
-                     Validaciones.IsPasswordConfirmationValid( password: TxtContrasenia.Text, passwordConfirmation: TxtConfirmarContrasenia.Text, exControl: TxtConfirmarContrasenia )
+                // Se validan los datos del estudiante
+                if ( Validaciones.IsUserCedulaValid( cedulaControl: MTxtUsuarioCI ) &&
+                     Validaciones.IsNameLastNameValid( nameLastNameControl: TxtNombres ) &&
+                     Validaciones.IsNameLastNameValid( nameLastNameControl: TxtApellidos ) &&
+                     Validaciones.IsCarreraValid( carreraControl: CmbCarrera ) &&
+                     Validaciones.IsPasswordValid( passwordControl: TxtContrasenia ) &&
+                     Validaciones.IsPasswordConfirmationValid( password: TxtContrasenia.Text, passwordConfirmationControl: TxtConfirmarContrasenia )
                     )
-                {
+                {   // Una vez se han aprobado las validaciones, se verifica si el estudiante ya está registrado
                     if( !controlador.VerificarRegistroEstudiante( estudianteCedula: MTxtUsuarioCI.Text, tipoCRUD: EstudianteTipoCRUD.VerificarEstudianteYaExiste, exControl: BtnRegistrar ) )
-                    {
+                    {   // Si el estudiante todavía no está registrado, entonces se crea un objeto ClsEstudiante con los datos y se envía a registrarlo
                         ClsEstudiante estudiante = new ClsEstudiante( 0,
                         idCarrera: ( int ) CmbCarrera.SelectedValue,
                         cedula: MTxtUsuarioCI.Text,
@@ -92,6 +87,8 @@ namespace SIEleccionReina.Formularios
                         );
 
                         controlador.IngresarModificarEliminarEstudiante( estudianteObjInfo: estudiante, EstudianteTipoCRUD.InsertarEstudiante );
+                        Cursor = Cursors.Default;
+
                         Close();
                     }                    
                 }
@@ -99,6 +96,7 @@ namespace SIEleccionReina.Formularios
             catch ( InvalidValueException invEx )
             {
                 EPRegistroEstudiante.SetError( invEx.ErrorSourceControl, invEx.Message );
+                Cursor = Cursors.Default;
                 invEx.ErrorSourceControl.Focus();
             }
         }
@@ -123,5 +121,13 @@ namespace SIEleccionReina.Formularios
             if ( e.KeyCode == Keys.Enter )
                 BtnRegistrar.PerformClick();
         }
+
+        private void TxtContrasenia_Enter( object sender, EventArgs e ) => PBVerContrasenia.Visible = true;
+
+        private void TxtContrasenia_Leave( object sender, EventArgs e ) => PBVerContrasenia.Visible = false;
+
+        private void TxtConfirmarContrasenia_Enter( object sender, EventArgs e ) => PBVerConfirmContrasenia.Visible = true;
+
+        private void TxtConfirmarContrasenia_Leave( object sender, EventArgs e ) => PBVerConfirmContrasenia.Visible = false;
     }
 }

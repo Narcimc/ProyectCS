@@ -281,7 +281,7 @@
             this.Name = "FRMVistaDatosCandidata";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Información de la Candidata";
-            this.Load += new System.EventHandler(this.FRMVistaDatosCandidata_Load);
+            this.Load += new System.EventHandler(this.FormInfoDetallesCandidata_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PBOXImagenCandidata)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

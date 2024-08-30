@@ -12,7 +12,8 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <PublishUrl>publish\</PublishUrl>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\Users\rocke\Documents\UG\SEMESTRES\6TO SEMESTRE\1_CONSTRUCCION DE SOFTWARE\PROYECTO\Version Alpha 1.1.24816\Deploy\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -22,10 +23,17 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+    <SupportUrl>https://github.com/Narcimc/ProyectCS</SupportUrl>
+    <TargetCulture>es-EC</TargetCulture>
+    <ProductName>Sistema de Eleccion de Reina de Facultad</ProductName>
+    <PublisherName>NarciSoftware</PublisherName>
+    <SuiteName>CS - ATeam</SuiteName>
+    <DisallowUrlActivation>true</DisallowUrlActivation>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>0.1.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
+    <ApplicationVersion>1.1.24816.0</ApplicationVersion>
+    <UseApplicationTrust>true</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -41,7 +49,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -51,22 +59,73 @@
   <PropertyGroup>
     <StartupObject>SIEleccionReina.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Icons\SIER_Icon_Alpha.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>DFFDABBC96FC859CEC8995A8522965E25BF679D8</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>SIEleccionReina_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
+    <Reference Include="PresentationCore">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Configuration">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Deployment">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesoDatos\ClsEstudiante_DB.cs" />
@@ -77,10 +136,10 @@
     <Compile Include="AccesoDatos\ClsVoto_DB.cs" />
     <Compile Include="AccesoDatos\ConexionDAO.cs" />
     <Compile Include="Control\CommonUtils.cs" />
-    <Compile Include="Control\InvalidValueException.cs" />
-    <Compile Include="Control\LoginUnsuccessfulException.cs" />
+    <Compile Include="Entidades\InvalidValueException.cs" />
+    <Compile Include="Entidades\LoginUnsuccessfulException.cs" />
     <Compile Include="Control\SIEleccionReinaController.cs" />
-    <Compile Include="Control\SIEleccionReinaException.cs" />
+    <Compile Include="Entidades\SIEleccionReinaException.cs" />
     <Compile Include="Control\Validaciones.cs" />
     <Compile Include="Entidades\ClsEstudiante.cs" />
     <Compile Include="Entidades\ClsAlbum.cs" />
@@ -136,6 +195,12 @@
     </Compile>
     <Compile Include="Formularios\FormLogin.Designer.cs">
       <DependentUpon>FormLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FormSplash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FormSplash.Designer.cs">
+      <DependentUpon>FormSplash.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FormVotoFotogenica.cs">
       <SubType>Form</SubType>
@@ -218,6 +283,9 @@
     <EmbeddedResource Include="Formularios\FormElectaMissFotogenica.resx">
       <DependentUpon>FormElectaMissFotogenica.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FormSplash.resx">
+      <DependentUpon>FormSplash.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FormVotoFotogenica.resx">
       <DependentUpon>FormVotoFotogenica.cs</DependentUpon>
     </EmbeddedResource>
@@ -244,21 +312,22 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="Formularios\FormRegistroCandidata.resx">
       <DependentUpon>FormRegistroCandidata.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -266,24 +335,36 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reportes\" />
     <Folder Include="Resources\ImagenesCandidatas\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Fonts\FiraCodeNerdFontMono-Bold.ttf" />
-    <None Include="Resources\Fonts\Alata-Regular.ttf" />
-    <None Include="Resources\Fonts\LeelawadeeUI-Bold.ttf" />
-    <None Include="Resources\Fonts\LeelawadeeUI-Regular.ttf" />
-    <None Include="Resources\Fonts\LeelawadeeUI-SemiLight.ttf" />
-    <None Include="Resources\Fonts\Montserrat-Bold.ttf" />
-    <None Include="Resources\Fonts\Montserrat-Regular.ttf" />
-    <None Include="Resources\noVer.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ver.png" />
+    <Resource Include="Resources\Fonts\FiraCodeNerdFontMono-Bold.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Fonts\Alata-Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Fonts\LeelawadeeUI-Bold.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Fonts\LeelawadeeUI-Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Fonts\LeelawadeeUI-SemiLight.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Fonts\Montserrat-Bold.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Fonts\Montserrat-Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\descarga %283%29.jpg" />
@@ -328,8 +409,38 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Icons\account_circle_24dp_001928_FILL1_wght400_GRAD0_opsz24.png" />
+    <Content Include="Resources\Icons\add_circle_24dp_001928.png" />
+    <Content Include="Resources\Icons\add_photo_alternate_24dp_001928.png" />
+    <Content Include="Resources\Icons\add_to_photos_24dp_001928.png" />
+    <Content Include="Resources\Icons\assignment_24dp_001928.png" />
+    <Content Include="Resources\Icons\assignment_24px_F0F0F0.png" />
+    <Content Include="Resources\Icons\collections_24dp_001928.png" />
+    <Content Include="Resources\Icons\collections_24px_F0F0F0.png" />
+    <Content Include="Resources\Icons\exit_to_app_24dp_001928.png" />
+    <Content Include="Resources\Icons\github-mark-icon-24x24.png" />
+    <Content Include="Resources\Icons\groups_2_24dp_001928_FILL1_wght400_GRAD0_opsz24.png" />
+    <Content Include="Resources\Icons\groups_2_24px_F0F0F0_FILL1_wght400_GRAD0_opsz24.png" />
+    <Content Include="Resources\Icons\how_to_reg_24dp_001928_FILL1_wght400_GRAD0_opsz24.png" />
+    <Content Include="Resources\Icons\how_to_reg_24px_F0F0F0_FILL1_wght400_GRAD0_opsz24.png" />
+    <Content Include="Resources\Icons\info_24dp_001928.png" />
+    <Content Include="Resources\Icons\logout_24dp_001928.png" />
+    <Content Include="Resources\Icons\Logo_SIER_Alterno_Icon.ico" />
+    <Content Include="Resources\Icons\person_add_24dp_001928.png" />
+    <Content Include="Resources\Icons\person_add_24px_F0F0F0.png" />
+    <Content Include="Resources\Icons\person_add_alt_1_24dp_001928.png" />
+    <Content Include="Resources\Icons\person_add_alt_1_24px_F0F0F0_FILL1_wght400_GRAD0_opsz24.png" />
+    <Content Include="Resources\Icons\save_24px_F0F0F0_FILL1_wght400_GRAD0_opsz24.png" />
+    <Content Include="Resources\Icons\SIER_Icon_Alpha.ico" />
+    <Content Include="Resources\Icons\star_24dp_001928_FILL1_wght400_GRAD0_opsz24.png" />
+    <Content Include="Resources\Icons\star_24px_F0F0F0_FILL1_wght400_GRAD0_opsz24.png" />
+    <Content Include="Resources\Icons\upload_file_24px_F0F0F0_FILL1_wght400_GRAD0_opsz24.png" />
+    <Content Include="Resources\Icons\visibility_24px_001928_FILL1_wght400_GRAD0_opsz24.png" />
+    <Content Include="Resources\Icons\visibility_off_24px_001928_FILL1_wght400_GRAD0_opsz24.png" />
     <Content Include="Resources\Logo_Facultad_CMF.jpg" />
+    <Content Include="Resources\Logo_SIER_610x630px_300ppi.png" />
     <Content Include="Resources\Logo_UG_Imagotipo_horizontal_941x206.png" />
+    <Content Include="Resources\Splash_SIER_1200x800_300ppi.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

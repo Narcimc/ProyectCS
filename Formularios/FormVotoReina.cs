@@ -1,4 +1,5 @@
 ﻿using SIEleccionReina.Control;
+using SIEleccionReina.Properties;
 using System;
 using System.Windows.Forms;
 
@@ -13,6 +14,7 @@ namespace SIEleccionReina.Formularios
         {
             InitializeComponent();
             controlador = SIEleccionReinaController.Instance;
+            this.Icon = Resources.SIER_Icon_Alpha;
         }
 
         private void FRMVotoReina_Load( object sender, EventArgs e )

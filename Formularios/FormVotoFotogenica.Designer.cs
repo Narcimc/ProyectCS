@@ -163,7 +163,7 @@
             this.BTNSalir.UseVisualStyleBackColor = false;
             this.BTNSalir.Click += new System.EventHandler(this.BTNSalir_Click);
             // 
-            // FrmVotarFotogenica
+            // FormVotoFotogenica
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -177,7 +177,11 @@
             this.Controls.Add(this.BtnAtras);
             this.Controls.Add(this.LblNmbCandidata);
             this.Controls.Add(this.pictureBox1);
-            this.Name = "FrmVotarFotogenica";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.Name = "FormVotoFotogenica";
+            this.ShowInTaskbar = false;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Votación - Miss Fotogénica";
             this.Load += new System.EventHandler(this.FrmVotarFotogenica_Load);

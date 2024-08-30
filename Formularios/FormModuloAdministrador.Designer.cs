@@ -35,7 +35,7 @@
             this.PBoxResultados = new System.Windows.Forms.PictureBox();
             this.PBoxGaleria = new System.Windows.Forms.PictureBox();
             this.PBoxRegistroCandidata = new System.Windows.Forms.PictureBox();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.MsMainMenu = new System.Windows.Forms.MenuStrip();
             this.sistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarSesiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -59,7 +59,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.PBoxResultados)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBoxGaleria)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBoxRegistroCandidata)).BeginInit();
-            this.menuStrip1.SuspendLayout();
+            this.MsMainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // BtnInscripcionCandidatas
@@ -68,12 +68,15 @@
             this.BtnInscripcionCandidatas.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
             this.BtnInscripcionCandidatas.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnInscripcionCandidatas.ForeColor = System.Drawing.SystemColors.Control;
+            this.BtnInscripcionCandidatas.Image = global::SIEleccionReina.Properties.Resources.person_add_24px_F0F0F0;
             this.BtnInscripcionCandidatas.Location = new System.Drawing.Point(19, 178);
             this.BtnInscripcionCandidatas.Margin = new System.Windows.Forms.Padding(10, 2, 10, 20);
             this.BtnInscripcionCandidatas.Name = "BtnInscripcionCandidatas";
             this.BtnInscripcionCandidatas.Size = new System.Drawing.Size(332, 40);
             this.BtnInscripcionCandidatas.TabIndex = 0;
             this.BtnInscripcionCandidatas.Text = "Inscripción de Candidatas";
+            this.BtnInscripcionCandidatas.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnInscripcionCandidatas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.BtnInscripcionCandidatas.UseVisualStyleBackColor = false;
             this.BtnInscripcionCandidatas.Click += new System.EventHandler(this.BtnInscripcionCandidatas_Click);
             // 
@@ -82,12 +85,15 @@
             this.BtnRegistroFoto.BackColor = System.Drawing.Color.Orchid;
             this.BtnRegistroFoto.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnRegistroFoto.ForeColor = System.Drawing.SystemColors.Control;
+            this.BtnRegistroFoto.Image = global::SIEleccionReina.Properties.Resources.collections_24px_F0F0F0;
             this.BtnRegistroFoto.Location = new System.Drawing.Point(233, 238);
             this.BtnRegistroFoto.Margin = new System.Windows.Forms.Padding(10, 2, 10, 20);
             this.BtnRegistroFoto.Name = "BtnRegistroFoto";
             this.BtnRegistroFoto.Size = new System.Drawing.Size(332, 40);
             this.BtnRegistroFoto.TabIndex = 1;
             this.BtnRegistroFoto.Text = "Galería de Fotos";
+            this.BtnRegistroFoto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnRegistroFoto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.BtnRegistroFoto.UseVisualStyleBackColor = false;
             this.BtnRegistroFoto.Click += new System.EventHandler(this.BtnRegistroFoto_Click);
             // 
@@ -96,12 +102,15 @@
             this.BtnResultados.BackColor = System.Drawing.Color.MediumPurple;
             this.BtnResultados.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnResultados.ForeColor = System.Drawing.SystemColors.Control;
+            this.BtnResultados.Image = global::SIEleccionReina.Properties.Resources.assignment_24px_F0F0F0;
             this.BtnResultados.Location = new System.Drawing.Point(19, 300);
             this.BtnResultados.Margin = new System.Windows.Forms.Padding(10, 2, 10, 20);
             this.BtnResultados.Name = "BtnResultados";
             this.BtnResultados.Size = new System.Drawing.Size(332, 40);
             this.BtnResultados.TabIndex = 5;
             this.BtnResultados.Text = "Resultados";
+            this.BtnResultados.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnResultados.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.BtnResultados.UseVisualStyleBackColor = false;
             this.BtnResultados.Click += new System.EventHandler(this.BtnResultados_Click);
             // 
@@ -142,19 +151,20 @@
             this.PBoxRegistroCandidata.TabIndex = 2;
             this.PBoxRegistroCandidata.TabStop = false;
             // 
-            // menuStrip1
+            // MsMainMenu
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MsMainMenu.Font = new System.Drawing.Font("Leelawadee UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MsMainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sistemaToolStripMenuItem,
             this.candidataToolStripMenuItem,
             this.estudianteToolStripMenuItem,
             this.reportesToolStripMenuItem,
             this.ayudaToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(584, 24);
-            this.menuStrip1.TabIndex = 6;
-            this.menuStrip1.Text = "menuStrip1";
+            this.MsMainMenu.Location = new System.Drawing.Point(0, 0);
+            this.MsMainMenu.Name = "MsMainMenu";
+            this.MsMainMenu.Size = new System.Drawing.Size(584, 25);
+            this.MsMainMenu.TabIndex = 6;
+            this.MsMainMenu.Text = "menuStrip1";
             // 
             // sistemaToolStripMenuItem
             // 
@@ -163,27 +173,29 @@
             this.toolStripSeparator1,
             this.salirToolStripMenuItem});
             this.sistemaToolStripMenuItem.Name = "sistemaToolStripMenuItem";
-            this.sistemaToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            this.sistemaToolStripMenuItem.Size = new System.Drawing.Size(65, 21);
             this.sistemaToolStripMenuItem.Text = "&Sistema";
             // 
             // cerrarSesiónToolStripMenuItem
             // 
+            this.cerrarSesiónToolStripMenuItem.Image = global::SIEleccionReina.Properties.Resources.logout_24dp_001928;
             this.cerrarSesiónToolStripMenuItem.Name = "cerrarSesiónToolStripMenuItem";
             this.cerrarSesiónToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.C)));
-            this.cerrarSesiónToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.cerrarSesiónToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.cerrarSesiónToolStripMenuItem.Text = "&Cerrar Sesión";
             this.cerrarSesiónToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesiónToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(178, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(192, 6);
             // 
             // salirToolStripMenuItem
             // 
+            this.salirToolStripMenuItem.Image = global::SIEleccionReina.Properties.Resources.exit_to_app_24dp_001928;
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
             this.salirToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.salirToolStripMenuItem.Text = "&Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
@@ -194,41 +206,45 @@
             this.toolStripSeparator2,
             this.ÁlbumesToolStripMenuItem});
             this.candidataToolStripMenuItem.Name = "candidataToolStripMenuItem";
-            this.candidataToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.candidataToolStripMenuItem.Size = new System.Drawing.Size(85, 21);
             this.candidataToolStripMenuItem.Text = "&Candidatas";
             // 
             // registrarCandidataToolStripMenuItem
             // 
+            this.registrarCandidataToolStripMenuItem.Image = global::SIEleccionReina.Properties.Resources.person_add_24dp_001928;
             this.registrarCandidataToolStripMenuItem.Name = "registrarCandidataToolStripMenuItem";
-            this.registrarCandidataToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.registrarCandidataToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.registrarCandidataToolStripMenuItem.Text = "&Registrar Candidata";
             this.registrarCandidataToolStripMenuItem.Click += new System.EventHandler(this.registrarCandidataToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(174, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(189, 6);
             // 
             // ÁlbumesToolStripMenuItem
             // 
             this.ÁlbumesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.crearÁlbumToolStripMenuItem,
             this.agregarFotosToolStripMenuItem});
+            this.ÁlbumesToolStripMenuItem.Image = global::SIEleccionReina.Properties.Resources.collections_24dp_001928;
             this.ÁlbumesToolStripMenuItem.Name = "ÁlbumesToolStripMenuItem";
-            this.ÁlbumesToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.ÁlbumesToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.ÁlbumesToolStripMenuItem.Text = "Ál&bumes";
             // 
             // crearÁlbumToolStripMenuItem
             // 
+            this.crearÁlbumToolStripMenuItem.Image = global::SIEleccionReina.Properties.Resources.add_to_photos_24dp_001928;
             this.crearÁlbumToolStripMenuItem.Name = "crearÁlbumToolStripMenuItem";
-            this.crearÁlbumToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.crearÁlbumToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.crearÁlbumToolStripMenuItem.Text = "Crear Álbum";
             this.crearÁlbumToolStripMenuItem.Click += new System.EventHandler(this.crearÁlbumToolStripMenuItem_Click);
             // 
             // agregarFotosToolStripMenuItem
             // 
+            this.agregarFotosToolStripMenuItem.Image = global::SIEleccionReina.Properties.Resources.add_photo_alternate_24dp_001928;
             this.agregarFotosToolStripMenuItem.Name = "agregarFotosToolStripMenuItem";
-            this.agregarFotosToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.agregarFotosToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.agregarFotosToolStripMenuItem.Text = "Agregar Fotos";
             this.agregarFotosToolStripMenuItem.Click += new System.EventHandler(this.agregarFotosToolStripMenuItem_Click);
             // 
@@ -237,13 +253,14 @@
             this.estudianteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.registrarEstudianteToolStripMenuItem});
             this.estudianteToolStripMenuItem.Name = "estudianteToolStripMenuItem";
-            this.estudianteToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
+            this.estudianteToolStripMenuItem.Size = new System.Drawing.Size(80, 21);
             this.estudianteToolStripMenuItem.Text = "&Estudiante";
             // 
             // registrarEstudianteToolStripMenuItem
             // 
+            this.registrarEstudianteToolStripMenuItem.Image = global::SIEleccionReina.Properties.Resources.person_add_alt_1_24dp_001928;
             this.registrarEstudianteToolStripMenuItem.Name = "registrarEstudianteToolStripMenuItem";
-            this.registrarEstudianteToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.registrarEstudianteToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.registrarEstudianteToolStripMenuItem.Text = "&Registrar Estudiante";
             this.registrarEstudianteToolStripMenuItem.Click += new System.EventHandler(this.registrarEstudianteToolStripMenuItem_Click);
             // 
@@ -252,14 +269,15 @@
             this.reportesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.resultadosToolStripMenuItem});
             this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
-            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(73, 21);
             this.reportesToolStripMenuItem.Text = "&Reportes";
             // 
             // resultadosToolStripMenuItem
             // 
+            this.resultadosToolStripMenuItem.Image = global::SIEleccionReina.Properties.Resources.assignment_24dp_001928;
             this.resultadosToolStripMenuItem.Name = "resultadosToolStripMenuItem";
             this.resultadosToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.resultadosToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.resultadosToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.resultadosToolStripMenuItem.Text = "&Resultados";
             this.resultadosToolStripMenuItem.Click += new System.EventHandler(this.resultadosToolStripMenuItem_Click);
             // 
@@ -270,25 +288,27 @@
             this.toolStripSeparator3,
             this.sIEREnGitHubToolStripMenuItem});
             this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
-            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(56, 21);
             this.ayudaToolStripMenuItem.Text = "&Ayuda";
             // 
             // acercaDeSIERToolStripMenuItem
             // 
+            this.acercaDeSIERToolStripMenuItem.Image = global::SIEleccionReina.Properties.Resources.info_24dp_001928;
             this.acercaDeSIERToolStripMenuItem.Name = "acercaDeSIERToolStripMenuItem";
-            this.acercaDeSIERToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.acercaDeSIERToolStripMenuItem.Text = "&Acerca de SIRF";
+            this.acercaDeSIERToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.acercaDeSIERToolStripMenuItem.Text = "&Acerca de...";
             this.acercaDeSIERToolStripMenuItem.Click += new System.EventHandler(this.acercaDeSIERToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(160, 6);
             // 
             // sIEREnGitHubToolStripMenuItem
             // 
+            this.sIEREnGitHubToolStripMenuItem.Image = global::SIEleccionReina.Properties.Resources.github_mark_icon_24x24;
             this.sIEREnGitHubToolStripMenuItem.Name = "sIEREnGitHubToolStripMenuItem";
-            this.sIEREnGitHubToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sIEREnGitHubToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.sIEREnGitHubToolStripMenuItem.Text = "&SIER en GitHub";
             this.sIEREnGitHubToolStripMenuItem.Click += new System.EventHandler(this.sIEREnGitHubToolStripMenuItem_Click);
             // 
@@ -298,6 +318,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LblSaludoUser.BackColor = System.Drawing.Color.Transparent;
             this.LblSaludoUser.Font = new System.Drawing.Font("Leelawadee UI", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblSaludoUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(10)))), ((int)(((byte)(16)))));
             this.LblSaludoUser.Location = new System.Drawing.Point(39, 54);
             this.LblSaludoUser.Margin = new System.Windows.Forms.Padding(30, 30, 30, 0);
             this.LblSaludoUser.Name = "LblSaludoUser";
@@ -333,21 +354,21 @@
             this.Controls.Add(this.PBoxRegistroCandidata);
             this.Controls.Add(this.BtnRegistroFoto);
             this.Controls.Add(this.BtnInscripcionCandidatas);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.MsMainMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.MsMainMenu;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "FormModuloAdministrador";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Panel de Administrador";
+            this.Text = "SIER - Panel de Administrador";
             this.Load += new System.EventHandler(this.FormModuloAdministrador_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PBoxResultados)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBoxGaleria)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBoxRegistroCandidata)).EndInit();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.MsMainMenu.ResumeLayout(false);
+            this.MsMainMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -361,7 +382,7 @@
         private System.Windows.Forms.PictureBox PBoxGaleria;
         private System.Windows.Forms.PictureBox PBoxResultados;
         private System.Windows.Forms.Button BtnResultados;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip MsMainMenu;
         private System.Windows.Forms.ToolStripMenuItem sistemaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cerrarSesiónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;

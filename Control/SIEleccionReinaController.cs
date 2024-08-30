@@ -1,14 +1,11 @@
 ﻿using SIEleccionReina.AccesoDatos;
 using SIEleccionReina.Entidades;
-using SIEleccionReina.Formularios;
-using SIEleccionReina.Properties;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using System.Windows.Media.Converters;
 
 namespace SIEleccionReina.Control
 {
@@ -47,6 +44,7 @@ namespace SIEleccionReina.Control
             voto_DB = new ClsVoto_DB();
             candidata_DB = new ClsCandidata_DB();
             carrera_DB = new ClsCarrera_DB();
+            _estudianteLogueado = new ClsEstudiante();
             _listaCandidatas = new List<ClsCandidata>();
             _carrerasDisponibles = new Dictionary<int, string>();
         }
@@ -62,8 +60,9 @@ namespace SIEleccionReina.Control
             DataTable carrerasDt = new DataTable();
             carrerasDt = carrera_DB.Obtener_Carreras( tipoCrud: CarreraTipoCrud.ConsultaTodasCarreras );
 
-            foreach ( DataRow row in carrerasDt.Rows )
-                _carrerasDisponibles.Add( ( int ) row[ "id_carrera" ], ( string ) row[ "nombre_carrera" ] );
+            if( carrerasDt != null )
+                foreach ( DataRow row in carrerasDt.Rows )
+                    _carrerasDisponibles.Add( ( int ) row[ "id_carrera" ], ( string ) row[ "nombre_carrera" ] );
         }
 
         internal void InsertarModificarEliminarCarrera( CarreraTipoCrud tipoCrud, KeyValuePair<int, string> carrera ) 
@@ -81,7 +80,8 @@ namespace SIEleccionReina.Control
             {
                 RegistrarEstudianteLogueado( datosEstudiante: tablaDatosValidacionUsuario );
                 VerificarVotosRegistradosEstudiante();
-                ObtenerCandidatas();
+                if( _listaCandidatas.Count == 0 )
+                    ObtenerCandidatas();
                 return true;
             }
             else
@@ -90,27 +90,27 @@ namespace SIEleccionReina.Control
 
         internal void RegistrarEstudianteLogueado( DataTable datosEstudiante )
         {
-            _estudianteLogueado = new ClsEstudiante()
-            {
-                Id = ( int ) datosEstudiante.Rows[ 0 ][ "id_estudiante" ],
-                CarreraId = ( int ) datosEstudiante.Rows[ 0 ][ "id_carrera" ],
-                Cedula = datosEstudiante.Rows[ 0 ][ "cedula" ].ToString(),
-                Semestre = ( int ) datosEstudiante.Rows[ 0 ][ "semestre" ],
-                Contrasenia = datosEstudiante.Rows[ 0 ][ "contrasenia" ].ToString(),
-                IdRolUsuario = ( decimal ) datosEstudiante.Rows[ 0 ][ "id_rol_usuario" ],
-                Nombres = datosEstudiante.Rows[ 0 ][ "nombres" ].ToString(),
-                Apellidos = datosEstudiante.Rows[ 0 ][ "apellidos" ].ToString()
-            };
+            _estudianteLogueado.Id = ( int ) datosEstudiante.Rows[ 0 ][ "id_estudiante" ];
+            _estudianteLogueado.CarreraId = ( int ) datosEstudiante.Rows[ 0 ][ "id_carrera" ];
+            _estudianteLogueado.Cedula = datosEstudiante.Rows[ 0 ][ "cedula" ].ToString();
+            _estudianteLogueado.Semestre = ( int ) datosEstudiante.Rows[ 0 ][ "semestre" ];
+            _estudianteLogueado.Contrasenia = datosEstudiante.Rows[ 0 ][ "contrasenia" ].ToString();
+            _estudianteLogueado.IdRolUsuario = ( decimal ) datosEstudiante.Rows[ 0 ][ "id_rol_usuario" ];
+            _estudianteLogueado.Nombres = datosEstudiante.Rows[ 0 ][ "nombres" ].ToString();
+            _estudianteLogueado.Apellidos = datosEstudiante.Rows[ 0 ][ "apellidos" ].ToString(); ;
         }
 
         internal void LimpiarDatosCierreSesion()
         {
             _estudianteLogueado.Id = 0;
             _estudianteLogueado.CarreraId = 0;
-            _estudianteLogueado.Semestre = 0;
             _estudianteLogueado.Cedula = "";
+            _estudianteLogueado.Semestre = 0;
             _estudianteLogueado.Contrasenia = "";
             _estudianteLogueado.IdRolUsuario = 0;
+            _estudianteLogueado.Nombres = "";
+            _estudianteLogueado.Apellidos = "";
+            _estudianteLogueado.LimpiarPrimerSegundoNombre();
         }
 
 
@@ -177,7 +177,35 @@ namespace SIEleccionReina.Control
         internal void IngresarModificarEliminarCandidata( CandidataTipoCrud tipoCrud, object candidataObjInfo )
         {
             if ( candidata_DB.IngresarModificarEliminarCandidata( tipoCrud, candidataObjInfo ) == 1 )
-                MessageBox.Show( "Candidata registrada correctamente.", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information );
+            {
+                switch ( tipoCrud )
+                {
+                    case CandidataTipoCrud.InsertarCandidata:
+                        ClsCandidata candidata = ( ClsCandidata ) candidataObjInfo;
+                        DataTable candidataIdDt = new DataTable();
+                        candidataIdDt = candidata_DB.ConsultarCandidatas( candidataObjInfo: candidata.Cedula, tipoCrud: CandidataTipoCrud.ConsultaIndividualIdCandidata );
+                        candidata.Id = ( int ) candidataIdDt.Rows[ 0 ][ "id_candidata" ];
+                        
+                        _listaCandidatas.Add( candidata );
+
+                        MessageBox.Show( "Candidata registrada correctamente.", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information );
+
+                        break;
+                    case CandidataTipoCrud.ModificarCandidata:
+
+                        MessageBox.Show( "Datos de la Candidata actualizados correctamente.", "Actualización de Datos", MessageBoxButtons.OK, MessageBoxIcon.Information );
+                        break;
+                    case CandidataTipoCrud.EliminarCandidata:
+
+                        MessageBox.Show( "Candidata eliminada correctamente.", "Eliminación de Cadidata", MessageBoxButtons.OK, MessageBoxIcon.Information );
+                        break;
+
+                    default:
+                        break;
+                }
+                
+            }
+                
         }
 
         // * Métodos relacionados con los Votos
@@ -208,8 +236,8 @@ namespace SIEleccionReina.Control
         {
             botonVotar.Enabled = false;
             ErrorProvider votoYaRegistradoErrorProvider = new ErrorProvider();
-            votoYaRegistradoErrorProvider.Icon = new Icon( SystemIcons.Information, 8, 8 );
-            votoYaRegistradoErrorProvider.SetIconPadding( botonVotar, 10    );
+            votoYaRegistradoErrorProvider.Icon = new Icon( SystemIcons.Information, 4, 4 );
+            votoYaRegistradoErrorProvider.SetIconPadding( botonVotar, 10 );
             votoYaRegistradoErrorProvider.SetError( botonVotar, CommonUtils.Messages.VOTO_YA_REGISTRADO_MSJ );
         }
 
@@ -217,27 +245,27 @@ namespace SIEleccionReina.Control
 
         public string ImageToBase64( Image image, System.Drawing.Imaging.ImageFormat format )
         {
+            string base64String;
+
             using ( MemoryStream ms = new MemoryStream() )
-            {
-                // Convert Image to byte[]
+            {   // Convert Image to byte[]
                 image.Save( ms, format );
                 byte[] imageBytes = ms.ToArray();
 
                 // Convert byte[] to Base64 String
-                string base64String = Convert.ToBase64String( imageBytes );
-                return base64String;
+                base64String = Convert.ToBase64String( imageBytes );
             }
+            
+            return base64String;
         }
 
         public Image Base64ToImage( string base64String )
-        {
-            // Convert Base64 String to byte[]
+        {   // Convert Base64 String to byte[]
             Image image;
             byte[] imageBytes = Convert.FromBase64String( base64String );
             
             using ( MemoryStream ms = new MemoryStream( imageBytes, 0, imageBytes.Length ) )
-            {
-                // Convert byte[] to Image
+            {   // Convert byte[] to Image
                 ms.Write( imageBytes, 0, imageBytes.Length );
                 image = Image.FromStream( ms, true );
             }

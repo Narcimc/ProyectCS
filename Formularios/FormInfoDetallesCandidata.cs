@@ -1,5 +1,6 @@
 ﻿using SIEleccionReina.Control;
 using SIEleccionReina.Entidades;
+using SIEleccionReina.Properties;
 using System;
 using System.Windows.Forms;
 
@@ -15,9 +16,10 @@ namespace SIEleccionReina.Formularios
             InitializeComponent();
             controlador = SIEleccionReinaController.Instance;
             this.indexCandidata = indexCandidata;
+            this.Icon = Resources.SIER_Icon_Alpha;
         }
 
-        private void FRMVistaDatosCandidata_Load( object sender, EventArgs e )
+        private void FormInfoDetallesCandidata_Load( object sender, EventArgs e )
         {
             MostrarInfoCandidata();
 

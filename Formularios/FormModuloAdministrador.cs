@@ -1,5 +1,6 @@
 ﻿using SIEleccionReina.Control;
 using SIEleccionReina.Formularios;
+using SIEleccionReina.Properties;
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -15,6 +16,7 @@ namespace SIEleccionReina
             InitializeComponent();
             controlador = SIEleccionReinaController.Instance;
             this.DialogResult = DialogResult.Abort; // Se inicia asumiendo que el usuario va a cerrar la ventana, sin embargo si solo cierra sesión este valor cambia
+            this.Icon = Resources.SIER_Icon_Alpha;
         }
 
         private void FormModuloAdministrador_Load( object sender, EventArgs e )
@@ -27,6 +29,7 @@ namespace SIEleccionReina
 
         private void EstablecerTipografias()
         {
+            MsMainMenu.Font = CommonUtils.PredefinedCustomFonts.MenuContentFont;
             LblSaludoUser.Font = CommonUtils.PredefinedCustomFonts.BigTitleGreetingsFont;
             LblMsjBienvenida.Font = CommonUtils.PredefinedCustomFonts.BigSubTitleWelcomeFont;
             BtnInscripcionCandidatas.Font = CommonUtils.PredefinedCustomFonts.MainOptionsActionButtonFont;

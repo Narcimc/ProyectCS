@@ -1,4 +1,5 @@
 ﻿using SIEleccionReina.Control;
+using SIEleccionReina.Properties;
 using System;
 using System.Windows.Forms;
 
@@ -13,6 +14,7 @@ namespace SIEleccionReina.Formularios
         {
             InitializeComponent();
             controlador = SIEleccionReinaController.Instance;
+            this.Icon = Resources.SIER_Icon_Alpha;
         }
 
         private void FrmReina_Load(object sender, EventArgs e)
@@ -20,28 +22,6 @@ namespace SIEleccionReina.Formularios
             controlador.MostrarInfoCandidata( lblNombreCandidata, PBOXImagenCandidata, indexCandidata );
         }
 
-        //private void FRMFotos_Load(object sender, EventArgs e)
-        //{
-        //    llenarDatosFoto();
-        //}
-
-        //string QUERY = "SELECT Imagen FROM Fotos WHERE ID = @FotoID";
-
-
-        //public void llenarDatosFoto()
-        //{
-        //    DataTable tb = new DataTable();
-        //    clsFoto_DB Obj_Conexion = new clsFoto_DB();
-
-        //    clsFoto Obj_Foto = new clsFoto()
-        //    {
-        //        Comentario = " "
-        //    };
-
-        //    tb = Obj_Conexion.Combo_Foto(Obj_Foto, 5);
-
-        //}
-        
         private void BtnAtras_Click(object sender, EventArgs e)
         {
             if ( !BtnSiguiente.Enabled )

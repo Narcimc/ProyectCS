@@ -1,4 +1,5 @@
 ﻿using SIEleccionReina.Control;
+using SIEleccionReina.Properties;
 using System;
 using System.Windows.Forms;
 
@@ -13,6 +14,7 @@ namespace SIEleccionReina.Formularios
         {
             InitializeComponent();
             controlador = SIEleccionReinaController.Instance;
+            this.Icon = Resources.SIER_Icon_Alpha;
         }
 
         private void FrmVotarFotogenica_Load( object sender, EventArgs e )
@@ -24,7 +26,7 @@ namespace SIEleccionReina.Formularios
         }
 
         private void BTNVotar_Click(object sender, EventArgs e)
-        {   // TODO: Establecer apropiadamente el idCandidata cuando este lista la coleccion de candidatas
+        {   
             if ( controlador.Votar( idCandidata: controlador.ListaCandidatas[ indexCandidata ].Id, tipoVoto: TipoVoto.Fotogenia ) > 0 )
             {
                 MessageBox.Show( "¡VOTACIÓN EXITOSA!", "Votación de Miss Fotogenia de la UG", MessageBoxButtons.OK, MessageBoxIcon.Information );

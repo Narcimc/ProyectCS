@@ -141,6 +141,7 @@ namespace SIEleccionReina.AccesoDatos
 
                     break;
                 case CandidataTipoCrud.VerificarCandidataYaExiste:
+                case CandidataTipoCrud.ConsultaIndividualIdCandidata:
                     if ( candidataObjInfo is string cedulaCand )
                         comando.Parameters.Add( "@cedula", SqlDbType.VarChar ).Value = cedulaCand;
 

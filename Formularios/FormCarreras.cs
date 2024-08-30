@@ -29,7 +29,7 @@ namespace SIEleccionReina.Formularios
         {
             try
             {
-                Validaciones.IsCarreraValid( TxtCarrera.Text, TxtCarrera );
+                Validaciones.IsCarreraValid( TxtCarrera );
                 ClsCarrera_DB Obj_Conexion = new ClsCarrera_DB();
                 Obj_Conexion.IngresarModificarEliminarCarrera( new KeyValuePair<int, string>( 0, TxtCarrera.Text ), CarreraTipoCrud.InsertarCarrera );
             }

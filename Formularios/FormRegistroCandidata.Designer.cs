@@ -34,7 +34,7 @@
             this.LblTitulo = new System.Windows.Forms.Label();
             this.BtnGuardarRegistro = new System.Windows.Forms.Button();
             this.PBoxFotografia = new System.Windows.Forms.PictureBox();
-            this.OpenFilaFoto = new System.Windows.Forms.OpenFileDialog();
+            this.OpenFileFoto = new System.Windows.Forms.OpenFileDialog();
             this.LblApellidos = new System.Windows.Forms.Label();
             this.LblNombres = new System.Windows.Forms.Label();
             this.LblEdadCantidad = new System.Windows.Forms.Label();
@@ -82,6 +82,7 @@
             this.BtnCargarFoto.BackColor = System.Drawing.Color.MediumPurple;
             this.BtnCargarFoto.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnCargarFoto.ForeColor = System.Drawing.SystemColors.Control;
+            this.BtnCargarFoto.Image = global::SIEleccionReina.Properties.Resources.upload_file_24px_F0F0F0_FILL1_wght400_GRAD0_opsz24;
             this.BtnCargarFoto.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BtnCargarFoto.Location = new System.Drawing.Point(500, 242);
             this.BtnCargarFoto.Margin = new System.Windows.Forms.Padding(10, 20, 3, 3);
@@ -89,6 +90,7 @@
             this.BtnCargarFoto.Size = new System.Drawing.Size(154, 40);
             this.BtnCargarFoto.TabIndex = 9;
             this.BtnCargarFoto.Text = "Cargar Foto...";
+            this.BtnCargarFoto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.BtnCargarFoto.UseVisualStyleBackColor = false;
             this.BtnCargarFoto.Click += new System.EventHandler(this.BtnCargarFoto_Click);
             // 
@@ -112,6 +114,7 @@
             this.BtnGuardarRegistro.BackColor = System.Drawing.Color.MediumPurple;
             this.BtnGuardarRegistro.Font = new System.Drawing.Font("Montserrat", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnGuardarRegistro.ForeColor = System.Drawing.SystemColors.Control;
+            this.BtnGuardarRegistro.Image = global::SIEleccionReina.Properties.Resources.save_24px_F0F0F0_FILL1_wght400_GRAD0_opsz24;
             this.BtnGuardarRegistro.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BtnGuardarRegistro.Location = new System.Drawing.Point(125, 627);
             this.BtnGuardarRegistro.Margin = new System.Windows.Forms.Padding(3, 30, 3, 3);
@@ -119,6 +122,7 @@
             this.BtnGuardarRegistro.Size = new System.Drawing.Size(576, 40);
             this.BtnGuardarRegistro.TabIndex = 10;
             this.BtnGuardarRegistro.Text = "Guardar";
+            this.BtnGuardarRegistro.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.BtnGuardarRegistro.UseVisualStyleBackColor = false;
             this.BtnGuardarRegistro.Click += new System.EventHandler(this.BtnGuardarRegistro_Click);
             // 
@@ -132,9 +136,9 @@
             this.PBoxFotografia.TabIndex = 22;
             this.PBoxFotografia.TabStop = false;
             // 
-            // OpenFilaFoto
+            // OpenFileFoto
             // 
-            this.OpenFilaFoto.FileName = "Cargar Foto";
+            this.OpenFileFoto.FileName = "Cargar Foto";
             // 
             // LblApellidos
             // 
@@ -448,7 +452,7 @@
         private System.Windows.Forms.Label LblTitulo;
         private System.Windows.Forms.Button BtnGuardarRegistro;
         private System.Windows.Forms.PictureBox PBoxFotografia;
-        private System.Windows.Forms.OpenFileDialog OpenFilaFoto;
+        private System.Windows.Forms.OpenFileDialog OpenFileFoto;
         private System.Windows.Forms.Label LblApellidos;
         private System.Windows.Forms.Label LblNombres;
         private System.Windows.Forms.Label LblEdadCantidad;

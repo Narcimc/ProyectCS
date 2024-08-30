@@ -115,7 +115,9 @@
             this.TxtContrasenia.Size = new System.Drawing.Size(238, 27);
             this.TxtContrasenia.TabIndex = 1;
             this.TxtContrasenia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TxtContrasenia.Enter += new System.EventHandler(this.TxtContrasenia_Enter);
             this.TxtContrasenia.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtContrasenia_KeyUp);
+            this.TxtContrasenia.Leave += new System.EventHandler(this.TxtContrasenia_Leave);
             // 
             // BtnIniciarSesion
             // 
@@ -162,13 +164,14 @@
             // PBVerContrasenia
             // 
             this.PBVerContrasenia.BackColor = System.Drawing.Color.White;
-            this.PBVerContrasenia.Image = global::SIEleccionReina.Properties.Resources.ver;
+            this.PBVerContrasenia.Image = global::SIEleccionReina.Properties.Resources.visibility_24px_001928_FILL1_wght400_GRAD0_opsz24;
             this.PBVerContrasenia.Location = new System.Drawing.Point(350, 307);
             this.PBVerContrasenia.Name = "PBVerContrasenia";
             this.PBVerContrasenia.Size = new System.Drawing.Size(20, 20);
             this.PBVerContrasenia.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PBVerContrasenia.TabIndex = 10;
             this.PBVerContrasenia.TabStop = false;
+            this.PBVerContrasenia.Visible = false;
             this.PBVerContrasenia.Click += new System.EventHandler(this.PBVerContrasenia_Click);
             // 
             // LblTipoUsuario
@@ -213,6 +216,7 @@
             // 
             // EPLogin
             // 
+            this.EPLogin.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.AlwaysBlink;
             this.EPLogin.ContainerControl = this;
             // 
             // TmrErrorClear
@@ -261,7 +265,7 @@
             this.MaximizeBox = false;
             this.Name = "FormLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Sistema Integral de Reinado de Facultad";
+            this.Text = "Sistema de Elección de Reina de Facultad";
             this.Load += new System.EventHandler(this.FormLogin_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PBLogoUG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBVerContrasenia)).EndInit();

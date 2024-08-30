@@ -1,12 +1,7 @@
-﻿using SIEleccionReina.AccesoDatos;
-using SIEleccionReina.Control;
-using SIEleccionReina.Entidades;
+﻿using SIEleccionReina.Control;
 using SIEleccionReina.Formularios;
 using SIEleccionReina.Properties;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace SIEleccionReina
@@ -19,13 +14,16 @@ namespace SIEleccionReina
         {
             InitializeComponent();
             controlador = SIEleccionReinaController.Instance;
+            Cursor = Cursors.WaitCursor;
             controlador.ObtenerCarreras();
+            Cursor = Cursors.Default;
+            this.Icon = Resources.SIER_Icon_Alpha;
         }
 
         private void FormLogin_Load( object sender, EventArgs e )
         {
             EstablecerTipografias();
-            CommonUtils.LlenarComboTipoUsuario( CmbTipoUsuario ); // Se llena el ComboBox de Tipo de usuario
+            CommonUtils.LlenarComboTipoUsuario( CmbTipoUsuario );
             MTxtUsuarioCI.Focus();
         }
 
@@ -47,9 +45,10 @@ namespace SIEleccionReina
             try
             {
                 EPLogin.Clear();
+                Cursor = Cursors.WaitCursor;
 
-                if ( Validaciones.IsUserCedulaValid( userCedula: MTxtUsuarioCI.Text, exControl: MTxtUsuarioCI ) && 
-                    Validaciones.IsPasswordValid( password: TxtContrasenia.Text, exControl: TxtContrasenia ) &&
+                if ( Validaciones.IsUserCedulaValid( cedulaControl: MTxtUsuarioCI ) && 
+                    Validaciones.IsPasswordValid( passwordControl: TxtContrasenia ) &&
                     controlador.ValidarLogin( 
                         usuario: MTxtUsuarioCI.Text, 
                         pwd: TxtContrasenia.Text, 
@@ -57,6 +56,7 @@ namespace SIEleccionReina
                         exControl: BtnIniciarSesion
                         ) ) 
                 {   // Ir al Panel Principal correspondiente según el Tipo de Usuario
+                    Cursor = Cursors.Default;
                     this.Hide();
                     TipoUsuario rolUsuario = ( TipoUsuario ) CmbTipoUsuario.SelectedIndex;
 
@@ -74,11 +74,12 @@ namespace SIEleccionReina
                         this.Close();
                 }
             }
-            catch ( SIEleccionReinaException invalounEx ) when ( invalounEx is InvalidValueException || invalounEx is  LoginUnsuccessfulException )
+            catch ( SIEleccionReinaException invalounEx ) when ( invalounEx is InvalidValueException || invalounEx is LoginUnsuccessfulException )
             {
                 EPLogin.SetError( invalounEx.ErrorSourceControl, invalounEx.Message );
                 TmrErrorClear.Start();
-                MTxtUsuarioCI.Focus();
+                Cursor = Cursors.Default;
+                invalounEx.ErrorSourceControl.Focus();
             }
         }
 
@@ -111,5 +112,9 @@ namespace SIEleccionReina
             if ( e.KeyCode == Keys.Enter )
                 BtnIniciarSesion.PerformClick();
         }
+
+        private void TxtContrasenia_Enter( object sender, EventArgs e ) => PBVerContrasenia.Visible = true;
+
+        private void TxtContrasenia_Leave( object sender, EventArgs e ) => PBVerContrasenia.Visible = false;
     }
 }
